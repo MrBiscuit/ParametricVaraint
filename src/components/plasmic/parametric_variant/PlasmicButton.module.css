@@ -1,0 +1,87 @@
+.root {
+    flex-direction: row;
+    display: inline-flex;
+    position: relative;
+    width: auto;
+    height: auto;
+    background: rgba(23, 159, 250, 1);
+    border-radius: 6px;
+    padding: 7px 12px;
+    border: 0px solid #3579de00;
+}
+.root > :global(.__wab_flex-container) {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-left: calc(0px - 8px);
+    width: calc(100% + 8px);
+}
+.root > :global(.__wab_flex-container) > *,
+.root > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.root > :global(.__wab_flex-container) > picture > img,
+.root > :global(.__wab_flex-container) > :global(.__wab_slot) > picture > img {
+    margin-left: 8px;
+}
+.roottype_secondary {
+    background: #ffffff;
+    box-shadow: inset 0px 0px 0px 1px #000000;
+    border-width: 0px;
+    border-style: solid;
+}
+.rootdisabled {
+    background: #0000004d;
+    border-style: solid;
+}
+.rootdisabled_type_secondary {
+    background: none;
+    box-shadow: inset 0px 0px 0px 1px #0000004d;
+}
+.root:active {
+    width: auto;
+    height: auto;
+    box-shadow: inset 0px 0px 0px 2px #3579de;
+    flex-direction: row;
+    display: inline-flex;
+    border-radius: 6px;
+    padding: 7px 12px;
+    border: 0px solid #3579de;
+}
+.root:active > :global(.__wab_flex-container) {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: calc(0px - 8px);
+    width: calc(100% + 8px);
+    margin-top: calc(0px - 0px);
+    height: calc(100% + 0px);
+}
+.root:active > :global(.__wab_flex-container) > *,
+.root:active > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.root:active > :global(.__wab_flex-container) > picture > img,
+.root:active > :global(.__wab_flex-container) > :global(.__wab_slot) > picture > img {
+    margin-left: 8px;
+    margin-top: 0px;
+}
+.text {
+    position: relative;
+    width: 100%;
+    height: auto;
+    max-width: 800px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    padding: 0px;
+}
+.slotTargetText {
+    font-size: 11px;
+    color: #ffffff;
+    user-select: none;
+}
+.slotTargetTexttype_secondary {
+    color: #000000;
+}
+.slotTargetTextdisabled_type_secondary {
+    color: #0000004d;
+}

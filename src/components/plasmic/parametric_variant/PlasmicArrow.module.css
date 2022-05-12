@@ -1,0 +1,11 @@
+.root {
+    object-fit: cover;
+    max-width: 100%;
+    color: #000;
+    opacity: 0.3;
+    width: 93px;
+    height: 8px;
+    display: block;
+    flex-grow: 1;
+    position: relative;
+}
