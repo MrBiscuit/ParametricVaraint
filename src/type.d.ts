@@ -10,16 +10,19 @@ declare type DiffProp = {
     '@right'?: any;
 };
 
-declare type VariantType = 'Base' | 'Boolean' | 'Select' | 'Interaction';
+declare type VariantType = 'Base&Interaction' | 'Boolean' | 'Select';
 
 declare type VariantRow = {
     type: VariantType;
     name: string;
-    titleNodeId: string;
+    titleNodeId?: string;
 };
 
 declare type ComponentSetPluginData = {
-    [rowName: string]: VariantRow;
+    utilsFrameId: string;
+    rows: {
+        [rowName: string]: VariantRow;
+    };
 };
 
 declare type VariantNode = {

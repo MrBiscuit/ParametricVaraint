@@ -3,7 +3,7 @@
 import * as React from 'react';
 import {PlasmicHomepage, DefaultHomepageProps} from './plasmic/parametric_variant/PlasmicHomepage';
 import {HTMLElementRefOf} from '@plasmicapp/react-web';
-import { dispatch } from '../app/uiMessageHandler';
+import {dispatch} from '../app/uiMessageHandler';
 
 // Your component props start with props for variants and slots you defined
 // in Plasmic, but you can add more here, like event handlers that you can
@@ -21,17 +21,20 @@ import { dispatch } from '../app/uiMessageHandler';
 export interface HomepageProps extends DefaultHomepageProps {}
 
 function Homepage_(props: HomepageProps, ref: HTMLElementRefOf<'div'>) {
-
-
-    return <PlasmicHomepage root={{ref}} 
-    createComponentSet={{
-        props:{
-            onClick: () => {
-                dispatch('createComponentSet' );
-            }
-        }
-    }}
-    {...props} />;
+    return (
+        <PlasmicHomepage
+            root={{ref}}
+            createComponentSet={{
+                props: {
+                    //@ts-ignore
+                    onClick: () => {
+                        dispatch('createComponentSet');
+                    },
+                },
+            }}
+            {...props}
+        />
+    );
 }
 
 const Homepage = React.forwardRef(Homepage_);
