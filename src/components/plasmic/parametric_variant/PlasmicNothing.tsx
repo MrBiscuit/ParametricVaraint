@@ -37,9 +37,6 @@ import '@plasmicapp/react-web/lib/plasmic.css';
 import projectcss from './plasmic_parametric_variant.module.css'; // plasmic-import: quwQo95zDfdBFMtbz7jPTa/projectcss
 import sty from './PlasmicNothing.module.css'; // plasmic-import: j_YCk93j1o/css
 
-import SeparatorIcon from './icons/PlasmicIcon__Separator'; // plasmic-import: _JYn_hvct4/icon
-import _Icon from './icons/PlasmicIcon___'; // plasmic-import: v-4VAvBIyg/icon
-
 export type PlasmicNothing__VariantMembers = {};
 
 export type PlasmicNothing__VariantsArgs = {};
@@ -52,10 +49,7 @@ export const PlasmicNothing__ArgProps = new Array<ArgPropType>();
 
 export type PlasmicNothing__OverridesType = {
     root?: p.Flex<'div'>;
-    oldSetSelection2?: p.Flex<'div'>;
-    floatingTitleBar7?: p.Flex<'div'>;
-    title22?: p.Flex<'div'>;
-    title23?: p.Flex<'div'>;
+    oldSetSelection?: p.Flex<'div'>;
     text?: p.Flex<'div'>;
 };
 
@@ -89,38 +83,15 @@ function PlasmicNothing__RenderFunc(props: {
                         projectcss.root_reset,
                         projectcss.plasmic_default_styles,
                         projectcss.plasmic_mixins,
+                        projectcss.plasmic_tokens,
                         sty.root
                     )}
                 >
                     <div
-                        data-plasmic-name={'oldSetSelection2'}
-                        data-plasmic-override={overrides.oldSetSelection2}
-                        className={classNames(projectcss.all, sty.oldSetSelection2)}
+                        data-plasmic-name={'oldSetSelection'}
+                        data-plasmic-override={overrides.oldSetSelection}
+                        className={classNames(projectcss.all, sty.oldSetSelection)}
                     >
-                        <div
-                            data-plasmic-name={'floatingTitleBar7'}
-                            data-plasmic-override={overrides.floatingTitleBar7}
-                            className={classNames(projectcss.all, sty.floatingTitleBar7)}
-                        >
-                            <SeparatorIcon className={classNames(projectcss.all, sty.svg__ut6T6)} role={'img'} />
-
-                            <_Icon className={classNames(projectcss.all, sty.svg__pkF8C)} role={'img'} />
-
-                            <div
-                                data-plasmic-name={'title22'}
-                                data-plasmic-override={overrides.title22}
-                                className={classNames(projectcss.all, sty.title22)}
-                            >
-                                <div
-                                    data-plasmic-name={'title23'}
-                                    data-plasmic-override={overrides.title23}
-                                    className={classNames(projectcss.all, projectcss.__wab_text, sty.title23)}
-                                >
-                                    {'Parametric Variants ◆'}
-                                </div>
-                            </div>
-                        </div>
-
                         <div
                             data-plasmic-name={'text'}
                             data-plasmic-override={overrides.text}
@@ -136,21 +107,15 @@ function PlasmicNothing__RenderFunc(props: {
 }
 
 const PlasmicDescendants = {
-    root: ['root', 'oldSetSelection2', 'floatingTitleBar7', 'title22', 'title23', 'text'],
-    oldSetSelection2: ['oldSetSelection2', 'floatingTitleBar7', 'title22', 'title23', 'text'],
-    floatingTitleBar7: ['floatingTitleBar7', 'title22', 'title23'],
-    title22: ['title22', 'title23'],
-    title23: ['title23'],
+    root: ['root', 'oldSetSelection', 'text'],
+    oldSetSelection: ['oldSetSelection', 'text'],
     text: ['text'],
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
 type DescendantsType<T extends NodeNameType> = typeof PlasmicDescendants[T][number];
 type NodeDefaultElementType = {
     root: 'div';
-    oldSetSelection2: 'div';
-    floatingTitleBar7: 'div';
-    title22: 'div';
-    title23: 'div';
+    oldSetSelection: 'div';
     text: 'div';
 };
 
@@ -203,10 +168,7 @@ export const PlasmicNothing = Object.assign(
     makeNodeComponent('root'),
     {
         // Helper components rendering sub-elements
-        oldSetSelection2: makeNodeComponent('oldSetSelection2'),
-        floatingTitleBar7: makeNodeComponent('floatingTitleBar7'),
-        title22: makeNodeComponent('title22'),
-        title23: makeNodeComponent('title23'),
+        oldSetSelection: makeNodeComponent('oldSetSelection'),
         text: makeNodeComponent('text'),
 
         // Metadata about props expected for PlasmicNothing

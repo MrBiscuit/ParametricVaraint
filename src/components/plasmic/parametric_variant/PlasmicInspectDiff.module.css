@@ -165,9 +165,8 @@
     width: auto;
     white-space: pre;
 }
-.arrow:global(.__wab_instance) {
+.arrow__u9EL3:global(.__wab_instance) {
     position: relative;
-    flex-shrink: 0;
 }
 .frame89 {
     flex-direction: row;
@@ -204,26 +203,9 @@
 .img__l2HZn > .__wab_img-spacer > img {
     object-fit: cover;
 }
-.iconButton {
-    width: 32px;
-    height: 32px;
-    display: block;
+.remove___7KZRe:global(.__wab_instance) {
     position: relative;
-    overflow: hidden;
     flex-shrink: 0;
-    border-radius: 2px;
-}
-.svg__lTWyF {
-    position: absolute;
-    object-fit: cover;
-    max-width: 100%;
-    color: #4e5969;
-    width: 12px;
-    height: 12px;
-    display: block;
-    top: 10px;
-    left: 10px;
-    overflow: hidden;
 }
 .layerListRow2 {
     flex-direction: row;
@@ -257,17 +239,8 @@
     position: relative;
     white-space: pre;
 }
-.svg___41O2 {
+.arrow__xXx5W:global(.__wab_instance) {
     position: relative;
-    object-fit: cover;
-    max-width: 100%;
-    color: #000;
-    opacity: 0.3;
-    width: 66px;
-    height: 8px;
-    display: block;
-    flex-grow: 1;
-    flex-shrink: 0;
 }
 .frame90 {
     flex-direction: row;
@@ -299,26 +272,9 @@
     color: rgba(0, 0, 0, 0.8);
     position: relative;
 }
-.iconButton2 {
-    width: 32px;
-    height: 32px;
-    display: block;
+.remove__fa3Ie:global(.__wab_instance) {
     position: relative;
-    overflow: hidden;
     flex-shrink: 0;
-    border-radius: 2px;
-}
-.svg__wTrRe {
-    position: absolute;
-    object-fit: cover;
-    max-width: 100%;
-    color: #4e5969;
-    width: 12px;
-    height: 12px;
-    display: block;
-    top: 10px;
-    left: 10px;
-    overflow: hidden;
 }
 .layerListRow3 {
     flex-direction: row;
@@ -370,18 +326,12 @@
     line-height: 16px;
     color: rgba(0, 0, 0, 0.8);
     position: relative;
+    white-space: pre;
 }
-.svg__vs6Eo {
+.arrow__vCrjm:global(.__wab_instance) {
     position: relative;
-    object-fit: cover;
-    max-width: 100%;
-    color: #000;
-    opacity: 0.3;
-    width: 47px;
-    height: 8px;
-    display: block;
-    flex-grow: 1;
-    flex-shrink: 0;
+    width: 100%;
+    min-width: 0;
 }
 .frame91 {
     flex-direction: row;
@@ -413,27 +363,9 @@
     color: rgba(0, 0, 0, 0.8);
     position: relative;
 }
-.iconButton3 {
-    background: rgba(0, 0, 0, 0.1);
-    width: 32px;
-    height: 32px;
-    display: block;
+.remove__lYCxM:global(.__wab_instance) {
     position: relative;
-    overflow: hidden;
     flex-shrink: 0;
-    border-radius: 2px;
-}
-.svg__x8Du {
-    position: absolute;
-    object-fit: cover;
-    max-width: 100%;
-    color: #4e5969;
-    width: 12px;
-    height: 12px;
-    display: block;
-    top: 10px;
-    left: 10px;
-    overflow: hidden;
 }
 .layerListRow4 {
     flex-direction: row;
@@ -486,17 +418,10 @@
     color: rgba(0, 0, 0, 0.8);
     position: relative;
 }
-.svg__lluiB {
+.arrow__lui5U:global(.__wab_instance) {
     position: relative;
-    object-fit: cover;
-    max-width: 100%;
-    color: #000;
-    opacity: 0.3;
-    width: 72px;
-    height: 8px;
-    display: block;
-    flex-grow: 1;
-    flex-shrink: 0;
+    width: 100%;
+    min-width: 0;
 }
 .frame92 {
     flex-direction: row;
@@ -529,27 +454,9 @@
     position: relative;
     white-space: pre;
 }
-.iconButton4 {
-    background: rgba(255, 255, 255, 1);
-    width: 32px;
-    height: 32px;
-    display: block;
+.remove__lR0Gb:global(.__wab_instance) {
     position: relative;
-    overflow: hidden;
     flex-shrink: 0;
-    border-radius: 2px;
-}
-.svg___8Bsr9 {
-    position: absolute;
-    object-fit: cover;
-    max-width: 100%;
-    color: #4e5969;
-    width: 12px;
-    height: 12px;
-    display: block;
-    top: 10px;
-    left: 10px;
-    overflow: hidden;
 }
 .layerListRow5 {
     flex-direction: row;
@@ -586,14 +493,14 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    margin-left: calc(0px - 4px);
-    width: calc(100% + 4px);
+    margin-left: calc(0px - 0px);
+    width: calc(100% + 0px);
 }
 .frame93 > :global(.__wab_flex-container) > *,
 .frame93 > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
 .frame93 > :global(.__wab_flex-container) > picture > img,
 .frame93 > :global(.__wab_flex-container) > :global(.__wab_slot) > picture > img {
-    margin-left: 4px;
+    margin-left: 0px;
 }
 .rgb5 {
     display: block;
@@ -615,16 +522,9 @@
     flex-shrink: 0;
     height: 1em;
 }
-.svg__fSlgt {
+.arrow__pa7M7:global(.__wab_instance) {
     position: relative;
-    object-fit: cover;
-    max-width: 100%;
-    color: #000;
-    opacity: 0.3;
     width: 100%;
-    height: 8px;
-    display: block;
-    flex-grow: 1;
     min-width: 0;
 }
 .frame94 {
@@ -658,27 +558,9 @@
     position: relative;
     white-space: pre;
 }
-.iconButton5 {
-    background: rgba(255, 255, 255, 1);
-    width: 32px;
-    height: 32px;
-    display: block;
+.remove__qr3Y9:global(.__wab_instance) {
     position: relative;
-    overflow: hidden;
     flex-shrink: 0;
-    border-radius: 2px;
-}
-.svg__gHOr3 {
-    position: absolute;
-    object-fit: cover;
-    max-width: 100%;
-    color: #4e5969;
-    width: 12px;
-    height: 12px;
-    display: block;
-    top: 10px;
-    left: 10px;
-    overflow: hidden;
 }
 .layerListRow6 {
     flex-direction: row;
@@ -712,14 +594,14 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    margin-left: calc(0px - 4px);
-    width: calc(100% + 4px);
+    margin-left: calc(0px - 0px);
+    width: calc(100% + 0px);
 }
 .frame95 > :global(.__wab_flex-container) > *,
 .frame95 > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
 .frame95 > :global(.__wab_flex-container) > picture > img,
 .frame95 > :global(.__wab_flex-container) > :global(.__wab_slot) > picture > img {
-    margin-left: 4px;
+    margin-left: 0px;
 }
 .rgb6 {
     display: block;
@@ -742,16 +624,9 @@
     flex-shrink: 0;
     height: 1em;
 }
-.svg___5X1AR {
+.arrow__tYyXl:global(.__wab_instance) {
     position: relative;
-    object-fit: cover;
-    max-width: 100%;
-    color: #000;
-    opacity: 0.3;
     width: 100%;
-    height: 8px;
-    display: block;
-    flex-grow: 1;
     min-width: 0;
 }
 .frame96 {
@@ -785,27 +660,9 @@
     position: relative;
     white-space: pre;
 }
-.iconButton6 {
-    background: rgba(255, 255, 255, 1);
-    width: 32px;
-    height: 32px;
-    display: block;
+.remove__ecInA:global(.__wab_instance) {
     position: relative;
-    overflow: hidden;
     flex-shrink: 0;
-    border-radius: 2px;
-}
-.svg__yQxIj {
-    position: absolute;
-    object-fit: cover;
-    max-width: 100%;
-    color: #4e5969;
-    width: 12px;
-    height: 12px;
-    display: block;
-    top: 10px;
-    left: 10px;
-    overflow: hidden;
 }
 .layerListRow7 {
     flex-direction: row;
@@ -860,16 +717,9 @@
     user-select: text;
     white-space: pre;
 }
-.svg__n2CPp {
+.arrow__zKyNf:global(.__wab_instance) {
     position: relative;
-    object-fit: cover;
-    max-width: 100%;
-    color: #000;
-    opacity: 0.3;
     width: 100%;
-    height: 8px;
-    display: block;
-    flex-grow: 1;
     min-width: 0;
 }
 .frame98 {
@@ -903,27 +753,9 @@
     position: relative;
     white-space: pre;
 }
-.iconButton7 {
-    background: rgba(255, 255, 255, 1);
-    width: 32px;
-    height: 32px;
-    display: block;
+.remove__clXuw:global(.__wab_instance) {
     position: relative;
-    overflow: hidden;
     flex-shrink: 0;
-    border-radius: 2px;
-}
-.svg___8Ngwh {
-    position: absolute;
-    object-fit: cover;
-    max-width: 100%;
-    color: #4e5969;
-    width: 12px;
-    height: 12px;
-    display: block;
-    top: 10px;
-    left: 10px;
-    overflow: hidden;
 }
 .frame51 {
     flex-direction: column;

@@ -1,5 +1,16 @@
 {
-  "props": [],
+  "props": [
+    {
+      "name": "arrow",
+      "type": "color",
+      "value": "#000000",
+      "category": "color",
+      "meta": {
+        "projectId": "quwQo95zDfdBFMtbz7jPTa",
+        "id": "UbRjGTWDl"
+      }
+    }
+  ],
   "global": {
     "meta": {
       "source": "plasmic.app"

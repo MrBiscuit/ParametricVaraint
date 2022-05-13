@@ -37,7 +37,7 @@ import '@plasmicapp/react-web/lib/plasmic.css';
 import projectcss from './plasmic_parametric_variant.module.css'; // plasmic-import: quwQo95zDfdBFMtbz7jPTa/projectcss
 import sty from './PlasmicArrow.module.css'; // plasmic-import: p_FCLC3X1L/css
 
-import Line12Icon from './icons/PlasmicIcon__Line12'; // plasmic-import: KIsXGV_sZV/icon
+import Icon3Icon from './icons/PlasmicIcon__Icon3'; // plasmic-import: IHJlVtaRri/icon
 
 export type PlasmicArrow__VariantMembers = {};
 
@@ -50,7 +50,8 @@ type ArgPropType = keyof PlasmicArrow__ArgsType;
 export const PlasmicArrow__ArgProps = new Array<ArgPropType>();
 
 export type PlasmicArrow__OverridesType = {
-    root?: p.Flex<'svg'>;
+    root?: p.Flex<'div'>;
+    svg?: p.Flex<'svg'>;
 };
 
 export interface DefaultArrowProps {
@@ -68,30 +69,83 @@ function PlasmicArrow__RenderFunc(props: {
     const $props = props.args;
 
     return (
-        <Line12Icon
-            data-plasmic-name={'root'}
-            data-plasmic-override={overrides.root}
-            data-plasmic-root={true}
-            data-plasmic-for-node={forNode}
-            className={classNames(
-                projectcss.all,
-                projectcss.root_reset,
-                projectcss.plasmic_default_styles,
-                projectcss.plasmic_mixins,
-                sty.root
-            )}
-            role={'img'}
-        />
+        true ? (
+            <p.Stack
+                as={'div'}
+                data-plasmic-name={'root'}
+                data-plasmic-override={overrides.root}
+                data-plasmic-root={true}
+                data-plasmic-for-node={forNode}
+                hasGap={true}
+                className={classNames(
+                    projectcss.all,
+                    projectcss.root_reset,
+                    projectcss.plasmic_default_styles,
+                    projectcss.plasmic_mixins,
+                    projectcss.plasmic_tokens,
+                    sty.root
+                )}
+            >
+                <p.Stack as={'div'} hasGap={true} className={classNames(projectcss.all, sty.freeBox__ghKe)}>
+                    <div className={classNames(projectcss.all, sty.freeBox__m4EfZ)} />
+
+                    <div className={classNames(projectcss.all, sty.freeBox___9Rqbd)} />
+
+                    <div className={classNames(projectcss.all, sty.freeBox__dr59P)} />
+
+                    <div className={classNames(projectcss.all, sty.freeBox__ij63F)} />
+
+                    <div className={classNames(projectcss.all, sty.freeBox___2MLL)} />
+
+                    <div className={classNames(projectcss.all, sty.freeBox__mtMk)} />
+
+                    <div className={classNames(projectcss.all, sty.freeBox__ckr3E)} />
+
+                    <div className={classNames(projectcss.all, sty.freeBox__zgPvQ)} />
+
+                    <div className={classNames(projectcss.all, sty.freeBox__fo6O)} />
+
+                    <div className={classNames(projectcss.all, sty.freeBox__xu6Xs)} />
+
+                    <div className={classNames(projectcss.all, sty.freeBox__hRnc)} />
+
+                    <div className={classNames(projectcss.all, sty.freeBox__x5XAo)} />
+
+                    <div className={classNames(projectcss.all, sty.freeBox__eRgqU)} />
+
+                    <div className={classNames(projectcss.all, sty.freeBox__s3ID)} />
+
+                    <div className={classNames(projectcss.all, sty.freeBox__z6GAx)} />
+
+                    <div className={classNames(projectcss.all, sty.freeBox__w4YI)} />
+
+                    <div className={classNames(projectcss.all, sty.freeBox__xf8GP)} />
+                </p.Stack>
+
+                {true ? (
+                    <div className={classNames(projectcss.all, sty.freeBox__nCr3U)}>
+                        <Icon3Icon
+                            data-plasmic-name={'svg'}
+                            data-plasmic-override={overrides.svg}
+                            className={classNames(projectcss.all, sty.svg)}
+                            role={'img'}
+                        />
+                    </div>
+                ) : null}
+            </p.Stack>
+        ) : null
     ) as React.ReactElement | null;
 }
 
 const PlasmicDescendants = {
-    root: ['root'],
+    root: ['root', 'svg'],
+    svg: ['svg'],
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
 type DescendantsType<T extends NodeNameType> = typeof PlasmicDescendants[T][number];
 type NodeDefaultElementType = {
-    root: 'svg';
+    root: 'div';
+    svg: 'svg';
 };
 
 type ReservedPropsType = 'variants' | 'args' | 'overrides';
@@ -143,6 +197,7 @@ export const PlasmicArrow = Object.assign(
     makeNodeComponent('root'),
     {
         // Helper components rendering sub-elements
+        svg: makeNodeComponent('svg'),
 
         // Metadata about props expected for PlasmicArrow
         internalVariantProps: PlasmicArrow__VariantProps,

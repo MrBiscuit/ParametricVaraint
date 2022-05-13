@@ -1,0 +1,25 @@
+.root {
+    background: rgba(255, 255, 255, 1);
+    width: 32px;
+    height: 32px;
+    display: block;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    border-radius: 2px;
+}
+.root:hover {
+    background: #0000001a;
+}
+.svg {
+    position: absolute;
+    object-fit: cover;
+    max-width: 100%;
+    color: #4e5969;
+    width: 12px;
+    height: 12px;
+    display: block;
+    top: 10px;
+    left: 10px;
+    overflow: hidden;
+}

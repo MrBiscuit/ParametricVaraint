@@ -51,7 +51,8 @@ export const PlasmicHomepage__ArgProps = new Array<ArgPropType>();
 export type PlasmicHomepage__OverridesType = {
     root?: p.Flex<'div'>;
     emptySelection?: p.Flex<'div'>;
-    freeBox?: p.Flex<'div'>;
+    createComponentSet?: p.Flex<typeof Button>;
+    openTutorial?: p.Flex<typeof Button>;
     text?: p.Flex<'div'>;
 };
 
@@ -87,44 +88,41 @@ function PlasmicHomepage__RenderFunc(props: {
                         projectcss.root_reset,
                         projectcss.plasmic_default_styles,
                         projectcss.plasmic_mixins,
+                        projectcss.plasmic_tokens,
                         sty.root
                     )}
                 >
-                    <div
+                    <p.Stack
+                        as={'div'}
                         data-plasmic-name={'emptySelection'}
                         data-plasmic-override={overrides.emptySelection}
+                        hasGap={true}
                         className={classNames(projectcss.all, sty.emptySelection)}
                     >
-                        {true ? (
-                            <p.Stack
-                                as={'div'}
-                                data-plasmic-name={'freeBox'}
-                                data-plasmic-override={overrides.freeBox}
-                                hasGap={true}
-                                className={classNames(projectcss.all, sty.freeBox)}
-                            >
-                                <Button
-                                    className={classNames('__wab_instance', sty.button__rj7WA)}
-                                    text={'Create Parametric Component Set'}
-                                    type={'primary' as const}
-                                />
+                        <Button
+                            data-plasmic-name={'createComponentSet'}
+                            data-plasmic-override={overrides.createComponentSet}
+                            className={classNames('__wab_instance', sty.createComponentSet)}
+                            text={'Create Parametric Component Set'}
+                            type={'primary' as const}
+                        />
 
-                                <Button
-                                    className={classNames('__wab_instance', sty.button__mqDzd)}
-                                    text={
-                                        <div
-                                            data-plasmic-name={'text'}
-                                            data-plasmic-override={overrides.text}
-                                            className={classNames(projectcss.all, projectcss.__wab_text, sty.text)}
-                                        >
-                                            {'Open tutorial file'}
-                                        </div>
-                                    }
-                                    type={'secondary' as const}
-                                />
-                            </p.Stack>
-                        ) : null}
-                    </div>
+                        <Button
+                            data-plasmic-name={'openTutorial'}
+                            data-plasmic-override={overrides.openTutorial}
+                            className={classNames('__wab_instance', sty.openTutorial)}
+                            text={
+                                <div
+                                    data-plasmic-name={'text'}
+                                    data-plasmic-override={overrides.text}
+                                    className={classNames(projectcss.all, projectcss.__wab_text, sty.text)}
+                                >
+                                    {'Open tutorial file'}
+                                </div>
+                            }
+                            type={'secondary' as const}
+                        />
+                    </p.Stack>
                 </p.Stack>
             </div>
         </React.Fragment>
@@ -132,9 +130,10 @@ function PlasmicHomepage__RenderFunc(props: {
 }
 
 const PlasmicDescendants = {
-    root: ['root', 'emptySelection', 'freeBox', 'text'],
-    emptySelection: ['emptySelection', 'freeBox', 'text'],
-    freeBox: ['freeBox', 'text'],
+    root: ['root', 'emptySelection', 'createComponentSet', 'openTutorial', 'text'],
+    emptySelection: ['emptySelection', 'createComponentSet', 'openTutorial', 'text'],
+    createComponentSet: ['createComponentSet'],
+    openTutorial: ['openTutorial', 'text'],
     text: ['text'],
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
@@ -142,7 +141,8 @@ type DescendantsType<T extends NodeNameType> = typeof PlasmicDescendants[T][numb
 type NodeDefaultElementType = {
     root: 'div';
     emptySelection: 'div';
-    freeBox: 'div';
+    createComponentSet: typeof Button;
+    openTutorial: typeof Button;
     text: 'div';
 };
 
@@ -196,7 +196,8 @@ export const PlasmicHomepage = Object.assign(
     {
         // Helper components rendering sub-elements
         emptySelection: makeNodeComponent('emptySelection'),
-        freeBox: makeNodeComponent('freeBox'),
+        createComponentSet: makeNodeComponent('createComponentSet'),
+        openTutorial: makeNodeComponent('openTutorial'),
         text: makeNodeComponent('text'),
 
         // Metadata about props expected for PlasmicHomepage

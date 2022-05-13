@@ -7,7 +7,7 @@
     },
     "style": {
         "scheme": "css-modules",
-        "defaultStyleCssFilePath": "plasmic/plasmic__default_style.css"
+        "defaultStyleCssFilePath": "plasmic/plasmic__default_style.module.css"
     },
     "images": {
         "scheme": "inlined",
@@ -105,6 +105,19 @@
                     "cssFilePath": "plasmic/parametric_variant/PlasmicArrow.module.css",
                     "scheme": "blackbox",
                     "componentType": "component"
+                },
+                {
+                    "id": "gfQV_fY2gI",
+                    "name": "Remove",
+                    "type": "managed",
+                    "projectId": "quwQo95zDfdBFMtbz7jPTa",
+                    "renderModuleFilePath": "plasmic/parametric_variant/PlasmicRemove.tsx",
+                    "importSpec": {
+                        "modulePath": "Remove.tsx"
+                    },
+                    "cssFilePath": "plasmic/parametric_variant/PlasmicRemove.module.css",
+                    "scheme": "blackbox",
+                    "componentType": "component"
                 }
             ],
             "icons": [
@@ -162,6 +175,16 @@
                     "id": "BwRzRFBIAs",
                     "name": "IconIcon",
                     "moduleFilePath": "plasmic/parametric_variant/icons/PlasmicIcon__Icon.tsx"
+                },
+                {
+                    "id": "6HumlPegV_",
+                    "name": "Icon2Icon",
+                    "moduleFilePath": "plasmic/parametric_variant/icons/PlasmicIcon__Icon2.tsx"
+                },
+                {
+                    "id": "IHJlVtaRri",
+                    "name": "Icon3Icon",
+                    "moduleFilePath": "plasmic/parametric_variant/icons/PlasmicIcon__Icon3.tsx"
                 }
             ],
             "images": [

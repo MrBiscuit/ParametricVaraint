@@ -32,16 +32,13 @@ import {
     ensureGlobalVariants,
 } from '@plasmicapp/react-web';
 import Arrow from '../../Arrow'; // plasmic-import: p_FCLC3X1L/component
+import Remove from '../../Remove'; // plasmic-import: gfQV_fY2gI/component
 
 import '@plasmicapp/react-web/lib/plasmic.css';
 
 import projectcss from './plasmic_parametric_variant.module.css'; // plasmic-import: quwQo95zDfdBFMtbz7jPTa/projectcss
 import sty from './PlasmicInspectDiff.module.css'; // plasmic-import: RTxR7eGbCO/css
 
-import TipscloseIcon from './icons/PlasmicIcon__Tipsclose'; // plasmic-import: AiBjhaw1Qt/icon
-import Line13Icon from './icons/PlasmicIcon__Line13'; // plasmic-import: 48Me59kHTSt/icon
-import Line14Icon from './icons/PlasmicIcon__Line14'; // plasmic-import: KDhbhCYbVxr/icon
-import Line15Icon from './icons/PlasmicIcon__Line15'; // plasmic-import: lthadiqyX32/icon
 import IconIcon from './icons/PlasmicIcon__Icon'; // plasmic-import: BwRzRFBIAs/icon
 import SeparatorIcon from './icons/PlasmicIcon__Separator'; // plasmic-import: _JYn_hvct4/icon
 
@@ -66,44 +63,36 @@ export type PlasmicInspectDiff__OverridesType = {
     layerListRow?: p.Flex<'div'>;
     frame87?: p.Flex<'div'>;
     rgb?: p.Flex<'div'>;
-    arrow?: p.Flex<typeof Arrow>;
     frame89?: p.Flex<'div'>;
-    iconButton?: p.Flex<'div'>;
     layerListRow2?: p.Flex<'div'>;
     rgb2?: p.Flex<'div'>;
     frame90?: p.Flex<'div'>;
     a?: p.Flex<'div'>;
-    iconButton2?: p.Flex<'div'>;
     layerListRow3?: p.Flex<'div'>;
     frame86?: p.Flex<'div'>;
     rgb3?: p.Flex<'div'>;
     frame91?: p.Flex<'div'>;
     a2?: p.Flex<'div'>;
-    iconButton3?: p.Flex<'div'>;
     layerListRow4?: p.Flex<'div'>;
     frame88?: p.Flex<'div'>;
     rgb4?: p.Flex<'div'>;
     frame92?: p.Flex<'div'>;
     a3?: p.Flex<'div'>;
-    iconButton4?: p.Flex<'div'>;
     layerListRow5?: p.Flex<'div'>;
     frame93?: p.Flex<'div'>;
     rgb5?: p.Flex<'div'>;
     frame94?: p.Flex<'div'>;
     a4?: p.Flex<'div'>;
-    iconButton5?: p.Flex<'div'>;
     layerListRow6?: p.Flex<'div'>;
     frame95?: p.Flex<'div'>;
     rgb6?: p.Flex<'div'>;
     frame96?: p.Flex<'div'>;
     a5?: p.Flex<'div'>;
-    iconButton6?: p.Flex<'div'>;
     layerListRow7?: p.Flex<'div'>;
     frame97?: p.Flex<'div'>;
     rgb7?: p.Flex<'div'>;
     frame98?: p.Flex<'div'>;
     a6?: p.Flex<'div'>;
-    iconButton7?: p.Flex<'div'>;
     frame51?: p.Flex<'div'>;
     frame?: p.Flex<'div'>;
     text?: p.Flex<'div'>;
@@ -139,6 +128,7 @@ function PlasmicInspectDiff__RenderFunc(props: {
                         projectcss.root_reset,
                         projectcss.plasmic_default_styles,
                         projectcss.plasmic_mixins,
+                        projectcss.plasmic_tokens,
                         sty.root
                     )}
                 >
@@ -191,7 +181,7 @@ function PlasmicInspectDiff__RenderFunc(props: {
                                         displayWidth={'14px' as const}
                                         loading={'lazy' as const}
                                         src={{
-                                            src: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAxNCAxNSI+CiAgPGcgY2xpcC1wYXRoPSJ1cmwoI3ZnS09CZ1RPMktQYSkiPgogICAgPHBhdGggb3BhY2l0eT0iLjYiIGQ9Ik0uNTg0IDdMNyAuNTg0IDEzLjQxNiA3bC0uNTIxLjUyMUw3IDEuNjI2IDEuNjI2IDcgNyAxMi4zNzRsMi45NDctMi45NDguNTIxLjUyMUw3IDEzLjQxNi41ODQgN3ptNS44MzItLjM2OGgxLjY5YTQuNDIgNC40MiAwIDAxMy4xMjYgNy41NDdsLS41MjEtLjUyYTMuNjg1IDMuNjg1IDAgMDAtMi42MDUtNi4yOWgtMS42OUw3LjYyOSA4LjU4bC0uNTIuNTIyTDUuMDA0IDdsMi4xMDItMi4xMDIuNTIyLjUyLTEuMjEzIDEuMjE0eiIgZmlsbD0iIzAwMCIvPgogIDwvZz4KICA8ZGVmcz4KICAgIDxjbGlwUGF0aCBpZD0idmdLT0JnVE8yS1BhIj4KICAgICAgPHBhdGggZmlsbD0iI2ZmZiIgZD0iTTAgMGgxNHYxNC43MzdIMHoiLz4KICAgIDwvY2xpcFBhdGg+CiAgPC9kZWZzPgo8L3N2Zz4K',
+                                            src: 'https://site-assets.plasmic.app/0775fb4377c0de62caf987a71f94b0ea.svg',
                                             fullWidth: 14,
                                             fullHeight: 14.736,
                                             aspectRatio: 0.933333,
@@ -223,11 +213,7 @@ function PlasmicInspectDiff__RenderFunc(props: {
                                     </div>
                                 </p.Stack>
 
-                                <Arrow
-                                    data-plasmic-name={'arrow'}
-                                    data-plasmic-override={overrides.arrow}
-                                    className={classNames('__wab_instance', sty.arrow)}
-                                />
+                                <Arrow className={classNames('__wab_instance', sty.arrow__u9EL3)} />
 
                                 <p.Stack
                                     as={'div'}
@@ -247,23 +233,14 @@ function PlasmicInspectDiff__RenderFunc(props: {
                                         displayWidth={'18px' as const}
                                         loading={'lazy' as const}
                                         src={{
-                                            src: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMTggMTgiPgogIDxwYXRoIGQ9Ik0xNSAuNUgzQTIuNSAyLjUgMCAwMC41IDN2MTJBMi41IDIuNSAwIDAwMyAxNy41aDEyYTIuNSAyLjUgMCAwMDIuNS0yLjVWM0EyLjUgMi41IDAgMDAxNSAuNXoiIHN0cm9rZT0iI2ZmZiIvPgogIDxwYXRoIGQ9Ik05IDFoNmEyIDIgMCAwMTIgMnYxMmEyIDIgMCAwMS0yIDJIOVYxeiIgZmlsbD0idXJsKCNNMWxYY2lzR2J2YSkiLz4KICA8cGF0aCBvcGFjaXR5PSIuNjA1IiBkPSJNMSAzYTIgMiAwIDAxMi0yaDEyYTIgMiAwIDAxMiAydjEyYTIgMiAwIDAxLTIgMkgzYTIgMiAwIDAxLTItMlYzeiIgZmlsbD0iI0ZBQ0IyNSIvPgogIDxwYXRoIGQ9Ik0xIDNhMiAyIDAgMDEyLTJoNnYxNkgzYTIgMiAwIDAxLTItMlYzeiIgZmlsbD0iI0ZBQ0IyNSIvPgogIDxkZWZzPgogICAgPHBhdHRlcm4gaWQ9Ik0xbFhjaXNHYnZhIiBwYXR0ZXJuQ29udGVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgd2lkdGg9Ii43NSIgaGVpZ2h0PSIuMzc1Ij4KICAgICAgPHVzZSB4bGluazpocmVmPSIjTTFsWGNpc0didmIiIHRyYW5zZm9ybT0ic2NhbGUoLjA2MjUgLjAzMTI1KSIvPgogICAgPC9wYXR0ZXJuPgogICAgPGltYWdlIGlkPSJNMWxYY2lzR2J2YiIgd2lkdGg9IjEyIiBoZWlnaHQ9IjEyIiB4bGluazpocmVmPSJkYXRhOmltYWdlL3BuZztiYXNlNjQsaVZCT1J3MEtHZ29BQUFBTlNVaEVVZ0FBQUF3QUFBQU1DQVlBQUFCV2RWem5BQUFLc0dsRFExQkpRME1nVUhKdlptbHNaUUFBU0ltVmxnZFVVMWtheCs5N0w3M1FFaUlnSmZRbXZZUDBHbnB2TmtKQ0NTWEVRRkN4SVRJNGdtTkJSSm95Z29NZ0NvNEZrRkZFTE5nR0JhVllCMlJRVUZleElDb3ErNEFsN095ZTNUMzdmK2Q3OTNlKzNQZC8zN3U1OTV3UEFNb0FXeUJJZ2FVQVNPVm5DSU05WFppUlVkRk0vQkRBQXhLUUJocEFnczFKRnpnSEJ2b0NWUFBqWC9XeEQwQXo0MTJER2E5Ly8vMi9TcG9ibDg0QkFBcEVPWmFiemtsRitUUWFiUnlCTUFNQUJBMmd2aVpETU1NbEtOT0ZhSUVvSDV2aGhEbHVuK0hZT2I0M095YzAyQlhsVVFBSUZEWmJtQUFBK1FPYVoyWnlFbEFmQ2gxbFl6Nlh4MGZaRFdVSFRpS2JpM0l1eWt0U1U5Tm0rQVRLT3JILzVKUHdGODlZc1NlYm5TRG11VytaRmNHTmx5NUlZYS83UDVmamZ5czFSVFQvRGpVMEtJbENyMkIwWktCclZwdWM1aU5tZnF4L3dEenp1TFB6WnpsUjVCVTJ6NXgwMStoNTVyTGRmT1pabEJ6bVBNOXM0Y0t6dkF4VzZEd0wwNExGL3Z3VWYxK3hmeHhMekhIcDdpSHpITS96WU0xelZtSm94RHhuOHNMOTV6azlPY1JuWVk2ck9DOFVCWXRyamhkNmlMOHhOWDJoTmc1NzRWMFppYUZlQ3pWRWl1dmh4cm01aS9QOE1QRjhRWWFMMkZPUUVyaFFmNHFuT0orZUdTSitOZ1BkWVBPY3hQWU9YUEFKRks4UGNBUHV3QmU5bUNBUW1BSXJZQUlzUUJBQUdYRnJaL1kwY0UwVHJCUHlFaEl6bU03b3FZbGpzdmdjd3lWTVUyTVRLd0JtenVEY1gveCtZUFpzUVF6Q1FrNkErdHVnK3hhcFhzakZLZ0RRak80TGVlSkNUdU1JQUpLUkFEUmxjMFRDekxrY1p1YUdSYysySktBRGVhQU0xSUVPTUVEcnN3UjJ3QW10MkJzRWdGQVFCVllDRGtnRXFVQUkxb0FOWUF2SUF3VmdOOWdIeWtBbHFBYTE0RGc0Q1pyQk9YQVJYQVUzd1IzUUN4NkNRVEFDWG9KeDhCRk1RUkNFaDZnUURaS0hWQ0JOU0I4eWhhd2hCOGdkOG9XQ29TZ29Ca3FBK0pBSTJnQnRoUXFnUXFnTU9nVFZRYjlDWjZHTDBIV29HN29QRFVGajBEdm9DNHpBRkpnT0s4RmFzQkZzRFR2RFBuQW92QUpPZ0ZmRFdYQXV2Qk11Z2F2Z1kzQVRmQkcrQ2ZmQ2cvQkxlQUlCQ0JsaElLcUlBV0tOdUNJQlNEUVNqd2lSVFVnK1VveFVJUTFJSzlLSjNFVUdrVmZJWnd3T1E4TXdNUVlZTzR3WEpnekR3YXpHYk1Mc3dKUmhhakZObU11WXU1Z2h6RGptTzVhS1ZjVHFZMjJ4TEd3a05nRzdCcHVITGNiV1lNOWdyMkI3c1NQWWp6Z2Nqb0hUeGxuaHZIQlJ1Q1RjZXR3TzNBRmNJNjRkMTQwYnhrM2c4WGg1dkQ3ZUhoK0FaK016OEhuNFV2d3gvQVY4RDM0RS80bEFKcWdRVEFrZWhHZ0NuNUJES0NZY0piUVJlZ2pQQ1ZORUthSW0wWllZUU9RUzF4RjNFUThUVzRtM2lTUEVLWkkwU1p0a1R3b2xKWkcya0VwSURhUXJwRWVrOTJReVdZMXNRdzRpODhqWjVCTHlDZkkxOGhENU0wV0dva2R4cFN5bmlDZzdLVWNvN1pUN2xQZFVLbFdMNmtTTnBtWlFkMUxycUplb1Q2aWZKR2dTaGhJc0NhN0Vab2x5aVNhSkhvblhra1JKVFVsbnlaV1NXWkxGa3Fja2IwdStraUpLYVVtNVNyR2xOa21WUzUyVjZwZWFrS1pKbTBnSFNLZEs3NUErS24xZGVsUUdMNk1sNHk3RGxjbVZxWmE1SkROTVEyanFORmNhaDdhVmRwaDJoVFpDeDlHMTZTeDZFcjJBZnB6ZVJSK1hsWkUxbHcyWFhTdGJMbnRlZHBDQk1MUVlMRVlLWXhmakpLT1A4V1dSMGlMblJYR0x0aTlxV05TemFGSnVzWnlUWEp4Y3ZseWpYSy9jRjNtbXZMdDhzdndlK1diNXh3b1lCVDJGSUlVMUNnY1ZyaWk4V2t4ZmJMZVlzemgvOGNuRkR4UmhSVDNGWU1YMWl0V0t0eFFubEpTVlBKVUVTcVZLbDVSZUtUT1VuWlNUbEl1VTI1VEhWR2dxRGlvOGxTS1ZDeW92bUxKTVoyWUtzNFI1bVRtdXFxanFwU3BTUGFUYXBUcWxwcTBXcHBhajFxajJXSjJrYnEwZXIxNmszcUUrcnFHaTRhZXhRYU5lNDRFbVVkTmFNMUZ6djJhbjVxU1d0bGFFMWphdFpxMVJiVGx0bG5hV2RyMzJJeDJxanFQT2FwMHFuWHU2T0YxcjNXVGRBN3AzOUdBOUM3MUV2WEs5Mi9xd3ZxVStULytBZnZjUzdCS2JKZndsVlV2NkRTZ0d6Z2FaQnZVR1E0WU1RMS9ESE1ObXc5ZEdHa2JSUm51TU9vMitHMXNZcHhnZk5uNW9JbVBpYlpKajBtcnl6bFRQbEdOYWJuclBqR3JtWWJiWnJNWHNyYm0rZVp6NVFmTUJDNXFGbjhVMml3NkxiNVpXbGtMTEJzc3hLdzJyR0tzS3EzNXJ1bldnOVE3cmF6WllHeGVielRibmJEN2JXdHBtMko2MGZXTm5ZSmRzZDlSdWRLbjIwcmlsaDVjTzI2dlpzKzBQMlE4Nk1CMWlISDUyR0hSVWRXUTdWamsrZFZKMzRqclZPRDEzMW5WT2NqN20vTnJGMkVYb2NzWmwwdFhXZGFOcnV4dmk1dW1XNzlibEx1TWU1bDdtL3NSRHpTUEJvOTVqM05QQ2M3MW51eGZXeThkcmoxYy9TNG5GWWRXeHhyMnR2RGQ2WC9haCtJVDRsUGs4OWRYekZmcTIrc0YrM241Ny9SNzVhL3J6L1pzRFFBQXJZRy9BNDBEdHdOV0J2d1hoZ2dLRHlvT2VCWnNFYndqdURLR0ZyQW81R3ZJeDFDVjBWK2pETUowd1VWaEh1R1Q0OHZDNjhNa0l0NGpDaU1GSW84aU5rVGVqRktKNFVTM1IrT2p3Nkpyb2lXWHV5L1l0RzFsdXNUeHZlZDhLN1JWclYxeGZxYkF5WmVYNVZaS3IyS3RPeFdCakltS094bnhsQjdDcjJCT3hyTmlLMkhHT0syYy81eVhYaVZ2RUhZdXpqeXVNZXg1dkgxOFlQNXBnbjdBM1lTelJNYkU0OFJYUGxWZkdlNXZrbFZTWk5Ka2NrSHdrZVRvbElxVXhsWkFhazNxV0w4TlA1bDlPVTA1Ym05WXQwQmZrQ1FaWDI2N2V0M3BjNkNPc1NZZlNWNlMzWk5EUlp1ZVdTRWYwZzJnbzB5R3pQUFBUbXZBMXA5WktyK1d2dmJWT2I5MzJkYyt6UExKK1dZOVp6MW5mc1VGMXc1WU5ReHVkTng3YUJHMkszZFN4V1gxejd1YVJiTS9zMmkya0xjbGJmczh4emluTStiQTFZbXRycmxKdWR1N3dENTQvMU9kSjVBbnorcmZaYmF2OEVmTWo3OGV1N1diYlM3ZC96K2ZtM3lnd0xpZ3UrTHFEcytQR1R5WS9sZncwdlROK1o5Y3V5MTBIZCtOMjgzZjM3WEhjVTFzb1haaFZPTHpYYjI5VEViTW92K2pEdmxYN3JoZWJGMWZ1SiswWDdSOHM4UzFwS2RVbzNWMzZ0U3l4ckxmY3BieXhRckZpZThYa0FlNkJub05PQnhzcWxTb0xLci84elB0NTRKRG5vYVlxcmFyaWFseDFadld6dytHSE8zK3gvcVd1UnFHbW9PYmJFZjZSd2RyZzJzdDFWblYxUnhXUDdxcUg2MFgxWThlV0g3dHozTzE0UzROQnc2RkdSbVBCQ1hCQ2RPTEZyekcvOXAzME9kbHh5dnBVdzJuTjB4Vm5hR2Z5bTZDbWRVM2p6WW5OZ3kxUkxkMW52YzkydE5xMW52bk44TGNqNTFUUGxaK1hQYityamRTVzJ6WjlJZXZDUkx1Zy9kWEZoSXZESGFzNkhsNkt2SFR2Y3REbHJpcytWNjVkOWJoNnFkTzU4OEkxKzJ2bnJ0dGVQM3ZEK2tielRjdWJUYmNzYnAzNTNlTDNNMTJXWFUyM3JXNjMzTEc1MDlxOXRMdXR4N0huNGwyM3UxZnZzZTdkN1BYdjdlNEw2eHZvWDk0L09NQWRHTDJmY3YvdGc4d0hVdyt6SDJFZjVUK1dlbHo4UlBGSjFSKzZmelFPV2c2ZUgzSWJ1dlUwNU9uRFljN3d5ei9ULy93Nmt2dU0rcXo0dWNyenVsSFQwWE5qSG1OM1hpeDdNZkpTOEhMcVZkN2ZwUDlXOFZybjllazNUbTl1alVlT2o3d1Z2cDErdCtPOS9Qc2pIOHcvZEV3RVRqejVtUHB4YWpML2sveW4ycy9Xbnp1L1JIeDVQclhtSy81cnlUZmRiNjNmZmI0L21rNmRuaGF3aGV6WlZnQkJBNDZQQitBZDJpZFFvd0NnM1FHQUpESFhJODhLbXV2clp3bjhKNTdybzJkbENVQjFPd0NoMlFENG9tTXBPbXFoSWVrRVFDQWFvVTRBTmpNVHh6K1VIbTltT3VkRmJrWmJrK0xwNmZkb2I0alhCZUJiLy9UMFZQUDA5TGNhdE5nSEFMUi9uT3ZOWnlTRjl2OU81MTE4SW54N3NXK3l3Yi9vN3hNTUJmOHRreldpQUFBQUNYQklXWE1BQUJZbEFBQVdKUUZKVWlUd0FBQUNBbWxVV0hSWVRVdzZZMjl0TG1Ga2IySmxMbmh0Y0FBQUFBQUFQSGc2ZUcxd2JXVjBZU0I0Yld4dWN6cDRQU0poWkc5aVpUcHVjenB0WlhSaEx5SWdlRHA0YlhCMGF6MGlXRTFRSUVOdmNtVWdOUzQwTGpBaVBnb2dJQ0E4Y21SbU9sSkVSaUI0Yld4dWN6cHlaR1k5SW1oMGRIQTZMeTkzZDNjdWR6TXViM0puTHpFNU9Ua3ZNREl2TWpJdGNtUm1MWE41Ym5SaGVDMXVjeU1pUGdvZ0lDQWdJQ0E4Y21SbU9rUmxjMk55YVhCMGFXOXVJSEprWmpwaFltOTFkRDBpSWdvZ0lDQWdJQ0FnSUNBZ0lDQjRiV3h1Y3pwbGVHbG1QU0pvZEhSd09pOHZibk11WVdSdlltVXVZMjl0TDJWNGFXWXZNUzR3THlJS0lDQWdJQ0FnSUNBZ0lDQWdlRzFzYm5NNmRHbG1aajBpYUhSMGNEb3ZMMjV6TG1Ga2IySmxMbU52YlM5MGFXWm1MekV1TUM4aVBnb2dJQ0FnSUNBZ0lDQThaWGhwWmpwUWFYaGxiRmxFYVcxbGJuTnBiMjQrTWpROEwyVjRhV1k2VUdsNFpXeFpSR2x0Wlc1emFXOXVQZ29nSUNBZ0lDQWdJQ0E4WlhocFpqcFFhWGhsYkZoRWFXMWxibk5wYjI0K05ESThMMlY0YVdZNlVHbDRaV3hZUkdsdFpXNXphVzl1UGdvZ0lDQWdJQ0FnSUNBOGRHbG1aanBQY21sbGJuUmhkR2x2Ymo0eFBDOTBhV1ptT2s5eWFXVnVkR0YwYVc5dVBnb2dJQ0FnSUNBOEwzSmtaanBFWlhOamNtbHdkR2x2Ymo0S0lDQWdQQzl5WkdZNlVrUkdQZ284TDNnNmVHMXdiV1YwWVQ0S1I0VFI5QUFBQUM1SlJFRlVLQlZqZlBqdzRYOEdMRUJPVGc2TEtBTURFMVpSUElMRFFRUGpmeURBNXNkSGp4NWhFeDZab1FRQWdVb0t0VGNpaDdjQUFBQUFTVVZPUks1Q1lJST0iLz4KICA8L2RlZnM+Cjwvc3ZnPgo=',
+                                            src: 'https://site-assets.plasmic.app/ef5f923b08d0c56c2ed14764c6b74173.svg',
                                             fullWidth: 18,
                                             fullHeight: 18,
                                             aspectRatio: 1,
                                         }}
                                     />
 
-                                    <div
-                                        data-plasmic-name={'iconButton'}
-                                        data-plasmic-override={overrides.iconButton}
-                                        className={classNames(projectcss.all, sty.iconButton)}
-                                    >
-                                        <TipscloseIcon
-                                            className={classNames(projectcss.all, sty.svg__lTWyF)}
-                                            role={'img'}
-                                        />
-                                    </div>
+                                    <Remove className={classNames('__wab_instance', sty.remove___7KZRe)} />
                                 </p.Stack>
                             </p.Stack>
 
@@ -282,7 +259,7 @@ function PlasmicInspectDiff__RenderFunc(props: {
                                     {'Padding Top'}
                                 </div>
 
-                                <Line13Icon className={classNames(projectcss.all, sty.svg___41O2)} role={'img'} />
+                                <Arrow className={classNames('__wab_instance', sty.arrow__xXx5W)} />
 
                                 <p.Stack
                                     as={'div'}
@@ -299,16 +276,7 @@ function PlasmicInspectDiff__RenderFunc(props: {
                                         {'16px'}
                                     </div>
 
-                                    <div
-                                        data-plasmic-name={'iconButton2'}
-                                        data-plasmic-override={overrides.iconButton2}
-                                        className={classNames(projectcss.all, sty.iconButton2)}
-                                    >
-                                        <TipscloseIcon
-                                            className={classNames(projectcss.all, sty.svg__wTrRe)}
-                                            role={'img'}
-                                        />
-                                    </div>
+                                    <Remove className={classNames('__wab_instance', sty.remove__fa3Ie)} />
                                 </p.Stack>
                             </p.Stack>
 
@@ -335,7 +303,7 @@ function PlasmicInspectDiff__RenderFunc(props: {
                                     </div>
                                 </p.Stack>
 
-                                <Line14Icon className={classNames(projectcss.all, sty.svg__vs6Eo)} role={'img'} />
+                                <Arrow className={classNames('__wab_instance', sty.arrow__vCrjm)} />
 
                                 <p.Stack
                                     as={'div'}
@@ -352,16 +320,7 @@ function PlasmicInspectDiff__RenderFunc(props: {
                                         {'16px'}
                                     </div>
 
-                                    <div
-                                        data-plasmic-name={'iconButton3'}
-                                        data-plasmic-override={overrides.iconButton3}
-                                        className={classNames(projectcss.all, sty.iconButton3)}
-                                    >
-                                        <TipscloseIcon
-                                            className={classNames(projectcss.all, sty.svg__x8Du)}
-                                            role={'img'}
-                                        />
-                                    </div>
+                                    <Remove className={classNames('__wab_instance', sty.remove__lYCxM)} />
                                 </p.Stack>
                             </p.Stack>
 
@@ -388,7 +347,7 @@ function PlasmicInspectDiff__RenderFunc(props: {
                                     </div>
                                 </p.Stack>
 
-                                <Line15Icon className={classNames(projectcss.all, sty.svg__lluiB)} role={'img'} />
+                                <Arrow className={classNames('__wab_instance', sty.arrow__lui5U)} />
 
                                 <p.Stack
                                     as={'div'}
@@ -402,19 +361,10 @@ function PlasmicInspectDiff__RenderFunc(props: {
                                         data-plasmic-override={overrides.a3}
                                         className={classNames(projectcss.all, projectcss.__wab_text, sty.a3)}
                                     >
-                                        {'Frame 86'}
+                                        {'true'}
                                     </div>
 
-                                    <div
-                                        data-plasmic-name={'iconButton4'}
-                                        data-plasmic-override={overrides.iconButton4}
-                                        className={classNames(projectcss.all, sty.iconButton4)}
-                                    >
-                                        <TipscloseIcon
-                                            className={classNames(projectcss.all, sty.svg___8Bsr9)}
-                                            role={'img'}
-                                        />
-                                    </div>
+                                    <Remove className={classNames('__wab_instance', sty.remove__lR0Gb)} />
                                 </p.Stack>
                             </p.Stack>
 
@@ -443,7 +393,7 @@ function PlasmicInspectDiff__RenderFunc(props: {
                                     <IconIcon className={classNames(projectcss.all, sty.svg__ahD2U)} role={'img'} />
                                 </p.Stack>
 
-                                <Line15Icon className={classNames(projectcss.all, sty.svg__fSlgt)} role={'img'} />
+                                <Arrow className={classNames('__wab_instance', sty.arrow__pa7M7)} />
 
                                 <p.Stack
                                     as={'div'}
@@ -460,16 +410,7 @@ function PlasmicInspectDiff__RenderFunc(props: {
                                         {'scale'}
                                     </div>
 
-                                    <div
-                                        data-plasmic-name={'iconButton5'}
-                                        data-plasmic-override={overrides.iconButton5}
-                                        className={classNames(projectcss.all, sty.iconButton5)}
-                                    >
-                                        <TipscloseIcon
-                                            className={classNames(projectcss.all, sty.svg__gHOr3)}
-                                            role={'img'}
-                                        />
-                                    </div>
+                                    <Remove className={classNames('__wab_instance', sty.remove__qr3Y9)} />
                                 </p.Stack>
                             </p.Stack>
 
@@ -498,7 +439,7 @@ function PlasmicInspectDiff__RenderFunc(props: {
                                     <IconIcon className={classNames(projectcss.all, sty.svg__vcglu)} role={'img'} />
                                 </p.Stack>
 
-                                <Line15Icon className={classNames(projectcss.all, sty.svg___5X1AR)} role={'img'} />
+                                <Arrow className={classNames('__wab_instance', sty.arrow__tYyXl)} />
 
                                 <p.Stack
                                     as={'div'}
@@ -515,16 +456,7 @@ function PlasmicInspectDiff__RenderFunc(props: {
                                         {'top and bottom'}
                                     </div>
 
-                                    <div
-                                        data-plasmic-name={'iconButton6'}
-                                        data-plasmic-override={overrides.iconButton6}
-                                        className={classNames(projectcss.all, sty.iconButton6)}
-                                    >
-                                        <TipscloseIcon
-                                            className={classNames(projectcss.all, sty.svg__yQxIj)}
-                                            role={'img'}
-                                        />
-                                    </div>
+                                    <Remove className={classNames('__wab_instance', sty.remove__ecInA)} />
                                 </p.Stack>
                             </p.Stack>
 
@@ -551,7 +483,7 @@ function PlasmicInspectDiff__RenderFunc(props: {
                                     </div>
                                 </p.Stack>
 
-                                <Line15Icon className={classNames(projectcss.all, sty.svg__n2CPp)} role={'img'} />
+                                <Arrow className={classNames('__wab_instance', sty.arrow__zKyNf)} />
 
                                 <p.Stack
                                     as={'div'}
@@ -568,16 +500,7 @@ function PlasmicInspectDiff__RenderFunc(props: {
                                         {'horizontal'}
                                     </div>
 
-                                    <div
-                                        data-plasmic-name={'iconButton7'}
-                                        data-plasmic-override={overrides.iconButton7}
-                                        className={classNames(projectcss.all, sty.iconButton7)}
-                                    >
-                                        <TipscloseIcon
-                                            className={classNames(projectcss.all, sty.svg___8Ngwh)}
-                                            role={'img'}
-                                        />
-                                    </div>
+                                    <Remove className={classNames('__wab_instance', sty.remove__clXuw)} />
                                 </p.Stack>
                             </p.Stack>
                         </p.Stack>
@@ -624,44 +547,36 @@ const PlasmicDescendants = {
         'layerListRow',
         'frame87',
         'rgb',
-        'arrow',
         'frame89',
-        'iconButton',
         'layerListRow2',
         'rgb2',
         'frame90',
         'a',
-        'iconButton2',
         'layerListRow3',
         'frame86',
         'rgb3',
         'frame91',
         'a2',
-        'iconButton3',
         'layerListRow4',
         'frame88',
         'rgb4',
         'frame92',
         'a3',
-        'iconButton4',
         'layerListRow5',
         'frame93',
         'rgb5',
         'frame94',
         'a4',
-        'iconButton5',
         'layerListRow6',
         'frame95',
         'rgb6',
         'frame96',
         'a5',
-        'iconButton6',
         'layerListRow7',
         'frame97',
         'rgb7',
         'frame98',
         'a6',
-        'iconButton7',
         'frame51',
         'frame',
         'text',
@@ -676,44 +591,36 @@ const PlasmicDescendants = {
         'layerListRow',
         'frame87',
         'rgb',
-        'arrow',
         'frame89',
-        'iconButton',
         'layerListRow2',
         'rgb2',
         'frame90',
         'a',
-        'iconButton2',
         'layerListRow3',
         'frame86',
         'rgb3',
         'frame91',
         'a2',
-        'iconButton3',
         'layerListRow4',
         'frame88',
         'rgb4',
         'frame92',
         'a3',
-        'iconButton4',
         'layerListRow5',
         'frame93',
         'rgb5',
         'frame94',
         'a4',
-        'iconButton5',
         'layerListRow6',
         'frame95',
         'rgb6',
         'frame96',
         'a5',
-        'iconButton6',
         'layerListRow7',
         'frame97',
         'rgb7',
         'frame98',
         'a6',
-        'iconButton7',
         'frame51',
         'frame',
         'text',
@@ -727,90 +634,74 @@ const PlasmicDescendants = {
         'layerListRow',
         'frame87',
         'rgb',
-        'arrow',
         'frame89',
-        'iconButton',
         'layerListRow2',
         'rgb2',
         'frame90',
         'a',
-        'iconButton2',
         'layerListRow3',
         'frame86',
         'rgb3',
         'frame91',
         'a2',
-        'iconButton3',
         'layerListRow4',
         'frame88',
         'rgb4',
         'frame92',
         'a3',
-        'iconButton4',
         'layerListRow5',
         'frame93',
         'rgb5',
         'frame94',
         'a4',
-        'iconButton5',
         'layerListRow6',
         'frame95',
         'rgb6',
         'frame96',
         'a5',
-        'iconButton6',
         'layerListRow7',
         'frame97',
         'rgb7',
         'frame98',
         'a6',
-        'iconButton7',
     ],
     frame27: ['frame27', 'title3', 'title4', '_32Minus'],
     title3: ['title3', 'title4'],
     title4: ['title4'],
     _32Minus: ['_32Minus'],
-    layerListRow: ['layerListRow', 'frame87', 'rgb', 'arrow', 'frame89', 'iconButton'],
+    layerListRow: ['layerListRow', 'frame87', 'rgb', 'frame89'],
     frame87: ['frame87', 'rgb'],
     rgb: ['rgb'],
-    arrow: ['arrow'],
-    frame89: ['frame89', 'iconButton'],
-    iconButton: ['iconButton'],
-    layerListRow2: ['layerListRow2', 'rgb2', 'frame90', 'a', 'iconButton2'],
+    frame89: ['frame89'],
+    layerListRow2: ['layerListRow2', 'rgb2', 'frame90', 'a'],
     rgb2: ['rgb2'],
-    frame90: ['frame90', 'a', 'iconButton2'],
+    frame90: ['frame90', 'a'],
     a: ['a'],
-    iconButton2: ['iconButton2'],
-    layerListRow3: ['layerListRow3', 'frame86', 'rgb3', 'frame91', 'a2', 'iconButton3'],
+    layerListRow3: ['layerListRow3', 'frame86', 'rgb3', 'frame91', 'a2'],
     frame86: ['frame86', 'rgb3'],
     rgb3: ['rgb3'],
-    frame91: ['frame91', 'a2', 'iconButton3'],
+    frame91: ['frame91', 'a2'],
     a2: ['a2'],
-    iconButton3: ['iconButton3'],
-    layerListRow4: ['layerListRow4', 'frame88', 'rgb4', 'frame92', 'a3', 'iconButton4'],
+    layerListRow4: ['layerListRow4', 'frame88', 'rgb4', 'frame92', 'a3'],
     frame88: ['frame88', 'rgb4'],
     rgb4: ['rgb4'],
-    frame92: ['frame92', 'a3', 'iconButton4'],
+    frame92: ['frame92', 'a3'],
     a3: ['a3'],
-    iconButton4: ['iconButton4'],
-    layerListRow5: ['layerListRow5', 'frame93', 'rgb5', 'frame94', 'a4', 'iconButton5'],
+    layerListRow5: ['layerListRow5', 'frame93', 'rgb5', 'frame94', 'a4'],
     frame93: ['frame93', 'rgb5'],
     rgb5: ['rgb5'],
-    frame94: ['frame94', 'a4', 'iconButton5'],
+    frame94: ['frame94', 'a4'],
     a4: ['a4'],
-    iconButton5: ['iconButton5'],
-    layerListRow6: ['layerListRow6', 'frame95', 'rgb6', 'frame96', 'a5', 'iconButton6'],
+    layerListRow6: ['layerListRow6', 'frame95', 'rgb6', 'frame96', 'a5'],
     frame95: ['frame95', 'rgb6'],
     rgb6: ['rgb6'],
-    frame96: ['frame96', 'a5', 'iconButton6'],
+    frame96: ['frame96', 'a5'],
     a5: ['a5'],
-    iconButton6: ['iconButton6'],
-    layerListRow7: ['layerListRow7', 'frame97', 'rgb7', 'frame98', 'a6', 'iconButton7'],
+    layerListRow7: ['layerListRow7', 'frame97', 'rgb7', 'frame98', 'a6'],
     frame97: ['frame97', 'rgb7'],
     rgb7: ['rgb7'],
-    frame98: ['frame98', 'a6', 'iconButton7'],
+    frame98: ['frame98', 'a6'],
     a6: ['a6'],
-    iconButton7: ['iconButton7'],
     frame51: ['frame51', 'frame', 'text'],
     frame: ['frame', 'text'],
     text: ['text'],
@@ -828,44 +719,36 @@ type NodeDefaultElementType = {
     layerListRow: 'div';
     frame87: 'div';
     rgb: 'div';
-    arrow: typeof Arrow;
     frame89: 'div';
-    iconButton: 'div';
     layerListRow2: 'div';
     rgb2: 'div';
     frame90: 'div';
     a: 'div';
-    iconButton2: 'div';
     layerListRow3: 'div';
     frame86: 'div';
     rgb3: 'div';
     frame91: 'div';
     a2: 'div';
-    iconButton3: 'div';
     layerListRow4: 'div';
     frame88: 'div';
     rgb4: 'div';
     frame92: 'div';
     a3: 'div';
-    iconButton4: 'div';
     layerListRow5: 'div';
     frame93: 'div';
     rgb5: 'div';
     frame94: 'div';
     a4: 'div';
-    iconButton5: 'div';
     layerListRow6: 'div';
     frame95: 'div';
     rgb6: 'div';
     frame96: 'div';
     a5: 'div';
-    iconButton6: 'div';
     layerListRow7: 'div';
     frame97: 'div';
     rgb7: 'div';
     frame98: 'div';
     a6: 'div';
-    iconButton7: 'div';
     frame51: 'div';
     frame: 'div';
     text: 'div';
@@ -929,44 +812,36 @@ export const PlasmicInspectDiff = Object.assign(
         layerListRow: makeNodeComponent('layerListRow'),
         frame87: makeNodeComponent('frame87'),
         rgb: makeNodeComponent('rgb'),
-        arrow: makeNodeComponent('arrow'),
         frame89: makeNodeComponent('frame89'),
-        iconButton: makeNodeComponent('iconButton'),
         layerListRow2: makeNodeComponent('layerListRow2'),
         rgb2: makeNodeComponent('rgb2'),
         frame90: makeNodeComponent('frame90'),
         a: makeNodeComponent('a'),
-        iconButton2: makeNodeComponent('iconButton2'),
         layerListRow3: makeNodeComponent('layerListRow3'),
         frame86: makeNodeComponent('frame86'),
         rgb3: makeNodeComponent('rgb3'),
         frame91: makeNodeComponent('frame91'),
         a2: makeNodeComponent('a2'),
-        iconButton3: makeNodeComponent('iconButton3'),
         layerListRow4: makeNodeComponent('layerListRow4'),
         frame88: makeNodeComponent('frame88'),
         rgb4: makeNodeComponent('rgb4'),
         frame92: makeNodeComponent('frame92'),
         a3: makeNodeComponent('a3'),
-        iconButton4: makeNodeComponent('iconButton4'),
         layerListRow5: makeNodeComponent('layerListRow5'),
         frame93: makeNodeComponent('frame93'),
         rgb5: makeNodeComponent('rgb5'),
         frame94: makeNodeComponent('frame94'),
         a4: makeNodeComponent('a4'),
-        iconButton5: makeNodeComponent('iconButton5'),
         layerListRow6: makeNodeComponent('layerListRow6'),
         frame95: makeNodeComponent('frame95'),
         rgb6: makeNodeComponent('rgb6'),
         frame96: makeNodeComponent('frame96'),
         a5: makeNodeComponent('a5'),
-        iconButton6: makeNodeComponent('iconButton6'),
         layerListRow7: makeNodeComponent('layerListRow7'),
         frame97: makeNodeComponent('frame97'),
         rgb7: makeNodeComponent('rgb7'),
         frame98: makeNodeComponent('frame98'),
         a6: makeNodeComponent('a6'),
-        iconButton7: makeNodeComponent('iconButton7'),
         frame51: makeNodeComponent('frame51'),
         frame: makeNodeComponent('frame'),
         text: makeNodeComponent('text'),
