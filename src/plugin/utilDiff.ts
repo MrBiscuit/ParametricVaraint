@@ -3,7 +3,7 @@ const isObject = (x) => Object(x) === x;
 const isArray = Array.isArray;
 
 const mut = (o, [k, v]) => ((o[k] = v), o);
-
+    
 const props = [
     'backgrounds',
     'opacity',
