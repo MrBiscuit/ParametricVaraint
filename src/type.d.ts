@@ -29,3 +29,5 @@ declare type VariantNode = {
     rowName: string; // Row的名称（但是由于可以改，所以最好取一个不会被修改的来区分Row）
     diff?: Diff;
 };
+
+declare type RuntimeVariantColumn = string[];

@@ -16,8 +16,8 @@ export function createParametricComponentSet(): ParametricComponentSetSession {
     // 创建第一个Row
     session.createRow({
         type: 'Base&Interaction',
-        name: 'Base & Interaction',
-        nodesId: [],
+        name: 'Base',
+        nodesId: [ baseComponent.id ],
     });
     return session;
 }

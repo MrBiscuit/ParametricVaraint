@@ -1,21 +1,29 @@
 /**
  * 创建Variant的Row的标题文字
  */
-function createVariantRowDescription(parentFrame: FrameNode, title: string, subTitle: string): GroupNode {
+async function createVariantRowDescription(parentFrame: FrameNode, title: string, subTitle: string): Promise<GroupNode> {
     const titleText = figma.createText();
     const subTitleText = figma.createText();
-    figma.loadFontAsync({family: 'Inter', style: 'Medium'}).then(() => {
-        titleText.fontName = {family: 'Inter', style: 'Medium'};
-        titleText.characters = title;
-        titleText.fontSize = 13;
-        titleText.textAlignHorizontal = 'RIGHT';
-    });
-    figma.loadFontAsync({family: 'Inter', style: 'Regular'}).then(() => {
-        subTitleText.fontName = {family: 'Inter', style: 'Regular'};
-        subTitleText.characters = subTitle;
-        subTitleText.fontSize = 9;
-        subTitleText.textAlignHorizontal = 'RIGHT';
-    });
+    await Promise.all([
+        figma.loadFontAsync({family: 'Inter', style: 'Medium'}),
+        figma.loadFontAsync({family: 'Inter', style: 'Regular'})
+    ]);
+    titleText.fontName = {family: 'Inter', style: 'Medium'};
+    titleText.characters = title;
+    titleText.fontSize = 13;
+    titleText.textAlignHorizontal = 'RIGHT';
+    titleText.constraints = {
+        horizontal: "MAX",
+        vertical: "MIN"
+    };
+    subTitleText.fontName = {family: 'Inter', style: 'Regular'};
+    subTitleText.characters = subTitle;
+    subTitleText.fontSize = 9;
+    subTitleText.textAlignHorizontal = 'RIGHT';
+    subTitleText.constraints = {
+        horizontal: "MAX",
+        vertical: "MIN"
+    }
     const group = figma.group([titleText, subTitleText], parentFrame);
     subTitleText.y = titleText.y + titleText.height;
     titleText.x = subTitleText.x + subTitleText.width - titleText.width;
@@ -28,6 +36,7 @@ function createVariantRowDescription(parentFrame: FrameNode, title: string, subT
 export class ParametricComponentSetSession {
     readonly rootNode: ComponentSetNode;
     data: ComponentSetPluginData;
+    runtimeColumn: RuntimeVariantColumn[] = [];
     padding: number = 32;
     childSelection: SceneNode;
 
@@ -58,6 +67,17 @@ export class ParametricComponentSetSession {
         this.rootNode.fills = [
             {type: 'SOLID', visible: !0, opacity: 1, blendMode: 'MULTIPLY', color: {r: 1, g: 1, b: 1}},
         ];
+        this.refreshRuntimeColumn();
+    }
+
+    refreshRuntimeColumn() {
+        const maxColumn = Math.max(...this.data.rows.map((row) => row.nodesId.length));
+        for (let i = 0; i < maxColumn; i++) {
+            this.runtimeColumn.push(
+                this.data.rows.map((row) => row.nodesId[0])
+            );
+        }
+        console.log(this.runtimeColumn);
     }
 
     getUtilsFrame(): FrameNode {
@@ -86,44 +106,43 @@ export class ParametricComponentSetSession {
      * 刷新一些Layout的位置
      */
     updateLayout() {
+
         // 只有在当前已选择内容时，进行重新render
         if (!this.childSelection) return; // 如果当前什么都没选中，那么不进行update
         const utilsFrame = this.getUtilsFrame();
         utilsFrame.x = this.rootNode.x;
         utilsFrame.y = this.rootNode.y;
+    
         const description = utilsFrame.findOne((n) => n.name === 'Description');
         description.x = this.padding;
         description.y = this.padding;
 
         this.rootNode.defaultVariant.x = description.x + description.width + this.padding;
 
-        const maxColumn = Math.max(...this.data.rows.map((row) => row.nodesId.length));
-
         let lastX = this.padding + description.width;
 
-        for (let i = 0; i < maxColumn; i++) {
-            const columnNodes = this.data.rows
-                .map((row) => row.nodesId[0])
+        for (let i = 0; i < this.runtimeColumn.length; i++) {
+            const columnNodes = this.runtimeColumn[i]
                 .map((nodeId) => figma.getNodeById(nodeId) as ComponentNode);
 
             const largestWidthOfFirstColumn = Math.max(...columnNodes.map((node) => node.width));
             for (let node of columnNodes) {
                 node.x = lastX + this.padding;
+                console.log("largestwidth",largestWidthOfFirstColumn);
                 lastX += this.padding + largestWidthOfFirstColumn;
             }
         }
         this.rootNode.resize(lastX + this.padding, 100);
-        // description.children.forEach(n => {
-        // }
+        utilsFrame.resize(this.rootNode.width,this.rootNode.height );
     }
-
+        
     createRow(row: VariantRow) {
         const utilsFrame = this.getUtilsFrame();
-        this.data.rows.push(row);
-        const baseDescriptionGroup = createVariantRowDescription(utilsFrame, row.name, '&Interactions');
-        const descriptionGroup = figma.group([baseDescriptionGroup], utilsFrame);
-        descriptionGroup.name = 'Description';
-        this.save();
+        createVariantRowDescription(utilsFrame, row.name, "??").then(baseDescriptionGroup => {
+            const descriptionGroup = figma.group([baseDescriptionGroup], utilsFrame);
+            descriptionGroup.name = 'Description';
+            this.save();
+        });
     }
 
     renderColumn() {}
