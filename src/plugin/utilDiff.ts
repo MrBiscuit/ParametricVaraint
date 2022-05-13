@@ -66,7 +66,7 @@ const merge = (left: object, right: object) =>
         .map(([k, v]) => (isObject(v) && isObject(left[k]) ? [k, merge(left[k], v)] : [k, v]))
         .reduce(mut, left);
 
-const collectMerge = (colX, colY, merge) => {
+const collectMerge = (colX, colY, merge): Diff => {
     // console.log("collectMerge", colX, colY, merge);
     Object.keys(merge)
         .filter((mKey) => mKey !== 'children' && isObject(merge[mKey]))
@@ -86,7 +86,7 @@ const collectMerge = (colX, colY, merge) => {
     return merge;
 };
 
-const diff = (x: SceneNode, y: SceneNode) => {
+const diff = (x: SceneNode, y: SceneNode): Diff => {
     const colX = collectEntries(x);
     const colY = collectEntries(y);
 
