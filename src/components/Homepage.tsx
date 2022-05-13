@@ -25,8 +25,8 @@ function Homepage_(props: HomepageProps, ref: HTMLElementRefOf<'div'>) {
     return <PlasmicHomepage root={{ref}} 
     createComponentSet={{
         props:{
-            onClick: (e: React.MouseEvent<HTMLDivElement>) => {
-                console.log('clicked');
+            onClick: () => {
+                parent.postMessage({ pluginMessage: { type: 'createComponentSet'} }, '*');
             }
         }
     }}
