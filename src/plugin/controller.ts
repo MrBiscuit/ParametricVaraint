@@ -59,7 +59,7 @@ figma.on('selectionchange', () => {
 });
 
 // 组件集辅助文本创建
-function createVariantDescription(parentFrame:FrameNode, target: ComponentNode, title:string, subTitle:string):GroupNode {
+function createVariantDescription(parentFrame:FrameNode, title:string, subTitle:string):GroupNode {
 
     const titleText = figma.createText();
     const subTitleText = figma.createText();
