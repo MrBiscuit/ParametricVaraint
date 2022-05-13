@@ -31,16 +31,18 @@ import {
     deriveRenderOpts,
     ensureGlobalVariants,
 } from '@plasmicapp/react-web';
+import RadioItem from '../../RadioItem'; // plasmic-import: TRE54cYrIj/component
+import TextInput from '../../TextInput'; // plasmic-import: y7q_0ypjEAV/component
+import Button from '../../Button'; // plasmic-import: cSQMAe0reF/component
 
 import '@plasmicapp/react-web/lib/plasmic.css';
 
 import projectcss from './plasmic_parametric_variant.module.css'; // plasmic-import: quwQo95zDfdBFMtbz7jPTa/projectcss
 import sty from './PlasmicCreate.module.css'; // plasmic-import: 7KMCgFx4JT/css
 
+import SearchsvgIcon from './icons/PlasmicIcon__Searchsvg'; // plasmic-import: Yy4Onm11Fyc/icon
+import ChecksvgIcon from './icons/PlasmicIcon__Checksvg'; // plasmic-import: a4mMCsJ6DBo/icon
 import SeparatorIcon from './icons/PlasmicIcon__Separator'; // plasmic-import: _JYn_hvct4/icon
-import _Icon from './icons/PlasmicIcon___'; // plasmic-import: v-4VAvBIyg/icon
-import HaFillIcon from './icons/PlasmicIcon__HaFill'; // plasmic-import: YKI3zxAmSYQ/icon
-import _2Icon from './icons/PlasmicIcon___2'; // plasmic-import: CyceAvFD-oi/icon
 
 export type PlasmicCreate__VariantMembers = {};
 
@@ -54,39 +56,22 @@ export const PlasmicCreate__ArgProps = new Array<ArgPropType>();
 
 export type PlasmicCreate__OverridesType = {
     root?: p.Flex<'div'>;
-    createVariant?: p.Flex<'div'>;
+    content?: p.Flex<'div'>;
     frame53?: p.Flex<'div'>;
     frame50?: p.Flex<'div'>;
     frame18?: p.Flex<'div'>;
     type?: p.Flex<'div'>;
     frame16?: p.Flex<'div'>;
-    frame2?: p.Flex<'div'>;
-    frame3?: p.Flex<'div'>;
     frame19?: p.Flex<'div'>;
     name?: p.Flex<'div'>;
-    frame84?: p.Flex<'div'>;
-    value?: p.Flex<'div'>;
+    nameInput?: p.Flex<typeof TextInput>;
     frame20?: p.Flex<'div'>;
     defaultValue?: p.Flex<'div'>;
     frame21?: p.Flex<'div'>;
-    frame4?: p.Flex<'div'>;
-    frame5?: p.Flex<'div'>;
+    svg?: p.Flex<'svg'>;
+    freeBox?: p.Flex<'div'>;
     button?: p.Flex<'div'>;
-    buttonFrame?: p.Flex<'div'>;
-    title7?: p.Flex<'div'>;
-    createInteractiveState?: p.Flex<'div'>;
-    floatingTitleBar6?: p.Flex<'div'>;
-    title19?: p.Flex<'div'>;
-    title20?: p.Flex<'div'>;
-    frame56?: p.Flex<'div'>;
-    frame57?: p.Flex<'div'>;
-    frame26?: p.Flex<'div'>;
-    state?: p.Flex<'div'>;
-    optionMenu?: p.Flex<'div'>;
-    value4?: p.Flex<'div'>;
-    button7?: p.Flex<'div'>;
-    buttonFrame7?: p.Flex<'div'>;
-    title21?: p.Flex<'div'>;
+    createVariant?: p.Flex<typeof Button>;
 };
 
 export interface DefaultCreateProps {
@@ -124,9 +109,9 @@ function PlasmicCreate__RenderFunc(props: {
                     )}
                 >
                     <div
-                        data-plasmic-name={'createVariant'}
-                        data-plasmic-override={overrides.createVariant}
-                        className={classNames(projectcss.all, sty.createVariant)}
+                        data-plasmic-name={'content'}
+                        data-plasmic-override={overrides.content}
+                        className={classNames(projectcss.all, sty.content)}
                     >
                         <p.Stack
                             as={'div'}
@@ -168,45 +153,16 @@ function PlasmicCreate__RenderFunc(props: {
                                         data-plasmic-override={overrides.frame16}
                                         className={classNames(projectcss.all, sty.frame16)}
                                     >
-                                        <div className={classNames(projectcss.all, sty.freeBox__bPmBb)}>
-                                            <p.Stack
-                                                as={'div'}
-                                                data-plasmic-name={'frame2'}
-                                                data-plasmic-override={overrides.frame2}
-                                                hasGap={true}
-                                                className={classNames(projectcss.all, sty.frame2)}
-                                            >
-                                                <div className={classNames(projectcss.all, sty.freeBox__dAvGw)}>
-                                                    <div
-                                                        className={classNames(
-                                                            projectcss.all,
-                                                            projectcss.__wab_text,
-                                                            sty.text___61PrK
-                                                        )}
-                                                    >
-                                                        {'Toggle'}
-                                                    </div>
-                                                </div>
-                                            </p.Stack>
-                                        </div>
-
-                                        <p.Stack
-                                            as={'div'}
-                                            data-plasmic-name={'frame3'}
-                                            data-plasmic-override={overrides.frame3}
-                                            hasGap={true}
-                                            className={classNames(projectcss.all, sty.frame3)}
+                                        <RadioItem
+                                            className={classNames('__wab_instance', sty.radioItem__pCjXq)}
+                                            selected={true}
                                         >
-                                            <div
-                                                className={classNames(
-                                                    projectcss.all,
-                                                    projectcss.__wab_text,
-                                                    sty.text__dphg5
-                                                )}
-                                            >
-                                                {'Select'}
-                                            </div>
-                                        </p.Stack>
+                                            {'Toggle'}
+                                        </RadioItem>
+
+                                        <RadioItem className={classNames('__wab_instance', sty.radioItem__ez0Kz)}>
+                                            {'Select'}
+                                        </RadioItem>
                                     </div>
                                 </div>
 
@@ -231,21 +187,11 @@ function PlasmicCreate__RenderFunc(props: {
                                         </div>
                                     </div>
 
-                                    <p.Stack
-                                        as={'div'}
-                                        data-plasmic-name={'frame84'}
-                                        data-plasmic-override={overrides.frame84}
-                                        hasGap={true}
-                                        className={classNames(projectcss.all, sty.frame84)}
-                                    >
-                                        <div
-                                            data-plasmic-name={'value'}
-                                            data-plasmic-override={overrides.value}
-                                            className={classNames(projectcss.all, projectcss.__wab_text, sty.value)}
-                                        >
-                                            {'|'}
-                                        </div>
-                                    </p.Stack>
+                                    <TextInput
+                                        data-plasmic-name={'nameInput'}
+                                        data-plasmic-override={overrides.nameInput}
+                                        className={classNames('__wab_instance', sty.nameInput)}
+                                    />
                                 </div>
 
                                 <div
@@ -274,53 +220,33 @@ function PlasmicCreate__RenderFunc(props: {
                                         data-plasmic-override={overrides.frame21}
                                         className={classNames(projectcss.all, sty.frame21)}
                                     >
-                                        <div className={classNames(projectcss.all, sty.freeBox__vmuax)}>
-                                            <p.Stack
-                                                as={'div'}
-                                                data-plasmic-name={'frame4'}
-                                                data-plasmic-override={overrides.frame4}
-                                                hasGap={true}
-                                                className={classNames(projectcss.all, sty.frame4)}
-                                            >
-                                                <div className={classNames(projectcss.all, sty.freeBox___3IFaf)}>
-                                                    <div
-                                                        className={classNames(
-                                                            projectcss.all,
-                                                            projectcss.__wab_text,
-                                                            sty.text___9JPHi
-                                                        )}
-                                                    >
-                                                        {'True'}
-                                                    </div>
-                                                </div>
-                                            </p.Stack>
-                                        </div>
-
-                                        <p.Stack
-                                            as={'div'}
-                                            data-plasmic-name={'frame5'}
-                                            data-plasmic-override={overrides.frame5}
-                                            hasGap={true}
-                                            className={classNames(projectcss.all, sty.frame5)}
+                                        <RadioItem
+                                            className={classNames('__wab_instance', sty.radioItem__oNNiL)}
+                                            selected={true}
                                         >
-                                            <div
-                                                className={classNames(
-                                                    projectcss.all,
-                                                    projectcss.__wab_text,
-                                                    sty.text___9BWv
-                                                )}
-                                            >
-                                                {'Flase'}
-                                            </div>
-                                        </p.Stack>
+                                            {'True'}
+                                        </RadioItem>
+
+                                        <RadioItem className={classNames('__wab_instance', sty.radioItem__zjiHp)}>
+                                            {'False'}
+                                        </RadioItem>
                                     </div>
                                 </div>
                             </p.Stack>
 
-                            <SeparatorIcon className={classNames(projectcss.all, sty.svg__pv5I)} role={'img'} />
+                            <SeparatorIcon
+                                data-plasmic-name={'svg'}
+                                data-plasmic-override={overrides.svg}
+                                className={classNames(projectcss.all, sty.svg)}
+                                role={'img'}
+                            />
                         </p.Stack>
 
-                        <div className={classNames(projectcss.all, sty.freeBox__cXi8P)}>
+                        <div
+                            data-plasmic-name={'freeBox'}
+                            data-plasmic-override={overrides.freeBox}
+                            className={classNames(projectcss.all, sty.freeBox)}
+                        >
                             <p.Stack
                                 as={'div'}
                                 data-plasmic-name={'button'}
@@ -328,147 +254,12 @@ function PlasmicCreate__RenderFunc(props: {
                                 hasGap={true}
                                 className={classNames(projectcss.all, sty.button)}
                             >
-                                <p.Stack
-                                    as={'div'}
-                                    data-plasmic-name={'buttonFrame'}
-                                    data-plasmic-override={overrides.buttonFrame}
-                                    hasGap={true}
-                                    className={classNames(projectcss.all, sty.buttonFrame)}
-                                >
-                                    <div
-                                        data-plasmic-name={'title7'}
-                                        data-plasmic-override={overrides.title7}
-                                        className={classNames(projectcss.all, projectcss.__wab_text, sty.title7)}
-                                    >
-                                        {'Create Variant'}
-                                    </div>
-                                </p.Stack>
-                            </p.Stack>
-                        </div>
-                    </div>
-
-                    <div
-                        data-plasmic-name={'createInteractiveState'}
-                        data-plasmic-override={overrides.createInteractiveState}
-                        className={classNames(projectcss.all, sty.createInteractiveState)}
-                    >
-                        <div
-                            data-plasmic-name={'floatingTitleBar6'}
-                            data-plasmic-override={overrides.floatingTitleBar6}
-                            className={classNames(projectcss.all, sty.floatingTitleBar6)}
-                        >
-                            <SeparatorIcon className={classNames(projectcss.all, sty.svg__xKld6)} role={'img'} />
-
-                            <_Icon className={classNames(projectcss.all, sty.svg__rFuou)} role={'img'} />
-
-                            <div
-                                data-plasmic-name={'title19'}
-                                data-plasmic-override={overrides.title19}
-                                className={classNames(projectcss.all, sty.title19)}
-                            >
-                                <div
-                                    data-plasmic-name={'title20'}
-                                    data-plasmic-override={overrides.title20}
-                                    className={classNames(projectcss.all, projectcss.__wab_text, sty.title20)}
-                                >
-                                    {'Parametric Variants ◆'}
-                                </div>
-                            </div>
-                        </div>
-
-                        <p.Stack
-                            as={'div'}
-                            data-plasmic-name={'frame56'}
-                            data-plasmic-override={overrides.frame56}
-                            hasGap={true}
-                            className={classNames(projectcss.all, sty.frame56)}
-                        >
-                            <p.Stack
-                                as={'div'}
-                                data-plasmic-name={'frame57'}
-                                data-plasmic-override={overrides.frame57}
-                                hasGap={true}
-                                className={classNames(projectcss.all, sty.frame57)}
-                            >
-                                <div
-                                    data-plasmic-name={'frame26'}
-                                    data-plasmic-override={overrides.frame26}
-                                    className={classNames(projectcss.all, sty.frame26)}
-                                >
-                                    <div
-                                        data-plasmic-name={'state'}
-                                        data-plasmic-override={overrides.state}
-                                        className={classNames(projectcss.all, sty.state)}
-                                    >
-                                        <div
-                                            className={classNames(
-                                                projectcss.all,
-                                                projectcss.__wab_text,
-                                                sty.text__iNfUf
-                                            )}
-                                        >
-                                            {'State'}
-                                        </div>
-                                    </div>
-
-                                    <div className={classNames(projectcss.all, sty.freeBox__sh3JH)}>
-                                        <div
-                                            data-plasmic-name={'optionMenu'}
-                                            data-plasmic-override={overrides.optionMenu}
-                                            className={classNames(projectcss.all, sty.optionMenu)}
-                                        >
-                                            <div
-                                                data-plasmic-name={'value4'}
-                                                data-plasmic-override={overrides.value4}
-                                                className={classNames(
-                                                    projectcss.all,
-                                                    projectcss.__wab_text,
-                                                    sty.value4
-                                                )}
-                                            >
-                                                {'Option menu'}
-                                            </div>
-
-                                            <HaFillIcon
-                                                className={classNames(projectcss.all, sty.svg__eoGcH)}
-                                                role={'img'}
-                                            />
-
-                                            <_2Icon
-                                                className={classNames(projectcss.all, sty.svg__mDjmV)}
-                                                role={'img'}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </p.Stack>
-
-                            <SeparatorIcon className={classNames(projectcss.all, sty.svg__j6Zph)} role={'img'} />
-                        </p.Stack>
-
-                        <div className={classNames(projectcss.all, sty.freeBox___0CVrp)}>
-                            <p.Stack
-                                as={'div'}
-                                data-plasmic-name={'button7'}
-                                data-plasmic-override={overrides.button7}
-                                hasGap={true}
-                                className={classNames(projectcss.all, sty.button7)}
-                            >
-                                <p.Stack
-                                    as={'div'}
-                                    data-plasmic-name={'buttonFrame7'}
-                                    data-plasmic-override={overrides.buttonFrame7}
-                                    hasGap={true}
-                                    className={classNames(projectcss.all, sty.buttonFrame7)}
-                                >
-                                    <div
-                                        data-plasmic-name={'title21'}
-                                        data-plasmic-override={overrides.title21}
-                                        className={classNames(projectcss.all, projectcss.__wab_text, sty.title21)}
-                                    >
-                                        {'Create Variant'}
-                                    </div>
-                                </p.Stack>
+                                <Button
+                                    data-plasmic-name={'createVariant'}
+                                    data-plasmic-override={overrides.createVariant}
+                                    className={classNames('__wab_instance', sty.createVariant)}
+                                    text={'Create Variant'}
+                                />
                             </p.Stack>
                         </div>
                     </div>
@@ -481,61 +272,40 @@ function PlasmicCreate__RenderFunc(props: {
 const PlasmicDescendants = {
     root: [
         'root',
-        'createVariant',
+        'content',
         'frame53',
         'frame50',
         'frame18',
         'type',
         'frame16',
-        'frame2',
-        'frame3',
         'frame19',
         'name',
-        'frame84',
-        'value',
+        'nameInput',
         'frame20',
         'defaultValue',
         'frame21',
-        'frame4',
-        'frame5',
+        'svg',
+        'freeBox',
         'button',
-        'buttonFrame',
-        'title7',
-        'createInteractiveState',
-        'floatingTitleBar6',
-        'title19',
-        'title20',
-        'frame56',
-        'frame57',
-        'frame26',
-        'state',
-        'optionMenu',
-        'value4',
-        'button7',
-        'buttonFrame7',
-        'title21',
+        'createVariant',
     ],
-    createVariant: [
-        'createVariant',
+    content: [
+        'content',
         'frame53',
         'frame50',
         'frame18',
         'type',
         'frame16',
-        'frame2',
-        'frame3',
         'frame19',
         'name',
-        'frame84',
-        'value',
+        'nameInput',
         'frame20',
         'defaultValue',
         'frame21',
-        'frame4',
-        'frame5',
+        'svg',
+        'freeBox',
         'button',
-        'buttonFrame',
-        'title7',
+        'createVariant',
     ],
     frame53: [
         'frame53',
@@ -543,117 +313,60 @@ const PlasmicDescendants = {
         'frame18',
         'type',
         'frame16',
-        'frame2',
-        'frame3',
         'frame19',
         'name',
-        'frame84',
-        'value',
+        'nameInput',
         'frame20',
         'defaultValue',
         'frame21',
-        'frame4',
-        'frame5',
+        'svg',
     ],
     frame50: [
         'frame50',
         'frame18',
         'type',
         'frame16',
-        'frame2',
-        'frame3',
         'frame19',
         'name',
-        'frame84',
-        'value',
+        'nameInput',
         'frame20',
         'defaultValue',
         'frame21',
-        'frame4',
-        'frame5',
     ],
-    frame18: ['frame18', 'type', 'frame16', 'frame2', 'frame3'],
+    frame18: ['frame18', 'type', 'frame16'],
     type: ['type'],
-    frame16: ['frame16', 'frame2', 'frame3'],
-    frame2: ['frame2'],
-    frame3: ['frame3'],
-    frame19: ['frame19', 'name', 'frame84', 'value'],
+    frame16: ['frame16'],
+    frame19: ['frame19', 'name', 'nameInput'],
     name: ['name'],
-    frame84: ['frame84', 'value'],
-    value: ['value'],
-    frame20: ['frame20', 'defaultValue', 'frame21', 'frame4', 'frame5'],
+    nameInput: ['nameInput'],
+    frame20: ['frame20', 'defaultValue', 'frame21'],
     defaultValue: ['defaultValue'],
-    frame21: ['frame21', 'frame4', 'frame5'],
-    frame4: ['frame4'],
-    frame5: ['frame5'],
-    button: ['button', 'buttonFrame', 'title7'],
-    buttonFrame: ['buttonFrame', 'title7'],
-    title7: ['title7'],
-    createInteractiveState: [
-        'createInteractiveState',
-        'floatingTitleBar6',
-        'title19',
-        'title20',
-        'frame56',
-        'frame57',
-        'frame26',
-        'state',
-        'optionMenu',
-        'value4',
-        'button7',
-        'buttonFrame7',
-        'title21',
-    ],
-    floatingTitleBar6: ['floatingTitleBar6', 'title19', 'title20'],
-    title19: ['title19', 'title20'],
-    title20: ['title20'],
-    frame56: ['frame56', 'frame57', 'frame26', 'state', 'optionMenu', 'value4'],
-    frame57: ['frame57', 'frame26', 'state', 'optionMenu', 'value4'],
-    frame26: ['frame26', 'state', 'optionMenu', 'value4'],
-    state: ['state'],
-    optionMenu: ['optionMenu', 'value4'],
-    value4: ['value4'],
-    button7: ['button7', 'buttonFrame7', 'title21'],
-    buttonFrame7: ['buttonFrame7', 'title21'],
-    title21: ['title21'],
+    frame21: ['frame21'],
+    svg: ['svg'],
+    freeBox: ['freeBox', 'button', 'createVariant'],
+    button: ['button', 'createVariant'],
+    createVariant: ['createVariant'],
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
 type DescendantsType<T extends NodeNameType> = typeof PlasmicDescendants[T][number];
 type NodeDefaultElementType = {
     root: 'div';
-    createVariant: 'div';
+    content: 'div';
     frame53: 'div';
     frame50: 'div';
     frame18: 'div';
     type: 'div';
     frame16: 'div';
-    frame2: 'div';
-    frame3: 'div';
     frame19: 'div';
     name: 'div';
-    frame84: 'div';
-    value: 'div';
+    nameInput: typeof TextInput;
     frame20: 'div';
     defaultValue: 'div';
     frame21: 'div';
-    frame4: 'div';
-    frame5: 'div';
+    svg: 'svg';
+    freeBox: 'div';
     button: 'div';
-    buttonFrame: 'div';
-    title7: 'div';
-    createInteractiveState: 'div';
-    floatingTitleBar6: 'div';
-    title19: 'div';
-    title20: 'div';
-    frame56: 'div';
-    frame57: 'div';
-    frame26: 'div';
-    state: 'div';
-    optionMenu: 'div';
-    value4: 'div';
-    button7: 'div';
-    buttonFrame7: 'div';
-    title21: 'div';
+    createVariant: typeof Button;
 };
 
 type ReservedPropsType = 'variants' | 'args' | 'overrides';
@@ -705,39 +418,22 @@ export const PlasmicCreate = Object.assign(
     makeNodeComponent('root'),
     {
         // Helper components rendering sub-elements
-        createVariant: makeNodeComponent('createVariant'),
+        content: makeNodeComponent('content'),
         frame53: makeNodeComponent('frame53'),
         frame50: makeNodeComponent('frame50'),
         frame18: makeNodeComponent('frame18'),
         type: makeNodeComponent('type'),
         frame16: makeNodeComponent('frame16'),
-        frame2: makeNodeComponent('frame2'),
-        frame3: makeNodeComponent('frame3'),
         frame19: makeNodeComponent('frame19'),
         _name: makeNodeComponent('name'),
-        frame84: makeNodeComponent('frame84'),
-        value: makeNodeComponent('value'),
+        nameInput: makeNodeComponent('nameInput'),
         frame20: makeNodeComponent('frame20'),
         defaultValue: makeNodeComponent('defaultValue'),
         frame21: makeNodeComponent('frame21'),
-        frame4: makeNodeComponent('frame4'),
-        frame5: makeNodeComponent('frame5'),
+        svg: makeNodeComponent('svg'),
+        freeBox: makeNodeComponent('freeBox'),
         button: makeNodeComponent('button'),
-        buttonFrame: makeNodeComponent('buttonFrame'),
-        title7: makeNodeComponent('title7'),
-        createInteractiveState: makeNodeComponent('createInteractiveState'),
-        floatingTitleBar6: makeNodeComponent('floatingTitleBar6'),
-        title19: makeNodeComponent('title19'),
-        title20: makeNodeComponent('title20'),
-        frame56: makeNodeComponent('frame56'),
-        frame57: makeNodeComponent('frame57'),
-        frame26: makeNodeComponent('frame26'),
-        state: makeNodeComponent('state'),
-        optionMenu: makeNodeComponent('optionMenu'),
-        value4: makeNodeComponent('value4'),
-        button7: makeNodeComponent('button7'),
-        buttonFrame7: makeNodeComponent('buttonFrame7'),
-        title21: makeNodeComponent('title21'),
+        createVariant: makeNodeComponent('createVariant'),
 
         // Metadata about props expected for PlasmicCreate
         internalVariantProps: PlasmicCreate__VariantProps,

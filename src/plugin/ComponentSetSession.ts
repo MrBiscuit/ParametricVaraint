@@ -1,33 +1,7 @@
 /**
- * 从无创建
+ * 创建Variant的Row的标题文字
  */
-export function createParametricComponentSet(): ParametricComponentSetSession {
-    // 创建组件集
-    const baseComponent = figma.createComponent();
-    const componentSet = figma.combineAsVariants([baseComponent], figma.currentPage);
-    componentSet.name = 'New Parametric Component Set';
-    // 组件集位置 在视窗中间
-    componentSet.x = Math.floor(figma.viewport.center.x - componentSet.width / 2);
-    componentSet.y = Math.floor(figma.viewport.center.y - componentSet.height / 2);
-
-    const session = getPCSFromComponentSetNode(componentSet);
-    // 创建第一个Row
-    session.createRow({
-        type: 'Base&Interaction',
-        name: 'Base & Interaction',
-    });
-    return session;
-}
-
-/**
- * 从已有的 ComponentSetNode 创建 Session
- * @param componentSet
- */
-export function getPCSFromComponentSetNode(componentSet: ComponentSetNode): ParametricComponentSetSession {
-    return new ParametricComponentSetSession(componentSet);
-}
-
-export function createVariantRowDescription(parentFrame: FrameNode, title: string, subTitle: string): GroupNode {
+function createVariantRowDescription(parentFrame: FrameNode, title: string, subTitle: string): GroupNode {
     const titleText = figma.createText();
     const subTitleText = figma.createText();
     figma.loadFontAsync({family: 'Inter', style: 'Medium'}).then(() => {
@@ -52,9 +26,11 @@ export function createVariantRowDescription(parentFrame: FrameNode, title: strin
 }
 
 export class ParametricComponentSetSession {
+
     readonly rootNode: ComponentSetNode;
-    utilsFrame: FrameNode;
     data: ComponentSetPluginData;
+    padding: number = 32;
+    childSelection: SceneNode;
 
     constructor(rootNode: ComponentSetNode) {
         this.rootNode = rootNode;
@@ -64,7 +40,7 @@ export class ParametricComponentSetSession {
             : {
                   rows: {},
               };
-        this.init(); // utilsFrame的创建，初始的创建
+        this.init(); // utilsFrame的创建，初始数据的创建
     }
 
     init() {
@@ -84,23 +60,71 @@ export class ParametricComponentSetSession {
             {type: 'SOLID', visible: !0, opacity: 1, blendMode: 'MULTIPLY', color: {r: 1, g: 1, b: 1}},
         ];
 
-        this.utilsFrame = <FrameNode>figma.getNodeById(this.data.utilsFrameId);
-        if (!this.data.utilsFrameId || !this.utilsFrame) {
-            // 创建工具盒图层 尺寸保持与组件集等大
-            this.utilsFrame = figma.createFrame(); // 辅助文本 最外层Frame
-            this.utilsFrame.name = ' ';
-            this.utilsFrame.fills = [];
+    }
 
-            this.utilsFrame.x = this.rootNode.x;
-            this.utilsFrame.y = this.rootNode.y;
-            this.utilsFrame.resize(this.rootNode.width, this.rootNode.height);
+    getUtilsFrame(): FrameNode {
+        let utilsFrame = <FrameNode>figma.getNodeById(this.data.utilsFrameId);
+        if (!this.data.utilsFrameId || !utilsFrame) {
+            // 创建工具盒图层 尺寸保持与组件集等大
+            utilsFrame = figma.createFrame(); // 辅助文本 最外层Frame
+            utilsFrame.name = ' ';
+            utilsFrame.fills = [];
+
+            utilsFrame.x = this.rootNode.x;
+            utilsFrame.y = this.rootNode.y;
+            utilsFrame.resize(this.rootNode.width, this.rootNode.height);
+            utilsFrame.setPluginData('parametricComponentSetID', this.rootNode.id);
+            this.data.utilsFrameId = utilsFrame.id;
+            this.save();
         }
+        return utilsFrame;
+    }
+
+    getBaseNode(): ComponentNode {
+        this.data.rows['Base']
+    }
+
+    save() {
+        this.rootNode.setPluginData('data', JSON.stringify(this.data));
+    }
+
+    /**
+     * 刷新一些Layout的位置
+     */
+    updateLayout() {
+        // 只有在当前已选择内容时，进行重新render
+        if (!this.childSelection) return; // 如果当前什么都没选中，那么不进行update
+        const utilsFrame = this.getUtilsFrame();
+        utilsFrame.x = this.rootNode.x;
+        utilsFrame.y = this.rootNode.y;
+        const description = utilsFrame.findOne(n => n.name === 'Description');
+        description.x = this.padding;
+        description.y = this.padding;
+        
+        this.rootNode.defaultVariant.x = description.x + description.width + this.padding;
+        
+        const largestWidthOfFirstColumn = Math.max(
+            this.data.rows
+            .map(row => row.nodesId[0])
+            .map(nodeId => figma.getNodeById(nodeId) as ComponentNode)
+            .map(node => node.width)
+        );
+        
+        this.rootNode.resize(this.padding+largestWidthOfFirstColumn, 100);
+        // description.children.forEach(n => {
+        // }
     }
 
     createRow(row: VariantRow) {
+        const utilsFrame = this.getUtilsFrame();
         this.data.rows[row.name] = row;
-        const baseDescriptionGroup = createVariantRowDescription(this.utilsFrame, row.name, '&Interactions');
-        const descriptionGroup = figma.group([baseDescriptionGroup], this.utilsFrame);
+        const baseDescriptionGroup = createVariantRowDescription(utilsFrame, row.name, '&Interactions');
+        const descriptionGroup = figma.group([baseDescriptionGroup], utilsFrame);
         descriptionGroup.name = 'Description';
+        this.save();
+    }
+
+    renderColumn() {
+        
     }
 }

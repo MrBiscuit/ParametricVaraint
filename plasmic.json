@@ -118,6 +118,33 @@
                     "cssFilePath": "plasmic/parametric_variant/PlasmicRemove.module.css",
                     "scheme": "blackbox",
                     "componentType": "component"
+                },
+                {
+                    "id": "y7q_0ypjEAV",
+                    "name": "TextInput",
+                    "type": "managed",
+                    "projectId": "quwQo95zDfdBFMtbz7jPTa",
+                    "renderModuleFilePath": "plasmic/parametric_variant/PlasmicTextInput.tsx",
+                    "importSpec": {
+                        "modulePath": "TextInput.tsx"
+                    },
+                    "cssFilePath": "plasmic/parametric_variant/PlasmicTextInput.module.css",
+                    "scheme": "blackbox",
+                    "componentType": "component",
+                    "plumeType": "text-input"
+                },
+                {
+                    "id": "TRE54cYrIj",
+                    "name": "RadioItem",
+                    "type": "managed",
+                    "projectId": "quwQo95zDfdBFMtbz7jPTa",
+                    "renderModuleFilePath": "plasmic/parametric_variant/PlasmicRadioItem.tsx",
+                    "importSpec": {
+                        "modulePath": "RadioItem.tsx"
+                    },
+                    "cssFilePath": "plasmic/parametric_variant/PlasmicRadioItem.module.css",
+                    "scheme": "blackbox",
+                    "componentType": "component"
                 }
             ],
             "icons": [
@@ -185,6 +212,16 @@
                     "id": "IHJlVtaRri",
                     "name": "Icon3Icon",
                     "moduleFilePath": "plasmic/parametric_variant/icons/PlasmicIcon__Icon3.tsx"
+                },
+                {
+                    "id": "Yy4Onm11Fyc",
+                    "name": "SearchsvgIcon",
+                    "moduleFilePath": "plasmic/parametric_variant/icons/PlasmicIcon__Searchsvg.tsx"
+                },
+                {
+                    "id": "a4mMCsJ6DBo",
+                    "name": "ChecksvgIcon",
+                    "moduleFilePath": "plasmic/parametric_variant/icons/PlasmicIcon__Checksvg.tsx"
                 }
             ],
             "images": [

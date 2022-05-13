@@ -1,0 +1,27 @@
+.root {
+    display: inline-flex;
+    flex-direction: row;
+    position: relative;
+    width: auto;
+    height: 32px;
+    justify-content: center;
+    align-items: center;
+    padding-left: 14px;
+    padding-right: 14px;
+}
+.rootselected {
+    background: #0000001a;
+}
+.freeBox {
+    position: relative;
+    width: auto;
+    height: auto;
+    max-width: 800px;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+}
+.slotTargetChildren {
+    font-size: 11px;
+    text-align: center;
+}
