@@ -1,7 +1,7 @@
-import { handleEvent } from './codeMessageHandler';
-import { createParametricComponentSet, getPCSFromComponentSetNode } from './utilComponentSetSession';
-import { ParametricComponentSetSession } from './ComponentSetSession';
-import { getParametricComponentSet } from './helper';
+import {handleEvent} from './codeMessageHandler';
+import {createParametricComponentSet, getPCSFromComponentSetNode} from './utilComponentSetSession';
+import {ParametricComponentSetSession} from './ComponentSetSession';
+import {getParametricComponentSet} from './helper';
 
 figma.showUI(__html__);
 
@@ -15,7 +15,7 @@ handleEvent('createComponentSet', () => {
     session = createParametricComponentSet();
 
     figma.currentPage.selection = [session.rootNode];
-    figma.viewport.scrollAndZoomIntoView([session.rootNode]);
+    figma.viewport.scrollAndZoomIntoView([session.getBaseFrame()]);
 });
 
 figma.on('selectionchange', () => {
@@ -26,7 +26,7 @@ figma.on('selectionchange', () => {
         }
         return;
     }
-    console.log(sel);
+    console.log('selectionchange', sel);
     const parametricComponentSet = getParametricComponentSet(sel);
     if (parametricComponentSet.type !== 'COMPONENT_SET') {
         session = null;

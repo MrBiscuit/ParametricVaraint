@@ -1,29 +1,33 @@
 /**
  * 创建Variant的Row的标题文字
  */
-async function createVariantRowDescription(parentFrame: FrameNode, title: string, subTitle: string): Promise<GroupNode> {
+async function createVariantRowDescription(
+    parentFrame: FrameNode,
+    title: string,
+    subTitle: string
+): Promise<GroupNode> {
     const titleText = figma.createText();
     const subTitleText = figma.createText();
     await Promise.all([
         figma.loadFontAsync({family: 'Inter', style: 'Medium'}),
-        figma.loadFontAsync({family: 'Inter', style: 'Regular'})
+        figma.loadFontAsync({family: 'Inter', style: 'Regular'}),
     ]);
     titleText.fontName = {family: 'Inter', style: 'Medium'};
     titleText.characters = title;
     titleText.fontSize = 13;
     titleText.textAlignHorizontal = 'RIGHT';
     titleText.constraints = {
-        horizontal: "MAX",
-        vertical: "MIN"
+        horizontal: 'MAX',
+        vertical: 'MIN',
     };
     subTitleText.fontName = {family: 'Inter', style: 'Regular'};
     subTitleText.characters = subTitle;
     subTitleText.fontSize = 9;
     subTitleText.textAlignHorizontal = 'RIGHT';
     subTitleText.constraints = {
-        horizontal: "MAX",
-        vertical: "MIN"
-    }
+        horizontal: 'MAX',
+        vertical: 'MIN',
+    };
     const group = figma.group([titleText, subTitleText], parentFrame);
     subTitleText.y = titleText.y + titleText.height;
     titleText.x = subTitleText.x + subTitleText.width - titleText.width;
@@ -71,13 +75,15 @@ export class ParametricComponentSetSession {
     }
 
     refreshRuntimeColumn() {
+        this.runtimeColumn = [];
         const maxColumn = Math.max(...this.data.rows.map((row) => row.nodesId.length));
         for (let i = 0; i < maxColumn; i++) {
-            this.runtimeColumn.push(
-                this.data.rows.map((row) => row.nodesId[0])
-            );
+            this.runtimeColumn.push(this.data.rows.map((row) => row.nodesId[0]));
         }
-        console.log(this.runtimeColumn);
+    }
+
+    getBaseFrame(): ComponentNode {
+        return this.rootNode.defaultVariant;
     }
 
     getUtilsFrame(): FrameNode {
@@ -106,13 +112,20 @@ export class ParametricComponentSetSession {
      * 刷新一些Layout的位置
      */
     updateLayout() {
-
         // 只有在当前已选择内容时，进行重新render
         if (!this.childSelection) return; // 如果当前什么都没选中，那么不进行update
+        this.render();
+    }
+
+    render() {
         const utilsFrame = this.getUtilsFrame();
+        if (!utilsFrame) {
+            return;
+        }
+
         utilsFrame.x = this.rootNode.x;
         utilsFrame.y = this.rootNode.y;
-    
+
         const description = utilsFrame.findOne((n) => n.name === 'Description');
         description.x = this.padding;
         description.y = this.padding;
@@ -122,26 +135,27 @@ export class ParametricComponentSetSession {
         let lastX = this.padding + description.width;
 
         for (let i = 0; i < this.runtimeColumn.length; i++) {
-            const columnNodes = this.runtimeColumn[i]
-                .map((nodeId) => figma.getNodeById(nodeId) as ComponentNode);
+            const columnNodes = this.runtimeColumn[i].map((nodeId) => figma.getNodeById(nodeId) as ComponentNode);
 
             const largestWidthOfFirstColumn = Math.max(...columnNodes.map((node) => node.width));
             for (let node of columnNodes) {
                 node.x = lastX + this.padding;
-                console.log("largestwidth",largestWidthOfFirstColumn);
                 lastX += this.padding + largestWidthOfFirstColumn;
             }
         }
         this.rootNode.resize(lastX + this.padding, 100);
-        utilsFrame.resize(this.rootNode.width,this.rootNode.height );
+        utilsFrame.resize(this.rootNode.width, this.rootNode.height);
     }
-        
+
     createRow(row: VariantRow) {
         const utilsFrame = this.getUtilsFrame();
-        createVariantRowDescription(utilsFrame, row.name, "??").then(baseDescriptionGroup => {
+        this.data.rows.push(row);
+        this.refreshRuntimeColumn();
+        this.save();
+        createVariantRowDescription(utilsFrame, row.name, '??').then((baseDescriptionGroup) => {
             const descriptionGroup = figma.group([baseDescriptionGroup], utilsFrame);
             descriptionGroup.name = 'Description';
-            this.save();
+            this.render();
         });
     }
 
