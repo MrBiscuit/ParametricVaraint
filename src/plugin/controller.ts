@@ -1,4 +1,4 @@
-import {handleEvent} from './codeMessageHandler';
+import {handleEvent,dispatch} from './codeMessageHandler';
 import {createParametricComponentSet, getPCSFromComponentSetNode} from './utilComponentSetSession';
 import {ParametricComponentSetSession} from './ComponentSetSession';
 import {getParametricComponentSet} from './helper';
@@ -20,28 +20,23 @@ handleEvent('createComponentSet', () => {
 
 figma.on('selectionchange', () => {
     const sel = figma.currentPage.selection[0];
-    if (!sel) {
-        if (session) {
-            session.childSelection = null;
-        }
-        return;
-    }
+    
     console.log('selectionchange', sel);
-    const parametricComponentSet = getParametricComponentSet(sel);
-    if (parametricComponentSet.type !== 'COMPONENT_SET') {
-        session = null;
-        return;
-    }
-    const sess = getPCSFromComponentSetNode(parametricComponentSet);
+    const sess = getPCSFromComponentSetNode(getParametricComponentSet(sel));
 
-    // 如果创建成功
+    // 如果选中的是一个ParametricComponentSet
     if (sess) {
+        session?.close();
         session = sess;
-        session.childSelection = sel;
-    } else {
-        // TODO: UI上提示是否转换
+        session.setChildSelection(sel);
+        
+    } else {  // 选中的不是ParametricComponentSet
+        // 关闭这个session
+        session?.close();
         session = null;
+        // TODO UI
     }
+
 });
 
 figma.on('close', () => {

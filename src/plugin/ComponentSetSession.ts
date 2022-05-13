@@ -74,6 +74,14 @@ export class ParametricComponentSetSession {
         this.refreshRuntimeColumn();
     }
 
+    setChildSelection(node: SceneNode) {
+        this.childSelection = node;
+    }
+
+    close() {
+        this.save(); 
+    }
+
     refreshRuntimeColumn() {
         this.runtimeColumn = [];
         const maxColumn = Math.max(...this.data.rows.map((row) => row.nodesId.length));
@@ -155,12 +163,7 @@ export class ParametricComponentSetSession {
         createVariantRowDescription(utilsFrame, row.name, '??').then((baseDescriptionGroup) => {
             const descriptionGroup = figma.group([baseDescriptionGroup], utilsFrame);
             descriptionGroup.name = 'Description';
-<<<<<<< Updated upstream
             this.render();
-=======
-            
-            this.save();
->>>>>>> Stashed changes
         });
     }
 

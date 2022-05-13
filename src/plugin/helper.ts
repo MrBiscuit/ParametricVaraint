@@ -1,6 +1,7 @@
 export function getParametricComponentSet(node: BaseNode): BaseNode {
-
-    if (node.type === 'COMPONENT_SET') {
+    if (!node) {
+        return null;
+    } else if (node.type === 'COMPONENT_SET') {
         return node;
     } else if (node.parent.type === "COMPONENT_SET") {
         return node;

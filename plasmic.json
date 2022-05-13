@@ -68,19 +68,6 @@
                     "componentType": "page"
                 },
                 {
-                    "id": "j_YCk93j1o",
-                    "name": "Nothing",
-                    "type": "managed",
-                    "projectId": "quwQo95zDfdBFMtbz7jPTa",
-                    "renderModuleFilePath": "plasmic/parametric_variant/PlasmicNothing.tsx",
-                    "importSpec": {
-                        "modulePath": "Nothing.tsx"
-                    },
-                    "cssFilePath": "plasmic/parametric_variant/PlasmicNothing.module.css",
-                    "scheme": "blackbox",
-                    "componentType": "page"
-                },
-                {
                     "id": "7KMCgFx4JT",
                     "name": "Create",
                     "type": "managed",
@@ -145,6 +132,19 @@
                     "cssFilePath": "plasmic/parametric_variant/PlasmicRadioItem.module.css",
                     "scheme": "blackbox",
                     "componentType": "component"
+                },
+                {
+                    "id": "j_YCk93j1o",
+                    "name": "BaseVariant",
+                    "type": "managed",
+                    "projectId": "quwQo95zDfdBFMtbz7jPTa",
+                    "renderModuleFilePath": "plasmic/parametric_variant/PlasmicBaseVariant.tsx",
+                    "importSpec": {
+                        "modulePath": "BaseVariant.tsx"
+                    },
+                    "cssFilePath": "plasmic/parametric_variant/PlasmicBaseVariant.module.css",
+                    "scheme": "blackbox",
+                    "componentType": "page"
                 }
             ],
             "icons": [

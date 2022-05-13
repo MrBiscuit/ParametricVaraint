@@ -1,5 +1,5 @@
-import {ParametricComponentSetSession} from './ComponentSetSession';
-
+import { ParametricComponentSetSession } from './ComponentSetSession';
+import { dispatch } from './codeMessageHandler';
 /**
  * 从无创建
  */
@@ -20,7 +20,8 @@ export function createParametricComponentSet(): ParametricComponentSetSession {
         nodesId: [ baseComponent.id ],
     });
 
-    
+   
+    dispatch('creationComplete');
     return session;
 }
 
@@ -28,8 +29,8 @@ export function createParametricComponentSet(): ParametricComponentSetSession {
  * 从已有的 ComponentSetNode 创建 Session
  * @param componentSet
  */
-export function getPCSFromComponentSetNode(componentSet: ComponentSetNode): ParametricComponentSetSession | undefined {
-    if (componentSet?.getPluginData('data')) {
+export function getPCSFromComponentSetNode(componentSet: BaseNode): ParametricComponentSetSession | undefined {
+    if (componentSet?.type === 'COMPONENT_SET' && componentSet?.getPluginData('data')) {
         return new ParametricComponentSetSession(componentSet);
     } else {
         return undefined;
