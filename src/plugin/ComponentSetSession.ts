@@ -26,7 +26,6 @@ function createVariantRowDescription(parentFrame: FrameNode, title: string, subT
 }
 
 export class ParametricComponentSetSession {
-
     readonly rootNode: ComponentSetNode;
     data: ComponentSetPluginData;
     padding: number = 32;
@@ -38,7 +37,7 @@ export class ParametricComponentSetSession {
         this.data = json
             ? JSON.parse(json)
             : {
-                  rows: {},
+                  rows: [],
               };
         this.init(); // utilsFrame的创建，初始数据的创建
     }
@@ -59,7 +58,6 @@ export class ParametricComponentSetSession {
         this.rootNode.fills = [
             {type: 'SOLID', visible: !0, opacity: 1, blendMode: 'MULTIPLY', color: {r: 1, g: 1, b: 1}},
         ];
-
     }
 
     getUtilsFrame(): FrameNode {
@@ -80,10 +78,6 @@ export class ParametricComponentSetSession {
         return utilsFrame;
     }
 
-    getBaseNode(): ComponentNode {
-        this.data.rows['Base']
-    }
-
     save() {
         this.rootNode.setPluginData('data', JSON.stringify(this.data));
     }
@@ -97,24 +91,22 @@ export class ParametricComponentSetSession {
         const utilsFrame = this.getUtilsFrame();
         utilsFrame.x = this.rootNode.x;
         utilsFrame.y = this.rootNode.y;
-        const description = utilsFrame.findOne(n => n.name === 'Description');
+        const description = utilsFrame.findOne((n) => n.name === 'Description');
         description.x = this.padding;
         description.y = this.padding;
-        
+
         this.rootNode.defaultVariant.x = description.x + description.width + this.padding;
-        
-        const maxColumn = Math.max(...this.data.rows.map(row => row.nodesId.length));
-      
+
+        const maxColumn = Math.max(...this.data.rows.map((row) => row.nodesId.length));
+
         let lastX = this.padding + description.width;
 
         for (let i = 0; i < maxColumn; i++) {
             const columnNodes = this.data.rows
-                .map(row => row.nodesId[0])
-                .map(nodeId => figma.getNodeById(nodeId) as ComponentNode);
-            
-            const largestWidthOfFirstColumn = Math.max(...
-                columnNodes.map(node => node.width)
-            );
+                .map((row) => row.nodesId[0])
+                .map((nodeId) => figma.getNodeById(nodeId) as ComponentNode);
+
+            const largestWidthOfFirstColumn = Math.max(...columnNodes.map((node) => node.width));
             for (let node of columnNodes) {
                 node.x = lastX + this.padding;
                 lastX += this.padding + largestWidthOfFirstColumn;
@@ -127,14 +119,12 @@ export class ParametricComponentSetSession {
 
     createRow(row: VariantRow) {
         const utilsFrame = this.getUtilsFrame();
-        this.data.rows[row.name] = row;
+        this.data.rows.push(row);
         const baseDescriptionGroup = createVariantRowDescription(utilsFrame, row.name, '&Interactions');
         const descriptionGroup = figma.group([baseDescriptionGroup], utilsFrame);
         descriptionGroup.name = 'Description';
         this.save();
     }
 
-    renderColumn() {
-        
-    }
+    renderColumn() {}
 }

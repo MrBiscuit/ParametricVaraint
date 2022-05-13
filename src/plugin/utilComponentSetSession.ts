@@ -1,9 +1,9 @@
-import { ParametricComponentSetSession } from './ComponentSetSession';
+import {ParametricComponentSetSession} from './ComponentSetSession';
 
 /**
  * 从无创建
  */
- export function createParametricComponentSet(): ParametricComponentSetSession {
+export function createParametricComponentSet(): ParametricComponentSetSession {
     // 创建组件集
     const baseComponent = figma.createComponent();
     const componentSet = figma.combineAsVariants([baseComponent], figma.currentPage);
@@ -17,6 +17,7 @@ import { ParametricComponentSetSession } from './ComponentSetSession';
     session.createRow({
         type: 'Base&Interaction',
         name: 'Base & Interaction',
+        nodesId: [],
     });
     return session;
 }
