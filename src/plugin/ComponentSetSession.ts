@@ -155,7 +155,12 @@ export class ParametricComponentSetSession {
         createVariantRowDescription(utilsFrame, row.name, '??').then((baseDescriptionGroup) => {
             const descriptionGroup = figma.group([baseDescriptionGroup], utilsFrame);
             descriptionGroup.name = 'Description';
+<<<<<<< Updated upstream
             this.render();
+=======
+            
+            this.save();
+>>>>>>> Stashed changes
         });
     }
 

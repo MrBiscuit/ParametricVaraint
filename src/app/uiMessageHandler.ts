@@ -5,6 +5,7 @@ export const dispatch = (action: String, data?: any) => {
 export const handleEvent = (type: String, callback: Function) => {
     eventListeners.push({type, callback});
 };
+
 window.onmessage = (event) => {
     const message = event.data.pluginMessage;
     if (message) {

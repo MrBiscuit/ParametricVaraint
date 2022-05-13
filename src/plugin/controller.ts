@@ -33,6 +33,8 @@ figma.on('selectionchange', () => {
         return;
     }
     const sess = getPCSFromComponentSetNode(parametricComponentSet);
+
+    // 如果创建成功
     if (sess) {
         session = sess;
         session.childSelection = sel;

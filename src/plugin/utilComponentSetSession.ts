@@ -19,6 +19,8 @@ export function createParametricComponentSet(): ParametricComponentSetSession {
         name: 'Base',
         nodesId: [ baseComponent.id ],
     });
+
+    
     return session;
 }
 
