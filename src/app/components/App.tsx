@@ -7,24 +7,29 @@ import {handleEvent} from '../uiMessageHandler';
 
 declare function require(path: string): any;
 
-
 const App = ({}) => {
-    
-    let [page, setPage] = React.useState("HomePage");
+    let [page, setPage] = React.useState('HomePage');
     useEffect(() => {
-       handleEvent('creationComplete',(e) => {
-        setPage("BaseVariant");
-       })
-      }, [])
+        handleEvent('creationComplete', (_) => {
+            setPage('BaseVariant');
+        });
+    }, []);
 
-    if (page === "HomePage") {
-        return (<div>    <Homepage />  </div>)
-    } else if (page === "BaseVariant") {
-        return (<div> <BaseVariant /> </div>)
-
+    if (page === 'HomePage') {
+        return (
+            <div>
+                {' '}
+                <Homepage />{' '}
+            </div>
+        );
+    } else if (page === 'BaseVariant') {
+        return (
+            <div>
+                {' '}
+                <BaseVariant />{' '}
+            </div>
+        );
     }
-
-    ;
 };
 
 export default App;

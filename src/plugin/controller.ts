@@ -1,4 +1,4 @@
-import {handleEvent,dispatch} from './codeMessageHandler';
+import {handleEvent} from './codeMessageHandler';
 import {createParametricComponentSet, getPCSFromComponentSetNode} from './utilComponentSetSession';
 import {ParametricComponentSetSession} from './ComponentSetSession';
 import {getParametricComponentSet} from './helper';
@@ -20,7 +20,7 @@ handleEvent('createComponentSet', () => {
 
 figma.on('selectionchange', () => {
     const sel = figma.currentPage.selection[0];
-    
+
     console.log('selectionchange', sel);
     const sess = getPCSFromComponentSetNode(getParametricComponentSet(sel));
 
@@ -29,14 +29,13 @@ figma.on('selectionchange', () => {
         session?.close();
         session = sess;
         session.setChildSelection(sel);
-        
-    } else {  // 选中的不是ParametricComponentSet
+    } else {
+        // 选中的不是ParametricComponentSet
         // 关闭这个session
         session?.close();
         session = null;
         // TODO UI
     }
-
 });
 
 figma.on('close', () => {

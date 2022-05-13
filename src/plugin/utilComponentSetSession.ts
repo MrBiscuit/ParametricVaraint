@@ -1,5 +1,5 @@
-import { ParametricComponentSetSession } from './ComponentSetSession';
-import { dispatch } from './codeMessageHandler';
+import {ParametricComponentSetSession} from './ComponentSetSession';
+import {dispatch} from './codeMessageHandler';
 /**
  * 从无创建
  */
@@ -17,10 +17,9 @@ export function createParametricComponentSet(): ParametricComponentSetSession {
     session.createRow({
         type: 'Base&Interaction',
         name: 'Base',
-        nodesId: [ baseComponent.id ],
+        nodesId: [baseComponent.id],
     });
 
-   
     dispatch('creationComplete');
     return session;
 }
