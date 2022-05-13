@@ -6,6 +6,7 @@ const mut = (o, [k, v]) => ((o[k] = v), o);
 
 const props = [
     'backgrounds',
+    'opacity',
     'constraints',
     'dashPattern',
     'effects',
@@ -44,10 +45,11 @@ const collectEntries = (obj: SceneNode) => {
             entries['children'] = children;
         }
     }
+    //console.log(entries);
     return entries;
 };
 
-const diff1 = (left: object, right: object, rel = 'left') =>
+const diff1 = (left: object, right: object, rel: string) =>
     Object.entries(left)
         .map(([k, v]) =>
             isObject(v) && isObject(right[k])
@@ -64,10 +66,35 @@ const merge = (left: object, right: object) =>
         .map(([k, v]) => (isObject(v) && isObject(left[k]) ? [k, merge(left[k], v)] : [k, v]))
         .reduce(mut, left);
 
-const diff = (x: SceneNode, y: SceneNode) => {
+const collectMerge = (colX, colY, merge): Diff => {
+    // console.log("collectMerge", colX, colY, merge);
+    Object.keys(merge)
+        .filter((mKey) => mKey !== 'children' && isObject(merge[mKey]))
+        .forEach((mKey) => {
+            merge[mKey] = {
+                '@left': colX?.[mKey],
+                '@right': colY?.[mKey],
+            };
+        });
+    if (merge.children) {
+        Object.keys(merge.children)
+            .filter((childName) => colX.children[childName] && colY.children[childName])
+            .forEach((childName) =>
+                collectMerge(colX.children[childName], colY.children[childName], merge.children[childName])
+            );
+    }
+    return merge;
+};
+
+const diff = (x: SceneNode, y: SceneNode): Diff => {
     const colX = collectEntries(x);
     const colY = collectEntries(y);
-    return merge(diff1(colX, colY, '@left'), diff1(colY, colX, '@right'));
+
+    // const left = diff1(colX, colY, '@left');
+    // const right = diff1(colY, colX, '@right');
+    // console.log(colX, left, colY, right);
+    const m = merge(diff1(colX, colY, '@left'), diff1(colY, colX, '@right'));
+    return collectMerge(colX, colY, m);
 };
 
 export default diff;
