@@ -103,14 +103,24 @@ export class ParametricComponentSetSession {
         
         this.rootNode.defaultVariant.x = description.x + description.width + this.padding;
         
-        const largestWidthOfFirstColumn = Math.max(
-            this.data.rows
-            .map(row => row.nodesId[0])
-            .map(nodeId => figma.getNodeById(nodeId) as ComponentNode)
-            .map(node => node.width)
-        );
-        
-        this.rootNode.resize(this.padding+largestWidthOfFirstColumn, 100);
+        const maxColumn = Math.max(...this.data.rows.map(row => row.nodesId.length));
+      
+        let lastX = this.padding + description.width;
+
+        for (let i = 0; i < maxColumn; i++) {
+            const columnNodes = this.data.rows
+                .map(row => row.nodesId[0])
+                .map(nodeId => figma.getNodeById(nodeId) as ComponentNode);
+            
+            const largestWidthOfFirstColumn = Math.max(...
+                columnNodes.map(node => node.width)
+            );
+            for (let node of columnNodes) {
+                node.x = lastX + this.padding;
+                lastX += this.padding + largestWidthOfFirstColumn;
+            }
+        }
+        this.rootNode.resize(lastX + this.padding, 100);
         // description.children.forEach(n => {
         // }
     }
