@@ -67,6 +67,13 @@ function CreateVariant_(props: CreateVariantProps, ref: HTMLElementRefOf<'div'>)
         }
     }}
 
+    defaultValue = {{
+        
+        props:{
+            showInput: type === "Selection",
+        }
+    }}
+
     confirm = {{
         props: {
             onClick: () => { dispatch("createVariant", { type: type, name: name, value: value }) }

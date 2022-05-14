@@ -158,6 +158,19 @@
                     "cssFilePath": "plasmic/parametric_variant/PlasmicCreateInteractiveState.module.css",
                     "scheme": "blackbox",
                     "componentType": "page"
+                },
+                {
+                    "id": "9gDMeQgA0S",
+                    "name": "DefaultValue",
+                    "type": "managed",
+                    "projectId": "quwQo95zDfdBFMtbz7jPTa",
+                    "renderModuleFilePath": "plasmic/parametric_variant/PlasmicDefaultValue.tsx",
+                    "importSpec": {
+                        "modulePath": "DefaultValue.tsx"
+                    },
+                    "cssFilePath": "plasmic/parametric_variant/PlasmicDefaultValue.module.css",
+                    "scheme": "blackbox",
+                    "componentType": "component"
                 }
             ],
             "icons": [

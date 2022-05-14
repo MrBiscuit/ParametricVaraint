@@ -67,14 +67,25 @@
     margin-top: 4px;
 }
 .frame18 {
+    flex-direction: row;
     height: 32px;
     display: flex;
     position: relative;
     align-self: stretch;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
     flex-shrink: 0;
+}
+.frame18 > :global(.__wab_flex-container) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: calc(0px - 8px);
+    width: calc(100% + 8px);
+}
+.frame18 > :global(.__wab_flex-container) > *,
+.frame18 > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.frame18 > :global(.__wab_flex-container) > picture > img,
+.frame18 > :global(.__wab_flex-container) > :global(.__wab_slot) > picture > img {
+    margin-left: 8px;
 }
 .type {
     position: relative;
@@ -117,14 +128,25 @@
     min-width: 0;
 }
 .frame19 {
+    flex-direction: row;
     height: 32px;
     display: flex;
     position: relative;
     align-self: stretch;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
     flex-shrink: 0;
+}
+.frame19 > :global(.__wab_flex-container) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: calc(0px - 8px);
+    width: calc(100% + 8px);
+}
+.frame19 > :global(.__wab_flex-container) > *,
+.frame19 > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.frame19 > :global(.__wab_flex-container) > picture > img,
+.frame19 > :global(.__wab_flex-container) > :global(.__wab_slot) > picture > img {
+    margin-left: 8px;
 }
 .name {
     position: relative;
@@ -160,55 +182,10 @@
     width: 1em;
     height: 1em;
 }
-.frame20 {
-    height: 32px;
-    display: flex;
+.defaultValue:global(.__wab_instance) {
     position: relative;
     align-self: stretch;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
     flex-shrink: 0;
-}
-.defaultValue {
-    position: relative;
-    width: 72px;
-    height: 16px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex-shrink: 0;
-}
-.text__tve5R {
-    display: block;
-    font-size: 11px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 400;
-    letter-spacing: 0.005em;
-    line-height: 16px;
-    color: rgba(0, 0, 0, 0.8);
-}
-.frame21 {
-    width: 100%;
-    height: auto;
-    display: flex;
-    position: relative;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
-    min-width: 0;
-}
-.valueTrue:global(.__wab_instance) {
-    max-width: 100%;
-    position: relative;
-    width: 100%;
-    min-width: 0;
-}
-.valueFalse:global(.__wab_instance) {
-    max-width: 100%;
-    position: relative;
-    width: 100%;
-    min-width: 0;
 }
 .svg {
     position: relative;

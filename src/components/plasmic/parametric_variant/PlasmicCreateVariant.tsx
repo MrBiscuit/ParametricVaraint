@@ -33,6 +33,7 @@ import {
 } from '@plasmicapp/react-web';
 import RadioItem from '../../RadioItem'; // plasmic-import: TRE54cYrIj/component
 import TextInput from '../../TextInput'; // plasmic-import: y7q_0ypjEAV/component
+import DefaultValue from '../../DefaultValue'; // plasmic-import: 9gDMeQgA0S/component
 import Button from '../../Button'; // plasmic-import: cSQMAe0reF/component
 
 import '@plasmicapp/react-web/lib/plasmic.css';
@@ -67,11 +68,7 @@ export type PlasmicCreateVariant__OverridesType = {
     frame19?: p.Flex<'div'>;
     name?: p.Flex<'div'>;
     nameInput?: p.Flex<typeof TextInput>;
-    frame20?: p.Flex<'div'>;
-    defaultValue?: p.Flex<'div'>;
-    frame21?: p.Flex<'div'>;
-    valueTrue?: p.Flex<typeof RadioItem>;
-    valueFalse?: p.Flex<typeof RadioItem>;
+    defaultValue?: p.Flex<typeof DefaultValue>;
     svg?: p.Flex<'svg'>;
     freeBox?: p.Flex<'div'>;
     button?: p.Flex<'div'>;
@@ -131,9 +128,11 @@ function PlasmicCreateVariant__RenderFunc(props: {
                                 hasGap={true}
                                 className={classNames(projectcss.all, sty.frame50)}
                             >
-                                <div
+                                <p.Stack
+                                    as={'div'}
                                     data-plasmic-name={'frame18'}
                                     data-plasmic-override={overrides.frame18}
+                                    hasGap={true}
                                     className={classNames(projectcss.all, sty.frame18)}
                                 >
                                     <div
@@ -174,11 +173,13 @@ function PlasmicCreateVariant__RenderFunc(props: {
                                             {'Select'}
                                         </RadioItem>
                                     </div>
-                                </div>
+                                </p.Stack>
 
-                                <div
+                                <p.Stack
+                                    as={'div'}
                                     data-plasmic-name={'frame19'}
                                     data-plasmic-override={overrides.frame19}
+                                    hasGap={true}
                                     className={classNames(projectcss.all, sty.frame19)}
                                 >
                                     <div
@@ -202,52 +203,13 @@ function PlasmicCreateVariant__RenderFunc(props: {
                                         data-plasmic-override={overrides.nameInput}
                                         className={classNames('__wab_instance', sty.nameInput)}
                                     />
-                                </div>
+                                </p.Stack>
 
-                                <div
-                                    data-plasmic-name={'frame20'}
-                                    data-plasmic-override={overrides.frame20}
-                                    className={classNames(projectcss.all, sty.frame20)}
-                                >
-                                    <div
-                                        data-plasmic-name={'defaultValue'}
-                                        data-plasmic-override={overrides.defaultValue}
-                                        className={classNames(projectcss.all, sty.defaultValue)}
-                                    >
-                                        <div
-                                            className={classNames(
-                                                projectcss.all,
-                                                projectcss.__wab_text,
-                                                sty.text__tve5R
-                                            )}
-                                        >
-                                            {'Value'}
-                                        </div>
-                                    </div>
-
-                                    <div
-                                        data-plasmic-name={'frame21'}
-                                        data-plasmic-override={overrides.frame21}
-                                        className={classNames(projectcss.all, sty.frame21)}
-                                    >
-                                        <RadioItem
-                                            data-plasmic-name={'valueTrue'}
-                                            data-plasmic-override={overrides.valueTrue}
-                                            active={true}
-                                            className={classNames('__wab_instance', sty.valueTrue)}
-                                        >
-                                            {'True'}
-                                        </RadioItem>
-
-                                        <RadioItem
-                                            data-plasmic-name={'valueFalse'}
-                                            data-plasmic-override={overrides.valueFalse}
-                                            className={classNames('__wab_instance', sty.valueFalse)}
-                                        >
-                                            {'False'}
-                                        </RadioItem>
-                                    </div>
-                                </div>
+                                <DefaultValue
+                                    data-plasmic-name={'defaultValue'}
+                                    data-plasmic-override={overrides.defaultValue}
+                                    className={classNames('__wab_instance', sty.defaultValue)}
+                                />
                             </p.Stack>
 
                             <SeparatorIcon
@@ -299,11 +261,7 @@ const PlasmicDescendants = {
         'frame19',
         'name',
         'nameInput',
-        'frame20',
         'defaultValue',
-        'frame21',
-        'valueTrue',
-        'valueFalse',
         'svg',
         'freeBox',
         'button',
@@ -321,11 +279,7 @@ const PlasmicDescendants = {
         'frame19',
         'name',
         'nameInput',
-        'frame20',
         'defaultValue',
-        'frame21',
-        'valueTrue',
-        'valueFalse',
         'svg',
         'freeBox',
         'button',
@@ -342,11 +296,7 @@ const PlasmicDescendants = {
         'frame19',
         'name',
         'nameInput',
-        'frame20',
         'defaultValue',
-        'frame21',
-        'valueTrue',
-        'valueFalse',
         'svg',
     ],
     frame50: [
@@ -359,11 +309,7 @@ const PlasmicDescendants = {
         'frame19',
         'name',
         'nameInput',
-        'frame20',
         'defaultValue',
-        'frame21',
-        'valueTrue',
-        'valueFalse',
     ],
     frame18: ['frame18', 'type', 'frame16', 'toggleType', 'selectionType'],
     type: ['type'],
@@ -373,11 +319,7 @@ const PlasmicDescendants = {
     frame19: ['frame19', 'name', 'nameInput'],
     name: ['name'],
     nameInput: ['nameInput'],
-    frame20: ['frame20', 'defaultValue', 'frame21', 'valueTrue', 'valueFalse'],
     defaultValue: ['defaultValue'],
-    frame21: ['frame21', 'valueTrue', 'valueFalse'],
-    valueTrue: ['valueTrue'],
-    valueFalse: ['valueFalse'],
     svg: ['svg'],
     freeBox: ['freeBox', 'button', 'confirm'],
     button: ['button', 'confirm'],
@@ -398,11 +340,7 @@ type NodeDefaultElementType = {
     frame19: 'div';
     name: 'div';
     nameInput: typeof TextInput;
-    frame20: 'div';
-    defaultValue: 'div';
-    frame21: 'div';
-    valueTrue: typeof RadioItem;
-    valueFalse: typeof RadioItem;
+    defaultValue: typeof DefaultValue;
     svg: 'svg';
     freeBox: 'div';
     button: 'div';
@@ -469,11 +407,7 @@ export const PlasmicCreateVariant = Object.assign(
         frame19: makeNodeComponent('frame19'),
         _name: makeNodeComponent('name'),
         nameInput: makeNodeComponent('nameInput'),
-        frame20: makeNodeComponent('frame20'),
         defaultValue: makeNodeComponent('defaultValue'),
-        frame21: makeNodeComponent('frame21'),
-        valueTrue: makeNodeComponent('valueTrue'),
-        valueFalse: makeNodeComponent('valueFalse'),
         svg: makeNodeComponent('svg'),
         freeBox: makeNodeComponent('freeBox'),
         button: makeNodeComponent('button'),
