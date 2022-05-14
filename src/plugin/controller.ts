@@ -15,7 +15,7 @@ handleEvent('createComponentSet', () => {
     session = createParametricComponentSet();
 
     figma.currentPage.selection = [session.rootNode];
-    figma.viewport.scrollAndZoomIntoView([session.getBaseFrame()]);
+    figma.viewport.scrollAndZoomIntoView([session.getBaseVariant()]);
 });
 
 handleEvent('createVariant', (row) => {
@@ -23,6 +23,7 @@ handleEvent('createVariant', (row) => {
         type: row.type,
         name: row.name,
         defaultValue:row.value,
+        
     });
     // TODO 创建时处理value
 });

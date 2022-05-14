@@ -114,7 +114,7 @@ export class ParametricComponentSetSession {
         if (node.type === 'COMPONENT') {
             const myId = node.getPluginData('variantNodeId');
             if (!myId || myId != node.id) {
-                console.log('setChildSelection.createRow', node);
+                console.log('setChildSelection.ZA', node);
                 this.createRow(
                     {
                         type: 'Selection',
@@ -170,7 +170,7 @@ export class ParametricComponentSetSession {
         }
     }
 
-    getBaseFrame(): ComponentNode {
+    getBaseVariant(): ComponentNode {
         return this.rootNode.defaultVariant;
     }
 
@@ -298,12 +298,30 @@ export class ParametricComponentSetSession {
         const utilsFrame = this.getUtilsFrame();
         this.data.rows.push(row);
         if (!bindNode) {
-            bindNode = this.getBaseFrame().clone();
+            bindNode = this.getBaseVariant().clone();
             this.rootNode.appendChild(bindNode);
         }
         bindNode.setPluginData('variantNodeId', bindNode.id);
         bindNode.setPluginData('variantRow', row.name);
-        bindNode.setPluginData('variantDiff', JSON.stringify(diff(this.getBaseFrame(), bindNode)));
+        bindNode.setPluginData('variantDiff', JSON.stringify(diff(this.getBaseVariant(), bindNode)));
+        if (row.defaultValue) {  // 写入 Property (修改图层名)
+            if (bindNode.name === "Property 1=Default") {
+                bindNode.name = `${row.name}=${row.defaultValue}`
+                if (row.defaultValue === "true" || row.defaultValue === "false") {
+                    (bindNode.parent as ComponentSetNode).defaultVariant.name = `${row.name}=${row.defaultValue === "true" ? "false" : "true"}`;
+                } else (bindNode.parent as ComponentSetNode).defaultVariant.name = `${row.name}=unset`;
+            } else {
+                bindNode.name += `, ${row.name}=${row.defaultValue}`
+                if (row.defaultValue === "true" || row.defaultValue === "false") {
+                    (bindNode.parent as ComponentSetNode).children.map((n:ComponentNode) => {
+                        if (n.id !== bindNode.id) n.name += `${row.name}=${row.defaultValue === "true" ? "false" : "true"}`
+                    });;
+                } else (bindNode.parent as ComponentSetNode).children.map((n:ComponentNode) => {
+                   if (n.id !== bindNode.id) { n.name += `${row.name}=unset`}
+                });;
+            }
+
+        }
         row.nodesId = [bindNode.id];
         this.createRowRuntimeButton(this.data.rows.length - 1);
         this.refreshRuntimeColumn();

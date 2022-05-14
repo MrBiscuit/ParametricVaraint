@@ -15,6 +15,7 @@ declare type VariantType = 'Base&Interaction' | 'Toggle' | 'Selection';
 declare type VariantRow = {
     type: VariantType;
     name: string;
+    defaultValue?: string
     titleNodeId?: string;
     nodesId?: string[];
 };
