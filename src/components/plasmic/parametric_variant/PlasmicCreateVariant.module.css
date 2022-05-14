@@ -1,0 +1,264 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    min-width: 0;
+    min-height: 0;
+}
+.content {
+    background: rgba(255, 255, 255, 1);
+    width: 240px;
+    height: 207px;
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: relative;
+    left: auto;
+    top: auto;
+    flex-shrink: 0;
+}
+.frame53 {
+    flex-direction: column;
+    height: auto;
+    display: flex;
+    position: relative;
+    align-self: stretch;
+}
+.frame53 > :global(.__wab_flex-container) {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: calc(0px - 8px);
+    height: calc(100% + 8px);
+}
+.frame53 > :global(.__wab_flex-container) > *,
+.frame53 > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.frame53 > :global(.__wab_flex-container) > picture > img,
+.frame53 > :global(.__wab_flex-container) > :global(.__wab_slot) > picture > img {
+    margin-top: 8px;
+}
+.frame50 {
+    flex-direction: column;
+    height: auto;
+    display: flex;
+    position: relative;
+    align-self: stretch;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 8px;
+}
+.frame50 > :global(.__wab_flex-container) {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: calc(0px - 4px);
+    height: calc(100% + 4px);
+}
+.frame50 > :global(.__wab_flex-container) > *,
+.frame50 > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.frame50 > :global(.__wab_flex-container) > picture > img,
+.frame50 > :global(.__wab_flex-container) > :global(.__wab_slot) > picture > img {
+    margin-top: 4px;
+}
+.frame18 {
+    height: 32px;
+    display: flex;
+    position: relative;
+    align-self: stretch;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+.type {
+    position: relative;
+    width: 72px;
+    height: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.text__aPflC {
+    display: block;
+    font-size: 11px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.005em;
+    line-height: 16px;
+    color: rgba(0, 0, 0, 0.8);
+}
+.frame16 {
+    width: 100%;
+    height: auto;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    min-width: 0;
+}
+.radioItem__pCjXq:global(.__wab_instance) {
+    max-width: 100%;
+    position: relative;
+    width: 100%;
+    min-width: 0;
+}
+.radioItem__ez0Kz:global(.__wab_instance) {
+    max-width: 100%;
+    position: relative;
+    width: 100%;
+    min-width: 0;
+}
+.frame19 {
+    height: 32px;
+    display: flex;
+    position: relative;
+    align-self: stretch;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+.name {
+    position: relative;
+    width: 72px;
+    height: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.text__xMsyh {
+    display: block;
+    font-size: 11px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.005em;
+    line-height: 16px;
+    color: rgba(0, 0, 0, 0.8);
+}
+.nameInput:global(.__wab_instance) {
+    max-width: 100%;
+    position: relative;
+}
+.svg__k3Ifh {
+    position: relative;
+    object-fit: cover;
+    width: 1em;
+    height: 1em;
+}
+.svg__a92Ax {
+    position: relative;
+    object-fit: cover;
+    width: 1em;
+    height: 1em;
+}
+.frame20 {
+    height: 32px;
+    display: flex;
+    position: relative;
+    align-self: stretch;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+.defaultValue {
+    position: relative;
+    width: 72px;
+    height: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.text__tve5R {
+    display: block;
+    font-size: 11px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.005em;
+    line-height: 16px;
+    color: rgba(0, 0, 0, 0.8);
+}
+.frame21 {
+    width: 100%;
+    height: auto;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    min-width: 0;
+}
+.radioItem__oNNiL:global(.__wab_instance) {
+    max-width: 100%;
+    position: relative;
+    width: 100%;
+    min-width: 0;
+}
+.radioItem__zjiHp:global(.__wab_instance) {
+    max-width: 100%;
+    position: relative;
+    width: 100%;
+    min-width: 0;
+}
+.svg {
+    position: relative;
+    object-fit: cover;
+    max-width: 100%;
+    color: #000;
+    width: 240px;
+    height: 1px;
+    display: block;
+    flex-shrink: 0;
+}
+.freeBox {
+    display: block;
+    position: relative;
+    width: 240px;
+    height: 46px;
+    flex-shrink: 0;
+}
+.button {
+    flex-direction: row;
+    transform: scale(1.000000499999875, 0.999999500000375) rotate(-0.057295760416576934deg)
+        skew(-0.05729570311883569deg, 0deg);
+    height: auto;
+    display: flex;
+    transform-origin: top left;
+    position: absolute;
+    align-self: stretch;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    min-width: 0;
+    padding: 8px;
+}
+.button > :global(.__wab_flex-container) {
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    min-width: 0;
+    margin-left: calc(0px - 4px);
+    width: calc(100% + 4px);
+}
+.button > :global(.__wab_flex-container) > *,
+.button > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.button > :global(.__wab_flex-container) > picture > img,
+.button > :global(.__wab_flex-container) > :global(.__wab_slot) > picture > img {
+    margin-left: 4px;
+}
+.createVariant:global(.__wab_instance) {
+    max-width: 100%;
+    position: relative;
+    left: auto;
+    top: auto;
+}

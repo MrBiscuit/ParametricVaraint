@@ -4,6 +4,7 @@ import BaseVariant from '../../components/BaseVariant';
 import '../styles/ui.css';
 import {useEffect} from 'react';
 import {handleEvent} from '../uiMessageHandler';
+import CreateVariant from '../../components/CreateVariant';
 
 declare function require(path: string): any;
 
@@ -13,20 +14,27 @@ const App = ({}) => {
         handleEvent('creationComplete', (_) => {
             setPage('BaseVariant');
         });
+        handleEvent('addVariant', (_) => {
+            setPage('CreateVariant');
+        });
     }, []);
 
     if (page === 'HomePage') {
         return (
             <div>
-                {' '}
-                <Homepage />{' '}
+                <Homepage />
             </div>
         );
     } else if (page === 'BaseVariant') {
         return (
             <div>
-                {' '}
-                <BaseVariant />{' '}
+                <BaseVariant />
+            </div>
+        );
+    } else if (page === 'CreateVariant') {
+        return (
+            <div>
+                <CreateVariant />
             </div>
         );
     }

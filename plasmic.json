@@ -68,19 +68,6 @@
                     "componentType": "page"
                 },
                 {
-                    "id": "7KMCgFx4JT",
-                    "name": "Create",
-                    "type": "managed",
-                    "projectId": "quwQo95zDfdBFMtbz7jPTa",
-                    "renderModuleFilePath": "plasmic/parametric_variant/PlasmicCreate.tsx",
-                    "importSpec": {
-                        "modulePath": "Create.tsx"
-                    },
-                    "cssFilePath": "plasmic/parametric_variant/PlasmicCreate.module.css",
-                    "scheme": "blackbox",
-                    "componentType": "page"
-                },
-                {
                     "id": "p_FCLC3X1L",
                     "name": "Arrow",
                     "type": "managed",
@@ -143,6 +130,32 @@
                         "modulePath": "BaseVariant.tsx"
                     },
                     "cssFilePath": "plasmic/parametric_variant/PlasmicBaseVariant.module.css",
+                    "scheme": "blackbox",
+                    "componentType": "page"
+                },
+                {
+                    "id": "7KMCgFx4JT",
+                    "name": "CreateVariant",
+                    "type": "managed",
+                    "projectId": "quwQo95zDfdBFMtbz7jPTa",
+                    "renderModuleFilePath": "plasmic/parametric_variant/PlasmicCreateVariant.tsx",
+                    "importSpec": {
+                        "modulePath": "CreateVariant.tsx"
+                    },
+                    "cssFilePath": "plasmic/parametric_variant/PlasmicCreateVariant.module.css",
+                    "scheme": "blackbox",
+                    "componentType": "page"
+                },
+                {
+                    "id": "ymIixQqbuZS",
+                    "name": "CreateInteractiveState",
+                    "type": "managed",
+                    "projectId": "quwQo95zDfdBFMtbz7jPTa",
+                    "renderModuleFilePath": "plasmic/parametric_variant/PlasmicCreateInteractiveState.tsx",
+                    "importSpec": {
+                        "modulePath": "CreateInteractiveState.tsx"
+                    },
+                    "cssFilePath": "plasmic/parametric_variant/PlasmicCreateInteractiveState.module.css",
                     "scheme": "blackbox",
                     "componentType": "page"
                 }

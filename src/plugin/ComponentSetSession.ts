@@ -1,4 +1,5 @@
 import {clearCanvasButtonCallbacks, createCanvasButton, handleCanvasButtonClick} from './CanvasButton';
+import { dispatch } from './codeMessageHandler';
 
 /**
  * 创建Variant的Row的标题文字
@@ -277,7 +278,7 @@ export class ParametricComponentSetSession {
             );
         } else if (this.data.rows[rowIndex].type === 'Selection') {
             buttonFrame = createCanvasButton('+ Option', () =>
-                console.log('Click button: + option ' + this.data.rows[rowIndex].name)
+                dispatch("addVariant")
             );
         }
         if (buttonFrame) {

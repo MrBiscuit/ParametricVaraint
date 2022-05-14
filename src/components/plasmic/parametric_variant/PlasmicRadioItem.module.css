@@ -8,6 +8,7 @@
     align-items: center;
     padding-left: 14px;
     padding-right: 14px;
+    border-radius: 2px;
 }
 .rootselected {
     background: #0000001a;

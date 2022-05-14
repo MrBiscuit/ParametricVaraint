@@ -97,7 +97,25 @@ function PlasmicBaseVariant__RenderFunc(props: {
                             data-plasmic-override={overrides.text}
                             className={classNames(projectcss.all, projectcss.__wab_text, sty.text)}
                         >
-                            {'this is a base varaint, any changes made to base will be reflected to all varaints'}
+                            <React.Fragment>
+                                <React.Fragment>
+                                    {'This is a base variant, any changes made to base will be reflected to '}
+                                </React.Fragment>
+                                <span
+                                    className={'plasmic_default__all plasmic_default__span'}
+                                    style={{fontWeight: 700}}
+                                >
+                                    {'all variants'}
+                                </span>
+                                <React.Fragment>{''}</React.Fragment>
+                                <span
+                                    className={'plasmic_default__all plasmic_default__span'}
+                                    style={{fontWeight: 700}}
+                                >
+                                    {'.'}
+                                </span>
+                                <React.Fragment>{''}</React.Fragment>
+                            </React.Fragment>
                         </div>
                     </div>
                 </div>
