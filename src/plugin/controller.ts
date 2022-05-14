@@ -48,12 +48,12 @@ figma.on('selectionchange', () => {
             session?.close();
             session = sess;
             session.setChildSelection(sel);
+            // TODO UI
         } else {
             // 选中的不是ParametricComponentSet
             // 关闭这个session
             session?.close();
             session = null;
-            // TODO UI
             dispatch("empty")
         }
     } else {

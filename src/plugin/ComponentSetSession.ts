@@ -110,6 +110,11 @@ export class ParametricComponentSetSession {
                 figma.currentPage.selection = [this.rootNode];
             }
         }
+
+        // 选中Base
+        if (node === this.getBaseVariant()) {
+            dispatch('creationComplete');
+        }
         // 处理新建Component
         if (node.type === 'COMPONENT') {
             const myId = node.getPluginData('variantNodeId');
