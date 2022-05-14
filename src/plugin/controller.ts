@@ -22,6 +22,7 @@ handleEvent('createVariant', (row) => {
     session?.createRow({
         type: row.type,
         name: row.name,
+        defaultValue:row.value,
     });
     // TODO 创建时处理value
 });
