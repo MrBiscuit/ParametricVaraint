@@ -23,6 +23,12 @@ figma.on('selectionchange', () => {
 
     console.log('selectionchange', sel);
 
+    if (!sel && session && !session.rootNode.parent) {
+        session.remove();
+        session = null;
+        return;
+    }
+
     const pcs = getParametricComponentSet(sel);
     if (!session || session.rootNode.id !== pcs?.id) {
         const sess = getPCSFromComponentSetNode(pcs);

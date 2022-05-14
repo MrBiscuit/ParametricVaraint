@@ -1,5 +1,6 @@
 import {clearCanvasButtonCallbacks, createCanvasButton, handleCanvasButtonClick} from './CanvasButton';
-import { dispatch } from './codeMessageHandler';
+import {dispatch} from './codeMessageHandler';
+import diff from './utilDiff';
 
 /**
  * 创建Variant的Row的标题文字
@@ -87,7 +88,7 @@ export class ParametricComponentSetSession {
         }
         // 生成运行时添加Variant按钮
         const addVariantButton = createCanvasButton('+ Variant', () => {
-          dispatch("addVariant");  
+            dispatch('addVariant');
         });
         addVariantButton.setPluginData('parametricComponentSetID', this.rootNode.id);
         this.runtimeAddVariantButton = addVariantButton.id;
@@ -97,6 +98,7 @@ export class ParametricComponentSetSession {
     }
 
     setChildSelection(node: SceneNode) {
+        console.log('setChildSelection', node);
         this.childSelection = node;
         // 处理按钮点击
         if (this.runtimeRowButtons.includes(node.id) && node.type === 'FRAME') {
@@ -106,6 +108,20 @@ export class ParametricComponentSetSession {
         } else if (this.runtimeAddVariantButton === node.id && node.type === 'FRAME') {
             if (handleCanvasButtonClick(node)) {
                 figma.currentPage.selection = [this.rootNode];
+            }
+        }
+        // 处理新建Component
+        if (node.type === 'COMPONENT') {
+            const myId = node.getPluginData('variantNodeId');
+            if (!myId || myId != node.id) {
+                console.log('setChildSelection.createRow', node);
+                this.createRow(
+                    {
+                        type: 'Selection',
+                        name: 'New Variant',
+                    },
+                    node
+                );
             }
         }
     }
@@ -127,6 +143,17 @@ export class ParametricComponentSetSession {
         this.render();
     }
 
+    remove() {
+        console.log('delete');
+        if (!this.rootNode.parent) {
+            this.rootNode.remove();
+        }
+        const utilsFrame = this.getUtilsFrame();
+        if (utilsFrame && !utilsFrame.removed) {
+            utilsFrame.remove();
+        }
+    }
+
     refreshRuntimeColumn() {
         this.runtimeColumn = [];
         const maxColumn = Math.max(...this.data.rows.map((row) => row.nodesId.length)) + 1;
@@ -141,7 +168,6 @@ export class ParametricComponentSetSession {
                 this.runtimeColumn[i] = columnNodesId;
             }
         }
-        console.log('refreshRuntimeColumn', this.runtimeColumn);
     }
 
     getBaseFrame(): ComponentNode {
@@ -188,9 +214,17 @@ export class ParametricComponentSetSession {
         utilsFrame.x = this.rootNode.x;
         utilsFrame.y = this.rootNode.y;
 
-        const description = utilsFrame.findOne((n) => n.name === 'Description');
+        const description = utilsFrame.findOne((n) => n.name === 'Description') as GroupNode;
 
         if (!description) return;
+
+        // 处理description内的位置和宽度
+
+        const largestWidthOfDescription = Math.max(...description.children.map((node) => node?.width));
+
+        for (let child of description.children) {
+            child.x = this.padding + largestWidthOfDescription - child.width;
+        }
 
         this.rootNode.defaultVariant.x = description.x + description.width + this.padding;
 
@@ -200,17 +234,18 @@ export class ParametricComponentSetSession {
 
         for (let i = 0; i < this.runtimeColumn.length; i++) {
             const columnNodes = this.runtimeColumn[i].map((nodeId) => figma.getNodeById(nodeId) as SceneNode);
-
-            const largestWidthOfFirstColumn = Math.max(...columnNodes.map((node) => node?.width));
+            const largestWidthOfColumn = Math.max(
+                ...columnNodes.filter((node) => node.type === 'COMPONENT').map((node) => node?.width)
+            );
             for (let node of columnNodes) {
                 if (!node) continue;
                 node.x = lastX + this.padding;
-                if (node.type === 'FRAME' && node.name === 'Button') {
-                    node.resize(largestWidthOfFirstColumn, node.height);
+                if (node.type === 'FRAME' && node.name === 'Button' && largestWidthOfColumn > 0) {
+                    node.resize(largestWidthOfColumn, node.height);
                 }
             }
 
-            lastX += this.padding + largestWidthOfFirstColumn;
+            lastX += this.padding + (largestWidthOfColumn > 0 ? largestWidthOfColumn : 100);
         }
 
         // 再处理纵向
@@ -220,9 +255,15 @@ export class ParametricComponentSetSession {
         for (let i = 0; i < this.data.rows.length; i++) {
             const row = this.data.rows[i];
             let maxHeight = 0;
+            const titleNode = figma.getNodeById(row.titleNodeId) as SceneNode;
+            if (titleNode) {
+                titleNode.y = lastY;
+            }
             for (let node of row.nodesId.map((id) => figma.getNodeById(id) as SceneNode)) {
                 node.y = lastY;
-                if (node.height > maxHeight) maxHeight = node.height;
+                if (node.height > maxHeight) {
+                }
+                maxHeight = node.height;
             }
             if (this.runtimeRowButtons[i]) {
                 const button = figma.getNodeById(this.runtimeRowButtons[i]) as SceneNode;
@@ -251,10 +292,19 @@ export class ParametricComponentSetSession {
     /**
      * 新建Varint行
      * @param row
+     * @param bindNode 绑定某个 ComponentNode，如果为undefined
      */
-    createRow(row: VariantRow) {
+    createRow(row: VariantRow, bindNode?: ComponentNode) {
         const utilsFrame = this.getUtilsFrame();
         this.data.rows.push(row);
+        if (!bindNode) {
+            bindNode = this.getBaseFrame().clone();
+            this.rootNode.appendChild(bindNode);
+        }
+        bindNode.setPluginData('variantNodeId', bindNode.id);
+        bindNode.setPluginData('variantRow', row.name);
+        bindNode.setPluginData('variantDiff', JSON.stringify(diff(this.getBaseFrame(), bindNode)));
+        row.nodesId = [bindNode.id];
         this.createRowRuntimeButton(this.data.rows.length - 1);
         this.refreshRuntimeColumn();
         this.save();
@@ -266,6 +316,10 @@ export class ParametricComponentSetSession {
                 descriptionGroup = figma.group([group], utilsFrame);
                 descriptionGroup.name = 'Description';
             } else {
+                const previous = descriptionGroup.children[descriptionGroup.children.length - 1];
+                group.x = previous?.x;
+                group.y = previous?.y + this.padding + previous.height;
+                row.titleNodeId = group.id;
                 descriptionGroup.appendChild(group);
             }
             this.render();
@@ -279,10 +333,7 @@ export class ParametricComponentSetSession {
                 console.log('Click button: + interaction ' + this.data.rows[rowIndex].name)
             );
         } else if (this.data.rows[rowIndex].type === 'Selection') {
-            buttonFrame = createCanvasButton('+ Option', () => {
-              
-            }
-            );
+            buttonFrame = createCanvasButton('+ Option', () => {});
         }
         if (buttonFrame) {
             buttonFrame.setPluginData('parametricComponentSetID', this.rootNode.id);

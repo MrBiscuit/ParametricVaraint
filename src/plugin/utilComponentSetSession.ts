@@ -21,10 +21,16 @@ export function createParametricComponentSet(): ParametricComponentSetSession {
 
     const session = new ParametricComponentSetSession(componentSet);
     // 创建第一个Row
+    session.createRow(
+        {
+            type: 'Base&Interaction',
+            name: 'Base',
+        },
+        baseComponent
+    );
     session.createRow({
-        type: 'Base&Interaction',
-        name: 'Base',
-        nodesId: [baseComponent.id],
+        type: 'Selection',
+        name: 'Selection',
     });
 
     dispatch('creationComplete');
