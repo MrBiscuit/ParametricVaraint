@@ -3,7 +3,7 @@ const isObject = (x) => Object(x) === x;
 const isArray = Array.isArray;
 
 const mut = (o, [k, v]) => ((o[k] = v), o);
-    
+
 const props = [
     'backgrounds',
     'opacity',
@@ -11,11 +11,18 @@ const props = [
     'dashPattern',
     'effects',
     'fills',
+    'fillStyleId',
     'strokes',
+    'layoutMode',
+    'primaryAxisSizingMode',
+    'counterAxisSizingMode',
+    'primaryAxisAlignItems',
+    'counterAxisAlignItems',
     'paddingLeft',
     'paddingRight',
     'paddingTop',
     'paddingBottom',
+    'itemSpacing',
     'textAlignHorizontal',
     'textAlignVertical',
     'textAutoResize',
@@ -30,6 +37,10 @@ const props = [
     'lineHeight',
     'textStyleId',
     'hyperlink',
+    'topLeftRadius',
+    'topRightRadius',
+    'bottomLeftRadius',
+    'bottomRightRadius',
 ];
 
 const collectEntries = (obj: SceneNode) => {

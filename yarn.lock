@@ -30,10 +30,10 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@figma/plugin-typings@^1.24.0":
-  version "1.24.0"
-  resolved "https://registry.yarnpkg.com/@figma/plugin-typings/-/plugin-typings-1.24.0.tgz#4e57fa6acfbab24992acde8ca5355b76f2a5e947"
-  integrity sha512-KpEq/C1jMtNiO5yO1nVLn/cQhz4AHPzBfokwd93Z/4DYqJ2JR8z5jrGTt3SMNi2m0KsjND/D3wpxSofBm1WaBA==
+"@figma/plugin-typings@^1.47.0":
+  version "1.47.0"
+  resolved "https://registry.yarnpkg.com/@figma/plugin-typings/-/plugin-typings-1.47.0.tgz#cc6345b1611a156228655c0869c87953cd1ec868"
+  integrity sha512-DwMHzjDvks2cRWOTz4JRXqh+PZ2YP71MAdegw6qTqjjpACIWQGfuiFPrO2duoqB8pY1mMZsBK8xqozF2LIr7Kw==
 
 "@formatjs/ecma402-abstract@1.11.4":
   version "1.11.4"

@@ -15,17 +15,15 @@ handleEvent('createComponentSet', () => {
     session = createParametricComponentSet();
 
     figma.currentPage.selection = [session.rootNode];
-    figma.viewport.scrollAndZoomIntoView([session.getBaseVariant()]);
+    figma.viewport.scrollAndZoomIntoView([session.getBaseVariantComponent()]);
 });
 
 handleEvent('createVariant', (row) => {
     session?.createRow({
         type: row.type,
         name: row.name,
-        defaultValue:row.value,
-        
+        defaultValue: row.value,
     });
-    // TODO 创建时处理value
 });
 
 figma.on('selectionchange', () => {
@@ -54,7 +52,7 @@ figma.on('selectionchange', () => {
             // 关闭这个session
             session?.close();
             session = null;
-            dispatch("empty")
+            dispatch('empty');
         }
     } else {
         session.setChildSelection(sel);

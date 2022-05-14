@@ -24,7 +24,8 @@ export function createParametricComponentSet(): ParametricComponentSetSession {
     session.createRow(
         {
             type: 'Base&Interaction',
-            name: 'Base',
+            name: 'Interaction',
+            defaultValue: 'base',
         },
         baseComponent
     );

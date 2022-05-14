@@ -15,7 +15,7 @@ declare type VariantType = 'Base&Interaction' | 'Toggle' | 'Selection';
 declare type VariantRow = {
     type: VariantType;
     name: string;
-    defaultValue?: string
+    defaultValue: string;
     titleNodeId?: string;
     nodesId?: string[];
 };
@@ -26,3 +26,13 @@ declare type ComponentSetPluginData = {
 };
 
 declare type RuntimeVariantColumn = string[];
+
+declare type VariantGroupProperties = {
+    [property: string]: {
+        values: string[];
+    };
+};
+
+declare type VariantNodeProperties = {
+    [property: string]: string;
+};
