@@ -1,4 +1,4 @@
-import {handleEvent} from './codeMessageHandler';
+import {dispatch, handleEvent} from './codeMessageHandler';
 import {createParametricComponentSet, getPCSFromComponentSetNode} from './utilComponentSetSession';
 import {ParametricComponentSetSession} from './ComponentSetSession';
 import {getParametricComponentSet} from './helper';
@@ -54,6 +54,7 @@ figma.on('selectionchange', () => {
             session?.close();
             session = null;
             // TODO UI
+            dispatch("empty")
         }
     } else {
         session.setChildSelection(sel);

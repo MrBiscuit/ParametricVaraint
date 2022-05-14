@@ -320,7 +320,6 @@ export class ParametricComponentSetSession {
                    if (n.id !== bindNode.id) { n.name += `, ${row.name}=unset`}
                 });;
             }
-
         }
         row.nodesId = [bindNode.id];
         this.createRowRuntimeButton(this.data.rows.length - 1);

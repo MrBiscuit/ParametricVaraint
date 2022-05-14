@@ -11,6 +11,9 @@ declare function require(path: string): any;
 const App = ({}) => {
     let [page, setPage] = React.useState('HomePage');
     useEffect(() => {
+        handleEvent('empty', (_) => {
+            setPage('HomePage');
+        });
         handleEvent('creationComplete', (_) => {
             setPage('BaseVariant');
         });
