@@ -106,7 +106,9 @@ export class ParametricComponentSetSession {
                 node.remove();
             }
         }
-        //this.render();
+        this.runtimeRowButtons = [];
+        this.refreshRuntimeColumn();
+        this.render();
     }
 
     refreshRuntimeColumn() {
@@ -116,7 +118,9 @@ export class ParametricComponentSetSession {
             const columnNodesId = this.data.rows
                 .map((row, rowIndex) => (i === row.nodesId.length ? this.runtimeRowButtons[rowIndex] : row.nodesId[i]))
                 .filter((n) => !!n);
-            this.runtimeColumn.push(columnNodesId);
+            if (columnNodesId.length > 0) {
+                this.runtimeColumn[i] = columnNodesId;
+            }
         }
         console.log('refreshRuntimeColumn', this.runtimeColumn);
     }
@@ -169,24 +173,24 @@ export class ParametricComponentSetSession {
 
         if (!description) return;
 
-        description.x = this.padding;
-        description.y = this.padding;
-
         this.rootNode.defaultVariant.x = description.x + description.width + this.padding;
 
         let lastX = this.padding + description.width;
 
         for (let i = 0; i < this.runtimeColumn.length; i++) {
-            const columnNodes = this.runtimeColumn[i].map((nodeId) => figma.getNodeById(nodeId) as ComponentNode);
+            const columnNodes = this.runtimeColumn[i].map((nodeId) => figma.getNodeById(nodeId) as SceneNode);
 
-            const largestWidthOfFirstColumn = Math.max(...columnNodes.map((node) => node.width));
+            const largestWidthOfFirstColumn = Math.max(...columnNodes.map((node) => node?.width));
             for (let node of columnNodes) {
+                if (!node) continue;
                 node.x = lastX + this.padding;
                 lastX += this.padding + largestWidthOfFirstColumn;
             }
         }
         this.rootNode.resize(lastX + this.padding, 100);
         utilsFrame.resize(this.rootNode.width, this.rootNode.height);
+        description.x = this.padding;
+        description.y = this.padding;
     }
 
     /**
@@ -228,6 +232,8 @@ export class ParametricComponentSetSession {
             buttonFrame.setPluginData('parametricComponentSetID', this.rootNode.id);
             this.getUtilsFrame().appendChild(buttonFrame);
             this.runtimeRowButtons[rowIndex] = buttonFrame.id;
+            this.refreshRuntimeColumn();
+            this.render();
         }
     }
 }

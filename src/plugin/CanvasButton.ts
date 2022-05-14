@@ -36,10 +36,11 @@ export function createCanvasButton(text: string, callback: () => void): FrameNod
     frame.paddingBottom = 4;
     figma.loadFontAsync({family: 'Inter', style: 'Medium'}).then(() => {
         const nodeText = figma.createText();
-        nodeText.characters = text;
         nodeText.fontName = {family: 'Inter', style: 'Medium'};
+        nodeText.characters = text;
         nodeText.fontSize = 12;
         frame.appendChild(nodeText);
+        console.log('CanvasButton.appendChild Text');
     });
     callbacks[frame.id] = callback;
     return frame;
