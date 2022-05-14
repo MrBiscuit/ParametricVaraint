@@ -7,6 +7,12 @@ import {dispatch} from './codeMessageHandler';
 export function createParametricComponentSet(): ParametricComponentSetSession {
     // 创建组件集
     const baseComponent = figma.createComponent();
+    baseComponent.fills = [
+        {
+            type: 'SOLID',
+            color: {r: 1, g: 1, b: 1},
+        },
+    ];
     const componentSet = figma.combineAsVariants([baseComponent], figma.currentPage);
     componentSet.name = 'New Parametric Component Set';
     // 组件集位置 在视窗中间

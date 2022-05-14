@@ -19,7 +19,7 @@ export function createCanvasButton(text: string, callback: () => void): FrameNod
             opacity: 0.1,
         },
     ];
-    frame.cornerRadius = 4;
+    frame.cornerRadius = 2;
     frame.strokes = [
         {
             type: 'SOLID',
@@ -27,6 +27,7 @@ export function createCanvasButton(text: string, callback: () => void): FrameNod
             opacity: 0.1,
         },
     ];
+    frame.name = 'Button';
     frame.layoutMode = 'HORIZONTAL';
     frame.counterAxisAlignItems = 'CENTER';
     frame.primaryAxisAlignItems = 'CENTER';
@@ -34,11 +35,14 @@ export function createCanvasButton(text: string, callback: () => void): FrameNod
     frame.paddingRight = 16;
     frame.paddingTop = 4;
     frame.paddingBottom = 4;
+    frame.primaryAxisSizingMode = 'AUTO';
+    frame.counterAxisSizingMode = 'AUTO';
     figma.loadFontAsync({family: 'Inter', style: 'Medium'}).then(() => {
         const nodeText = figma.createText();
         nodeText.fontName = {family: 'Inter', style: 'Medium'};
         nodeText.characters = text;
         nodeText.fontSize = 12;
+        nodeText.locked = true;
         frame.appendChild(nodeText);
         console.log('CanvasButton.appendChild Text');
     });
