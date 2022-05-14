@@ -3,6 +3,7 @@
 import * as React from 'react';
 import {PlasmicCreateVariant, DefaultCreateVariantProps} from './plasmic/parametric_variant/PlasmicCreateVariant';
 import {HTMLElementRefOf} from '@plasmicapp/react-web';
+import { dispatch } from '../app/uiMessageHandler';
 
 // Your component props start with props for variants and slots you defined
 // in Plasmic, but you can add more here, like event handlers that you can
@@ -20,22 +21,52 @@ import {HTMLElementRefOf} from '@plasmicapp/react-web';
 export interface CreateVariantProps extends DefaultCreateVariantProps {}
 
 function CreateVariant_(props: CreateVariantProps, ref: HTMLElementRefOf<'div'>) {
-    // Use PlasmicCreateVariant to render this component as it was
-    // designed in Plasmic, by activating the appropriate variants,
-    // attaching the appropriate event handlers, etc.  You
-    // can also install whatever React hooks you need here to manage state or
-    // fetch data.
-    //
-    // Props you can pass into PlasmicCreateVariant are:
-    // 1. Variants you want to activate,
-    // 2. Contents for slots you want to fill,
-    // 3. Overrides for any named node in the component to attach behavior and data,
-    // 4. Props to set on the root node.
-    //
-    // By default, we are just piping all CreateVariantProps here, but feel free
-    // to do whatever works for you.
+    
+    let [type, setType] = React.useState("Toggle");
+    let [name, setName] = React.useState("");
+    let [value, setValue] = React.useState("");
 
-    return <PlasmicCreateVariant root={{ref}} {...props} />;
+    return <PlasmicCreateVariant root={{ref}} 
+    toggleType = {{
+        props:{
+            disabled: type !== "Toggle",
+            active: type === "Toggle",
+            onClick: () => setType("Toggle"),
+        }
+    }}
+
+    selectionType= {{
+        props:{
+            disabled: type !== "Selection",
+            active: type === "Selection",
+            onClick: () => setType("Selection"),
+        }
+    }}
+
+    nameInput = {{
+        props:{
+            onChange: (e) => {
+                setName( e.target.value)
+            }
+        }
+    }}
+
+    valueTrue = {{
+        props:{
+            disabled: value !== "true",
+            active: value === "true",
+            onClick: () => setValue("true"),
+        }
+    }}
+
+    valueFalse = {{
+        props:{
+            disabled: value !== "false",
+            active: value === "false",
+            onClick: () => setValue("false"),
+        }
+    }}
+    {...props} />;
 }
 
 const CreateVariant = React.forwardRef(CreateVariant_);

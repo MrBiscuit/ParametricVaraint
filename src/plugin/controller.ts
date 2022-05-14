@@ -3,7 +3,7 @@ import {createParametricComponentSet, getPCSFromComponentSetNode} from './utilCo
 import {ParametricComponentSetSession} from './ComponentSetSession';
 import {getParametricComponentSet} from './helper';
 
-figma.showUI(__html__);
+figma.showUI(__html__,{width:240, height:240});
 
 const interval = setInterval(() => {
     session?.updateLayout();

@@ -144,8 +144,8 @@ function PlasmicCreateInteractiveState__RenderFunc(props: {
                                         className={classNames(projectcss.all, sty.frame16)}
                                     >
                                         <RadioItem
+                                            active={true}
                                             className={classNames('__wab_instance', sty.radioItem__aQ0M)}
-                                            selected={true}
                                         >
                                             {'Hover'}
                                         </RadioItem>

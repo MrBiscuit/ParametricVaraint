@@ -182,9 +182,9 @@ function PlasmicTextInput__RenderFunc(props: {
                     [sty.inputisDisabled]: hasVariant(variants, 'isDisabled', 'isDisabled'),
                     [sty.inputshowStartIcon]: hasVariant(variants, 'showStartIcon', 'showStartIcon'),
                 })}
-                disabled={hasVariant(variants, 'isDisabled', 'isDisabled') ? true : undefined}
+                disabled={hasVariant(variants, 'isDisabled', 'isDisabled') ? true : false}
                 name={args.name}
-                placeholder={args.placeholder !== undefined ? args.placeholder : ('Enter something…' as const)}
+                placeholder={args.placeholder !== undefined ? args.placeholder : ('Enter variant name…' as const)}
                 type={'text' as const}
                 value={args.value}
             />

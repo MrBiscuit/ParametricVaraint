@@ -62,12 +62,16 @@ export type PlasmicCreateVariant__OverridesType = {
     frame18?: p.Flex<'div'>;
     type?: p.Flex<'div'>;
     frame16?: p.Flex<'div'>;
+    toggleType?: p.Flex<typeof RadioItem>;
+    selectionType?: p.Flex<typeof RadioItem>;
     frame19?: p.Flex<'div'>;
     name?: p.Flex<'div'>;
     nameInput?: p.Flex<typeof TextInput>;
     frame20?: p.Flex<'div'>;
     defaultValue?: p.Flex<'div'>;
     frame21?: p.Flex<'div'>;
+    valueTrue?: p.Flex<typeof RadioItem>;
+    valueFalse?: p.Flex<typeof RadioItem>;
     svg?: p.Flex<'svg'>;
     freeBox?: p.Flex<'div'>;
     button?: p.Flex<'div'>;
@@ -154,13 +158,19 @@ function PlasmicCreateVariant__RenderFunc(props: {
                                         className={classNames(projectcss.all, sty.frame16)}
                                     >
                                         <RadioItem
-                                            className={classNames('__wab_instance', sty.radioItem__pCjXq)}
-                                            selected={true}
+                                            data-plasmic-name={'toggleType'}
+                                            data-plasmic-override={overrides.toggleType}
+                                            active={true}
+                                            className={classNames('__wab_instance', sty.toggleType)}
                                         >
                                             {'Toggle'}
                                         </RadioItem>
 
-                                        <RadioItem className={classNames('__wab_instance', sty.radioItem__ez0Kz)}>
+                                        <RadioItem
+                                            data-plasmic-name={'selectionType'}
+                                            data-plasmic-override={overrides.selectionType}
+                                            className={classNames('__wab_instance', sty.selectionType)}
+                                        >
                                             {'Select'}
                                         </RadioItem>
                                     </div>
@@ -221,13 +231,19 @@ function PlasmicCreateVariant__RenderFunc(props: {
                                         className={classNames(projectcss.all, sty.frame21)}
                                     >
                                         <RadioItem
-                                            className={classNames('__wab_instance', sty.radioItem__oNNiL)}
-                                            selected={true}
+                                            data-plasmic-name={'valueTrue'}
+                                            data-plasmic-override={overrides.valueTrue}
+                                            active={true}
+                                            className={classNames('__wab_instance', sty.valueTrue)}
                                         >
                                             {'True'}
                                         </RadioItem>
 
-                                        <RadioItem className={classNames('__wab_instance', sty.radioItem__zjiHp)}>
+                                        <RadioItem
+                                            data-plasmic-name={'valueFalse'}
+                                            data-plasmic-override={overrides.valueFalse}
+                                            className={classNames('__wab_instance', sty.valueFalse)}
+                                        >
                                             {'False'}
                                         </RadioItem>
                                     </div>
@@ -278,12 +294,16 @@ const PlasmicDescendants = {
         'frame18',
         'type',
         'frame16',
+        'toggleType',
+        'selectionType',
         'frame19',
         'name',
         'nameInput',
         'frame20',
         'defaultValue',
         'frame21',
+        'valueTrue',
+        'valueFalse',
         'svg',
         'freeBox',
         'button',
@@ -296,12 +316,16 @@ const PlasmicDescendants = {
         'frame18',
         'type',
         'frame16',
+        'toggleType',
+        'selectionType',
         'frame19',
         'name',
         'nameInput',
         'frame20',
         'defaultValue',
         'frame21',
+        'valueTrue',
+        'valueFalse',
         'svg',
         'freeBox',
         'button',
@@ -313,12 +337,16 @@ const PlasmicDescendants = {
         'frame18',
         'type',
         'frame16',
+        'toggleType',
+        'selectionType',
         'frame19',
         'name',
         'nameInput',
         'frame20',
         'defaultValue',
         'frame21',
+        'valueTrue',
+        'valueFalse',
         'svg',
     ],
     frame50: [
@@ -326,22 +354,30 @@ const PlasmicDescendants = {
         'frame18',
         'type',
         'frame16',
+        'toggleType',
+        'selectionType',
         'frame19',
         'name',
         'nameInput',
         'frame20',
         'defaultValue',
         'frame21',
+        'valueTrue',
+        'valueFalse',
     ],
-    frame18: ['frame18', 'type', 'frame16'],
+    frame18: ['frame18', 'type', 'frame16', 'toggleType', 'selectionType'],
     type: ['type'],
-    frame16: ['frame16'],
+    frame16: ['frame16', 'toggleType', 'selectionType'],
+    toggleType: ['toggleType'],
+    selectionType: ['selectionType'],
     frame19: ['frame19', 'name', 'nameInput'],
     name: ['name'],
     nameInput: ['nameInput'],
-    frame20: ['frame20', 'defaultValue', 'frame21'],
+    frame20: ['frame20', 'defaultValue', 'frame21', 'valueTrue', 'valueFalse'],
     defaultValue: ['defaultValue'],
-    frame21: ['frame21'],
+    frame21: ['frame21', 'valueTrue', 'valueFalse'],
+    valueTrue: ['valueTrue'],
+    valueFalse: ['valueFalse'],
     svg: ['svg'],
     freeBox: ['freeBox', 'button', 'createVariant'],
     button: ['button', 'createVariant'],
@@ -357,12 +393,16 @@ type NodeDefaultElementType = {
     frame18: 'div';
     type: 'div';
     frame16: 'div';
+    toggleType: typeof RadioItem;
+    selectionType: typeof RadioItem;
     frame19: 'div';
     name: 'div';
     nameInput: typeof TextInput;
     frame20: 'div';
     defaultValue: 'div';
     frame21: 'div';
+    valueTrue: typeof RadioItem;
+    valueFalse: typeof RadioItem;
     svg: 'svg';
     freeBox: 'div';
     button: 'div';
@@ -424,12 +464,16 @@ export const PlasmicCreateVariant = Object.assign(
         frame18: makeNodeComponent('frame18'),
         type: makeNodeComponent('type'),
         frame16: makeNodeComponent('frame16'),
+        toggleType: makeNodeComponent('toggleType'),
+        selectionType: makeNodeComponent('selectionType'),
         frame19: makeNodeComponent('frame19'),
         _name: makeNodeComponent('name'),
         nameInput: makeNodeComponent('nameInput'),
         frame20: makeNodeComponent('frame20'),
         defaultValue: makeNodeComponent('defaultValue'),
         frame21: makeNodeComponent('frame21'),
+        valueTrue: makeNodeComponent('valueTrue'),
+        valueFalse: makeNodeComponent('valueFalse'),
         svg: makeNodeComponent('svg'),
         freeBox: makeNodeComponent('freeBox'),
         button: makeNodeComponent('button'),

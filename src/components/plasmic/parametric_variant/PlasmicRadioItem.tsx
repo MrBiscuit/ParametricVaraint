@@ -38,15 +38,15 @@ import projectcss from './plasmic_parametric_variant.module.css'; // plasmic-imp
 import sty from './PlasmicRadioItem.module.css'; // plasmic-import: TRE54cYrIj/css
 
 export type PlasmicRadioItem__VariantMembers = {
-    selected: 'selected';
+    active: 'active';
 };
 
 export type PlasmicRadioItem__VariantsArgs = {
-    selected?: SingleBooleanChoiceArg<'selected'>;
+    active?: SingleBooleanChoiceArg<'active'>;
 };
 
 type VariantPropType = keyof PlasmicRadioItem__VariantsArgs;
-export const PlasmicRadioItem__VariantProps = new Array<VariantPropType>('selected');
+export const PlasmicRadioItem__VariantProps = new Array<VariantPropType>('active');
 
 export type PlasmicRadioItem__ArgsType = {
     children?: React.ReactNode;
@@ -62,7 +62,7 @@ export type PlasmicRadioItem__OverridesType = {
 
 export interface DefaultRadioItemProps {
     children?: React.ReactNode;
-    selected?: SingleBooleanChoiceArg<'selected'>;
+    active?: SingleBooleanChoiceArg<'active'>;
     className?: string;
 }
 
@@ -89,21 +89,21 @@ function PlasmicRadioItem__RenderFunc(props: {
                 projectcss.plasmic_mixins,
                 projectcss.plasmic_tokens,
                 sty.root,
-                {[sty.rootselected]: hasVariant(variants, 'selected', 'selected')}
+                {[sty.rootactive]: hasVariant(variants, 'active', 'active')}
             )}
         >
             <div
                 data-plasmic-name={'freeBox'}
                 data-plasmic-override={overrides.freeBox}
                 className={classNames(projectcss.all, sty.freeBox, {
-                    [sty.freeBoxselected]: hasVariant(variants, 'selected', 'selected'),
+                    [sty.freeBoxactive]: hasVariant(variants, 'active', 'active'),
                 })}
             >
                 {p.renderPlasmicSlot({
                     defaultContents: 'radio.item',
                     value: args.children,
                     className: classNames(sty.slotTargetChildren, {
-                        [sty.slotTargetChildrenselected]: hasVariant(variants, 'selected', 'selected'),
+                        [sty.slotTargetChildrenactive]: hasVariant(variants, 'active', 'active'),
                     }),
                 })}
             </div>
