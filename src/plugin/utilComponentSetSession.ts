@@ -1,5 +1,6 @@
 import {ParametricComponentSetSession} from './ComponentSetSession';
 import {dispatch} from './codeMessageHandler';
+
 /**
  * 从无创建
  */

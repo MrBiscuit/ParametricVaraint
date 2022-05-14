@@ -22,19 +22,25 @@ figma.on('selectionchange', () => {
     const sel = figma.currentPage.selection[0];
 
     console.log('selectionchange', sel);
-    const sess = getPCSFromComponentSetNode(getParametricComponentSet(sel));
 
-    // 如果选中的是一个ParametricComponentSet
-    if (sess) {
-        session?.close();
-        session = sess;
-        session.setChildSelection(sel);
+    const pcs = getParametricComponentSet(sel);
+    if (!session || session.rootNode.id !== pcs?.id) {
+        const sess = getPCSFromComponentSetNode(pcs);
+
+        // 如果选中的是一个ParametricComponentSet
+        if (sess) {
+            session?.close();
+            session = sess;
+            session.setChildSelection(sel);
+        } else {
+            // 选中的不是ParametricComponentSet
+            // 关闭这个session
+            session?.close();
+            session = null;
+            // TODO UI
+        }
     } else {
-        // 选中的不是ParametricComponentSet
-        // 关闭这个session
-        session?.close();
-        session = null;
-        // TODO UI
+        session.setChildSelection(sel);
     }
 });
 

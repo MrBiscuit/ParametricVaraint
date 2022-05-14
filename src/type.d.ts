@@ -10,7 +10,7 @@ declare type DiffProp = {
     '@right'?: any;
 };
 
-declare type VariantType = 'Base&Interaction' | 'Boolean' | 'Select';
+declare type VariantType = 'Base&Interaction' | 'Toggle' | 'Selection';
 
 declare type VariantRow = {
     type: VariantType;

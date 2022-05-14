@@ -1,3 +1,5 @@
+import {clearCanvasButtonCallbacks, createCanvasButton, handleCanvasButtonClick} from './CanvasButton';
+
 /**
  * 创建Variant的Row的标题文字
  */
@@ -37,9 +39,14 @@ async function createVariantRowDescription(
     return group;
 }
 
+/**
+ * ParametricComponentSet 会话
+ * 表示用户正在操作的 ParametricComponentSet
+ */
 export class ParametricComponentSetSession {
     readonly rootNode: ComponentSetNode;
     data: ComponentSetPluginData;
+    runtimeRowButtons: string[] = [];
     runtimeColumn: RuntimeVariantColumn[] = [];
     padding: number = 32;
     childSelection: SceneNode;
@@ -56,6 +63,7 @@ export class ParametricComponentSetSession {
     }
 
     init() {
+        console.log('init');
         // 组建集样式
         this.rootNode.effects = [
             {
@@ -71,23 +79,46 @@ export class ParametricComponentSetSession {
         this.rootNode.fills = [
             {type: 'SOLID', visible: !0, opacity: 1, blendMode: 'MULTIPLY', color: {r: 1, g: 1, b: 1}},
         ];
+        // 生成运行时操作按钮
+        for (let i = 0; i < this.data.rows.length; i++) {
+            this.createRowRuntimeButton(i);
+        }
         this.refreshRuntimeColumn();
     }
 
     setChildSelection(node: SceneNode) {
         this.childSelection = node;
+        // 处理按钮点击
+        if (this.runtimeRowButtons.includes(node.id) && node.type === 'FRAME') {
+            if (handleCanvasButtonClick(node)) {
+                figma.currentPage.selection = [this.rootNode];
+            }
+        }
     }
 
     close() {
-        this.save(); 
+        console.log('close');
+        this.save();
+        clearCanvasButtonCallbacks();
+        for (let button of this.runtimeRowButtons) {
+            const node = figma.getNodeById(button);
+            if (node && !node.removed) {
+                node.remove();
+            }
+        }
+        //this.render();
     }
 
     refreshRuntimeColumn() {
         this.runtimeColumn = [];
-        const maxColumn = Math.max(...this.data.rows.map((row) => row.nodesId.length));
+        const maxColumn = Math.max(...this.data.rows.map((row) => row.nodesId.length)) + 1;
         for (let i = 0; i < maxColumn; i++) {
-            this.runtimeColumn.push(this.data.rows.map((row) => row.nodesId[0]));
+            const columnNodesId = this.data.rows
+                .map((row, rowIndex) => (i === row.nodesId.length ? this.runtimeRowButtons[rowIndex] : row.nodesId[i]))
+                .filter((n) => !!n);
+            this.runtimeColumn.push(columnNodesId);
         }
+        console.log('refreshRuntimeColumn', this.runtimeColumn);
     }
 
     getBaseFrame(): ComponentNode {
@@ -135,6 +166,9 @@ export class ParametricComponentSetSession {
         utilsFrame.y = this.rootNode.y;
 
         const description = utilsFrame.findOne((n) => n.name === 'Description');
+
+        if (!description) return;
+
         description.x = this.padding;
         description.y = this.padding;
 
@@ -155,17 +189,45 @@ export class ParametricComponentSetSession {
         utilsFrame.resize(this.rootNode.width, this.rootNode.height);
     }
 
+    /**
+     * 新建Varint行
+     * @param row
+     */
     createRow(row: VariantRow) {
         const utilsFrame = this.getUtilsFrame();
         this.data.rows.push(row);
+        this.createRowRuntimeButton(this.data.rows.length - 1);
         this.refreshRuntimeColumn();
         this.save();
-        createVariantRowDescription(utilsFrame, row.name, '??').then((baseDescriptionGroup) => {
-            const descriptionGroup = figma.group([baseDescriptionGroup], utilsFrame);
-            descriptionGroup.name = 'Description';
+        createVariantRowDescription(utilsFrame, row.name, row.type).then((group) => {
+            let descriptionGroup = utilsFrame.findOne(
+                (node) => node.type === 'GROUP' && node.name === 'Description'
+            ) as GroupNode;
+            if (!descriptionGroup) {
+                descriptionGroup = figma.group([group], utilsFrame);
+                descriptionGroup.name = 'Description';
+            } else {
+                descriptionGroup.appendChild(group);
+            }
             this.render();
         });
     }
 
-    renderColumn() {}
+    createRowRuntimeButton(rowIndex: number) {
+        let buttonFrame = null;
+        if (this.data.rows[rowIndex].type === 'Base&Interaction') {
+            buttonFrame = createCanvasButton('+ Interaction', () =>
+                console.log('Click button: + interaction ' + this.data.rows[rowIndex].name)
+            );
+        } else if (this.data.rows[rowIndex].type === 'Selection') {
+            buttonFrame = createCanvasButton('+ Option', () =>
+                console.log('Click button: + option ' + this.data.rows[rowIndex].name)
+            );
+        }
+        if (buttonFrame) {
+            buttonFrame.setPluginData('parametricComponentSetID', this.rootNode.id);
+            this.getUtilsFrame().appendChild(buttonFrame);
+            this.runtimeRowButtons[rowIndex] = buttonFrame.id;
+        }
+    }
 }
