@@ -3,7 +3,7 @@ import {createParametricComponentSet, getPCSFromComponentSetNode} from './utilCo
 import {ParametricComponentSetSession} from './ComponentSetSession';
 import {getParametricComponentSet} from './helper';
 
-figma.showUI(__html__,{width:240, height:240});
+figma.showUI(__html__, {width: 240, height: 240});
 
 const interval = setInterval(() => {
     session?.updateLayout();
@@ -16,6 +16,14 @@ handleEvent('createComponentSet', () => {
 
     figma.currentPage.selection = [session.rootNode];
     figma.viewport.scrollAndZoomIntoView([session.getBaseFrame()]);
+});
+
+handleEvent('createVariant', (row) => {
+    session?.createRow({
+        type: row.type,
+        name: row.name,
+    });
+    // TODO 创建时处理value
 });
 
 figma.on('selectionchange', () => {

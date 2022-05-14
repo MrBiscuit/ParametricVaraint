@@ -3,7 +3,7 @@
 import * as React from 'react';
 import {PlasmicCreateVariant, DefaultCreateVariantProps} from './plasmic/parametric_variant/PlasmicCreateVariant';
 import {HTMLElementRefOf} from '@plasmicapp/react-web';
-import { dispatch } from '../app/uiMessageHandler';
+import {dispatch} from '../app/uiMessageHandler';
 
 // Your component props start with props for variants and slots you defined
 // in Plasmic, but you can add more here, like event handlers that you can
@@ -21,65 +21,76 @@ import { dispatch } from '../app/uiMessageHandler';
 export interface CreateVariantProps extends DefaultCreateVariantProps {}
 
 function CreateVariant_(props: CreateVariantProps, ref: HTMLElementRefOf<'div'>) {
-    
-    let [type, setType] = React.useState("Toggle");
-    let [name, setName] = React.useState("");
-    let [value, setValue] = React.useState("true");
+    let [type, setType] = React.useState('Toggle');
+    let [name, setName] = React.useState('');
+    let [value, setValue] = React.useState('true');
 
-    return <PlasmicCreateVariant root={{ref}} 
-    toggleType = {{
-        props:{
-            disabled: type !== "Toggle",
-            active: type === "Toggle",
-            onClick: () => setType("Toggle"),
-        }
-    }}
-
-    selectionType= {{
-        props:{
-            disabled: type !== "Selection",
-            active: type === "Selection",
-            onClick: () => setType("Selection"),
-        }
-    }}
-
-    nameInput = {{
-        props:{
-            onChange: (e) => {
-                setName( e.target.value)
-            }
-        }
-    }}
-
-    valueTrue = {{
-        props:{
-            disabled: value !== "true",
-            active: value === "true",
-            onClick: () => setValue("true"),
-        }
-    }}
-
-    valueFalse = {{
-        props:{
-            disabled: value !== "false",
-            active: value === "false",
-            onClick: () => setValue("false"),
-        }
-    }}
-
-    defaultValue = {{
-        
-        props:{
-            showInput: type === "Selection",
-        }
-    }}
-
-    confirm = {{
-        props: {
-            onClick: () => { dispatch("createVariant", { type: type, name: name, value: value }) }
-        }
-    }}
-    {...props} />;
+    return (
+        <PlasmicCreateVariant
+            root={{ref}}
+            toggleType={{
+                props: {
+                    // @ts-ignore
+                    disabled: type !== 'Toggle',
+                    // @ts-ignore
+                    active: type === 'Toggle',
+                    // @ts-ignore
+                    onClick: () => setType('Toggle'),
+                },
+            }}
+            selectionType={{
+                props: {
+                    // @ts-ignore
+                    disabled: type !== 'Selection',
+                    // @ts-ignore
+                    active: type === 'Selection',
+                    // @ts-ignore
+                    onClick: () => setType('Selection'),
+                },
+            }}
+            nameInput={{
+                props: {
+                    onChange: (e) => {
+                        setName(e.target.value);
+                    },
+                },
+            }}
+            valueTrue={{
+                props: {
+                    // @ts-ignore
+                    disabled: value !== 'true',
+                    // @ts-ignore
+                    active: value === 'true',
+                    // @ts-ignore
+                    onClick: () => setValue('true'),
+                },
+            }}
+            valueFalse={{
+                props: {
+                    // @ts-ignore
+                    disabled: value !== 'false',
+                    // @ts-ignore
+                    active: value === 'false',
+                    // @ts-ignore
+                    onClick: () => setValue('false'),
+                },
+            }}
+            defaultValue={{
+                props: {
+                    showInput: type === 'Selection',
+                },
+            }}
+            confirm={{
+                props: {
+                    // @ts-ignore
+                    onClick: () => {
+                        dispatch('createVariant', {type: type, name: name, value: value});
+                    },
+                },
+            }}
+            {...props}
+        />
+    );
 }
 
 const CreateVariant = React.forwardRef(CreateVariant_);

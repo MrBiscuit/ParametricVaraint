@@ -28,10 +28,6 @@ export function createParametricComponentSet(): ParametricComponentSetSession {
         },
         baseComponent
     );
-    session.createRow({
-        type: 'Selection',
-        name: 'Selection',
-    });
 
     dispatch('creationComplete');
     return session;
