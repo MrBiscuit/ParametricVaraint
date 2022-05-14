@@ -75,7 +75,7 @@ export type PlasmicCreateVariant__OverridesType = {
     svg?: p.Flex<'svg'>;
     freeBox?: p.Flex<'div'>;
     button?: p.Flex<'div'>;
-    createVariant?: p.Flex<typeof Button>;
+    confirm?: p.Flex<typeof Button>;
 };
 
 export interface DefaultCreateVariantProps {
@@ -271,9 +271,9 @@ function PlasmicCreateVariant__RenderFunc(props: {
                                 className={classNames(projectcss.all, sty.button)}
                             >
                                 <Button
-                                    data-plasmic-name={'createVariant'}
-                                    data-plasmic-override={overrides.createVariant}
-                                    className={classNames('__wab_instance', sty.createVariant)}
+                                    data-plasmic-name={'confirm'}
+                                    data-plasmic-override={overrides.confirm}
+                                    className={classNames('__wab_instance', sty.confirm)}
                                     text={'Create Variant'}
                                 />
                             </p.Stack>
@@ -307,7 +307,7 @@ const PlasmicDescendants = {
         'svg',
         'freeBox',
         'button',
-        'createVariant',
+        'confirm',
     ],
     content: [
         'content',
@@ -329,7 +329,7 @@ const PlasmicDescendants = {
         'svg',
         'freeBox',
         'button',
-        'createVariant',
+        'confirm',
     ],
     frame53: [
         'frame53',
@@ -379,9 +379,9 @@ const PlasmicDescendants = {
     valueTrue: ['valueTrue'],
     valueFalse: ['valueFalse'],
     svg: ['svg'],
-    freeBox: ['freeBox', 'button', 'createVariant'],
-    button: ['button', 'createVariant'],
-    createVariant: ['createVariant'],
+    freeBox: ['freeBox', 'button', 'confirm'],
+    button: ['button', 'confirm'],
+    confirm: ['confirm'],
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
 type DescendantsType<T extends NodeNameType> = typeof PlasmicDescendants[T][number];
@@ -406,7 +406,7 @@ type NodeDefaultElementType = {
     svg: 'svg';
     freeBox: 'div';
     button: 'div';
-    createVariant: typeof Button;
+    confirm: typeof Button;
 };
 
 type ReservedPropsType = 'variants' | 'args' | 'overrides';
@@ -477,7 +477,7 @@ export const PlasmicCreateVariant = Object.assign(
         svg: makeNodeComponent('svg'),
         freeBox: makeNodeComponent('freeBox'),
         button: makeNodeComponent('button'),
-        createVariant: makeNodeComponent('createVariant'),
+        confirm: makeNodeComponent('confirm'),
 
         // Metadata about props expected for PlasmicCreateVariant
         internalVariantProps: PlasmicCreateVariant__VariantProps,

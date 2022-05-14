@@ -24,7 +24,7 @@ function CreateVariant_(props: CreateVariantProps, ref: HTMLElementRefOf<'div'>)
     
     let [type, setType] = React.useState("Toggle");
     let [name, setName] = React.useState("");
-    let [value, setValue] = React.useState("");
+    let [value, setValue] = React.useState("true");
 
     return <PlasmicCreateVariant root={{ref}} 
     toggleType = {{
@@ -64,6 +64,12 @@ function CreateVariant_(props: CreateVariantProps, ref: HTMLElementRefOf<'div'>)
             disabled: value !== "false",
             active: value === "false",
             onClick: () => setValue("false"),
+        }
+    }}
+
+    confirm = {{
+        props: {
+            onClick: () => { dispatch("createVariant", { type: type, name: name, value: value }) }
         }
     }}
     {...props} />;
