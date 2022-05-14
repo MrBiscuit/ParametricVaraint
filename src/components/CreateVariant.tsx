@@ -58,26 +58,32 @@ function CreateVariant_(props: CreateVariantProps, ref: HTMLElementRefOf<'div'>)
             defaultValue={{
                 props: {
                     showInput: type === 'Selection',
-                    
-                },
-                valueTrue: {
-                    props: {
-                        disabled: value !== 'true',
-                        // @ts-ignore
-                        active: value === 'true',
-                        // @ts-ignore
-                        onClick: () => setValue('true'),
-                    }
-                },
-                valueFalse: {
-                    props: {
-                        // @ts-ignore
-                        disabled: value !== 'false',
-                        // @ts-ignore
-                        active: value === 'false',
-                        // @ts-ignore
-                        onClick: () => setValue('false'),
+                    valueTrue: {
+                        props: {
+                            disabled: value !== 'true',
+                            // @ts-ignore
+                            active: value === 'true',
+                            // @ts-ignore
+                            onClick: () => setValue('true'),
+                        }
                     },
+                    valueFalse: {
+                        props: {
+                            // @ts-ignore
+                            disabled: value !== 'false',
+                            // @ts-ignore
+                            active: value === 'false',
+                            // @ts-ignore
+                            onClick: () => setValue('false'),
+                        },
+                    },
+                    nameInput: {
+                        props: {
+                            onChange: (e) => {
+                                setValue(e.target.value);
+                            }
+                        },
+                    }
                 },
                
 

@@ -314,10 +314,10 @@ export class ParametricComponentSetSession {
                 bindNode.name += `, ${row.name}=${row.defaultValue}`
                 if (row.defaultValue === "true" || row.defaultValue === "false") {
                     (bindNode.parent as ComponentSetNode).children.map((n:ComponentNode) => {
-                        if (n.id !== bindNode.id) n.name += `${row.name}=${row.defaultValue === "true" ? "false" : "true"}`
+                        if (n.id !== bindNode.id) n.name += `, ${row.name}=${row.defaultValue === "true" ? "false" : "true"}`
                     });;
                 } else (bindNode.parent as ComponentSetNode).children.map((n:ComponentNode) => {
-                   if (n.id !== bindNode.id) { n.name += `${row.name}=unset`}
+                   if (n.id !== bindNode.id) { n.name += `, ${row.name}=unset`}
                 });;
             }
 
