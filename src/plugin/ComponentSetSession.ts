@@ -86,7 +86,9 @@ export class ParametricComponentSetSession {
             this.createRowRuntimeButton(i);
         }
         // 生成运行时添加Variant按钮
-        const addVariantButton = createCanvasButton('+ Variant', () => console.log('Click button: Add variant'));
+        const addVariantButton = createCanvasButton('+ Variant', () => {
+          dispatch("addVariant");  
+        });
         addVariantButton.setPluginData('parametricComponentSetID', this.rootNode.id);
         this.runtimeAddVariantButton = addVariantButton.id;
         this.getUtilsFrame().appendChild(addVariantButton);
@@ -277,8 +279,9 @@ export class ParametricComponentSetSession {
                 console.log('Click button: + interaction ' + this.data.rows[rowIndex].name)
             );
         } else if (this.data.rows[rowIndex].type === 'Selection') {
-            buttonFrame = createCanvasButton('+ Option', () =>
-                dispatch("addVariant")
+            buttonFrame = createCanvasButton('+ Option', () => {
+              
+            }
             );
         }
         if (buttonFrame) {
