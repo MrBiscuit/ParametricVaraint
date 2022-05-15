@@ -1,11 +1,13 @@
-const isObject = (x) => Object(x) === x;
+export const isObject = (x) => Object(x) === x;
 
-const isArray = Array.isArray;
+export const isArray = Array.isArray;
 
 const mut = (o, [k, v]) => ((o[k] = v), o);
 
 const props = [
-    'backgrounds',
+    'x',
+    'y',
+    'rotation',
     'opacity',
     'constraints',
     'dashPattern',

@@ -61,4 +61,5 @@ figma.on('selectionchange', () => {
 
 figma.on('close', () => {
     clearInterval(interval);
+    session?.close();
 });

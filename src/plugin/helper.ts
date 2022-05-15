@@ -11,3 +11,15 @@ export function getParametricComponentSet(node: BaseNode): BaseNode {
         return getParametricComponentSet(node.parent);
     }
 }
+
+export function getParentComponent(node: BaseNode): BaseNode {
+    if (!node) {
+        return null;
+    } else if (node.type === 'COMPONENT') {
+        return node;
+    } else if (node.parent.type === 'PAGE') {
+        return null;
+    } else {
+        return getParentComponent(node.parent);
+    }
+}

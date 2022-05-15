@@ -3,6 +3,7 @@ import {dispatch} from './codeMessageHandler';
 import diff from './utilDiff';
 import {genVariantNodeName, getVariantPropsFromName} from './utilVariant';
 import {ComponentVariantNode} from './ComponentVariantNode';
+import {getParentComponent} from './helper';
 
 /**
  * 创建Variant的Row的标题文字
@@ -116,7 +117,7 @@ export class ParametricComponentSetSession {
                 const row = this.data.rows[rowIndex];
                 console.log('Click button: + Selection ' + row.name);
                 const clone = this.cloneBaseVariantComponent();
-                dispatch("addOption")
+                dispatch('addOption');
                 this.rootNode.appendChild(clone);
                 const variantNode = this.getComponentVariantNode(clone.id);
                 variantNode.data.variantRow = row.name;
@@ -189,6 +190,9 @@ export class ParametricComponentSetSession {
             utilsFrame.y = this.rootNode.y;
             utilsFrame.resize(this.rootNode.width, this.rootNode.height);
             utilsFrame.setPluginData('parametricComponentSetID', this.rootNode.id);
+            const index = this.rootNode.parent.children.indexOf(this.rootNode);
+            console.log('index', index);
+            this.rootNode.parent.insertChild(index, utilsFrame);
             this.data.utilsFrameId = utilsFrame.id;
             this.save();
         }
@@ -278,12 +282,17 @@ export class ParametricComponentSetSession {
         // 只有在当前已选择内容时，进行重新render
         if (!this.childSelection) return; // 如果当前什么都没选中，那么不进行update
 
-        if (this.childSelection.type === 'COMPONENT') {
-            if (this.childSelection.id === this.getBaseVariantComponent().id) {
-                // TODO 在选中 Base 时，更新变更到所有其他子组件
-            } else {
-                // TODO 在选中 非Base 时，计算并储存与Base的差异
+        const component = getParentComponent(this.childSelection);
+        if (component?.type === 'COMPONENT') {
+            if (component.id !== this.getBaseVariantComponent().id) {
+                // 在选中 非Base 时，计算并储存与Base的差异
+                this.getComponentVariantNode(component.id).updateDiff();
                 // const dif = diff(this.childSelection, this.getBaseVariantComponent());
+            }
+            for (let child of this.rootNode.children) {
+                if (child.id != component.id) {
+                    this.getComponentVariantNode(child.id).applyDiff();
+                }
             }
         }
         this.render();
@@ -520,7 +529,7 @@ export class ParametricComponentSetSession {
 
         // TODO 生成其他缺失的Component
         for (let row of this.data.rows) {
-            const find = this.rootNode.findAll((child: ComponentNode) => !child.variantProperties[row.name]);
+            const find = this.rootNode.findAll((child: ComponentNode) => !child.variantProperties?.[row.name]);
             console.log('其他缺失的Component', row.name, find);
         }
     }
