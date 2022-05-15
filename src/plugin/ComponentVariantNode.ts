@@ -65,6 +65,17 @@ export class ComponentVariantNode {
         return dif;
     }
 
+    setVariantProp(prop: string, value: string) {
+        const node = this.getNode();
+        if (!node) {
+            console.error('ComponentVariantNode.updateVariantName 找不到对应Node ' + this.nodeId);
+            return;
+        }
+        const props = getVariantPropsFromName(node.name);
+        props[prop] = value;
+        node.name = genVariantNodeName(props);
+    }
+
     updateVariantName() {
         const node = this.getNode();
         if (!node) {

@@ -113,13 +113,15 @@ export class ParametricComponentSetSession {
             });
         } else if (this.data.rows[rowIndex].type === 'Selection') {
             buttonFrame = createCanvasButton('+ Option', () => {
-                console.log('Click button: + Selection ' + this.data.rows[rowIndex].name);
+                const row = this.data.rows[rowIndex];
+                console.log('Click button: + Selection ' + row.name);
                 const clone = this.cloneBaseVariantComponent();
                 this.rootNode.appendChild(clone);
                 const variantNode = this.getComponentVariantNode(clone.id);
-                variantNode.data.variantRow = this.data.rows[rowIndex].name;
+                variantNode.data.variantRow = row.name;
                 variantNode.data.variantRowData = 'New Selection';
                 this.data.rows[rowIndex].nodesId.push(clone.id);
+                variantNode.setVariantProp(row.name, 'New Selection');
                 variantNode.updateVariantName();
                 this.save();
                 this.refreshRuntimeColumn();
@@ -445,6 +447,7 @@ export class ParametricComponentSetSession {
         if (this.getBaseVariantComponent().id !== bindNode.id) {
             nodeInstance.updateDiff();
         }
+        nodeInstance.setVariantProp(row.name, row.defaultValue);
         this.runtimeVariantComponent[bindNode.id] = nodeInstance;
         nodeInstance.save();
 
