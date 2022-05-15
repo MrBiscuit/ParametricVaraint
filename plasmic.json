@@ -171,6 +171,19 @@
                     "cssFilePath": "plasmic/parametric_variant/PlasmicDefaultValue.module.css",
                     "scheme": "blackbox",
                     "componentType": "component"
+                },
+                {
+                    "id": "dVuFcSs25QK",
+                    "name": "AddOption",
+                    "type": "managed",
+                    "projectId": "quwQo95zDfdBFMtbz7jPTa",
+                    "renderModuleFilePath": "plasmic/parametric_variant/PlasmicAddOption.tsx",
+                    "importSpec": {
+                        "modulePath": "AddOption.tsx"
+                    },
+                    "cssFilePath": "plasmic/parametric_variant/PlasmicAddOption.module.css",
+                    "scheme": "blackbox",
+                    "componentType": "page"
                 }
             ],
             "icons": [

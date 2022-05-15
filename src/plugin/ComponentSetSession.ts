@@ -116,6 +116,7 @@ export class ParametricComponentSetSession {
                 const row = this.data.rows[rowIndex];
                 console.log('Click button: + Selection ' + row.name);
                 const clone = this.cloneBaseVariantComponent();
+                dispatch("addOption")
                 this.rootNode.appendChild(clone);
                 const variantNode = this.getComponentVariantNode(clone.id);
                 variantNode.data.variantRow = row.name;

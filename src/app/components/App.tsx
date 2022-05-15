@@ -4,12 +4,17 @@ import BaseVariant from '../../components/BaseVariant';
 import '../styles/ui.css';
 import {useEffect} from 'react';
 import {handleEvent} from '../uiMessageHandler';
+import AddOption from '../../components/AddOption';
 import CreateVariant from '../../components/CreateVariant';
+import { HTMLElementRefOf, TextInputRefValue } from "@plasmicapp/react-web";
 
 declare function require(path: string): any;
 
 const App = ({}) => {
     let [page, setPage] = React.useState('HomePage');
+    const addOptionInput = React.useRef<TextInputRefValue>(null)
+
+
     useEffect(() => {
         handleEvent('empty', (_) => {
             setPage('HomePage');
@@ -19,6 +24,10 @@ const App = ({}) => {
         });
         handleEvent('addVariant', (_) => {
             setPage('CreateVariant');
+        });
+        handleEvent('addOption', (_) => {
+            setPage('AddOption');
+            {addOptionInput.current.focus()}
         });
     }, []);
 
@@ -38,6 +47,17 @@ const App = ({}) => {
         return (
             <div>
                 <CreateVariant />
+            </div>
+        );
+    } else if (page === 'AddOption') {
+        return (
+            <div>
+                <AddOption 
+                valueInput={{
+                    props:{
+                        ref: addOptionInput,
+                    }
+                }} />
             </div>
         );
     }
