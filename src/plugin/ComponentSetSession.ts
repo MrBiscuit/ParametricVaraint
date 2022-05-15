@@ -526,7 +526,9 @@ export class ParametricComponentSetSession {
 
         // TODO 生成其他缺失的Component
         for (let row of this.data.rows) {
-            const find = this.rootNode.findAll((child: ComponentNode) => !child.variantProperties?.[row.name]);
+            const find = this.rootNode.findAll(
+                (child: ComponentNode) => this.getComponentVariantNode(child.id).data.variantNodeId !== row.name
+            );
             console.log('其他缺失的Component', row.name, find);
         }
 
