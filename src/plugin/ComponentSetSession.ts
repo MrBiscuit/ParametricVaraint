@@ -2,6 +2,7 @@ import {clearCanvasButtonCallbacks, createCanvasButton, handleCanvasButtonClick}
 import {dispatch} from './codeMessageHandler';
 import diff from './utilDiff';
 import {genVariantNodeName, getVariantPropsFromName} from './utilVariant';
+import {ComponentVariantNode} from './ComponentVariantNode';
 
 /**
  * 创建Variant的Row的标题文字
@@ -52,6 +53,7 @@ export class ParametricComponentSetSession {
     runtimeRowButtons: string[] = []; // 运行时的row的右侧添加按钮ID，index为row的index
     runtimeAddVariantButton: string; // 运行时的底部添加Variant分类的按钮ID
     runtimeColumn: RuntimeVariantColumn[] = [];
+    runtimeVariantComponent: {[id: string]: ComponentVariantNode} = {}; // 运行时将 VariantComponent 缓存至内存中
     padding: number = 32;
     childSelection: SceneNode;
 
@@ -83,6 +85,11 @@ export class ParametricComponentSetSession {
         this.rootNode.fills = [
             {type: 'SOLID', visible: !0, opacity: 1, blendMode: 'MULTIPLY', color: {r: 1, g: 1, b: 1}},
         ];
+        // 将所有子组件对象实例化到内存
+        for (let child of this.rootNode.children) {
+            this.runtimeVariantComponent[child.id] = new ComponentVariantNode(this, child.id);
+        }
+
         // 生成运行时操作按钮
         for (let i = 0; i < this.data.rows.length; i++) {
             this.createRowRuntimeButton(i);
@@ -101,11 +108,23 @@ export class ParametricComponentSetSession {
     createRowRuntimeButton(rowIndex: number) {
         let buttonFrame = null;
         if (this.data.rows[rowIndex].type === 'Base&Interaction') {
-            buttonFrame = createCanvasButton('+ Interaction', () =>
-                console.log('Click button: + interaction ' + this.data.rows[rowIndex].name)
-            );
+            buttonFrame = createCanvasButton('+ Interaction', () => {
+                console.log('Click button: + interaction ' + this.data.rows[rowIndex].name);
+            });
         } else if (this.data.rows[rowIndex].type === 'Selection') {
-            buttonFrame = createCanvasButton('+ Option', () => {});
+            buttonFrame = createCanvasButton('+ Option', () => {
+                console.log('Click button: + Selection ' + this.data.rows[rowIndex].name);
+                const clone = this.cloneBaseVariantComponent();
+                this.rootNode.appendChild(clone);
+                const variantNode = this.getComponentVariantNode(clone.id);
+                variantNode.data.variantRow = this.data.rows[rowIndex].name;
+                variantNode.data.variantRowData = 'New Selection';
+                this.data.rows[rowIndex].nodesId.push(clone.id);
+                variantNode.updateVariantName();
+                this.save();
+                this.refreshRuntimeColumn();
+                this.render();
+            });
         }
         if (buttonFrame) {
             buttonFrame.setPluginData('parametricComponentSetID', this.rootNode.id);
@@ -136,7 +155,6 @@ export class ParametricComponentSetSession {
             node.appendChild(child.clone());
         }
         const dif = diff(base, node);
-        console.log('dif', dif);
         for (let difKey in dif) {
             if (difKey !== 'children' && dif[difKey]['@left']) {
                 node[difKey] = dif[difKey]['@left'];
@@ -172,6 +190,17 @@ export class ParametricComponentSetSession {
             this.save();
         }
         return utilsFrame;
+    }
+
+    /**
+     * 获取或自动创建 ComponentVariantNode 对象
+     * @param id NodeID
+     */
+    getComponentVariantNode(id: string): ComponentVariantNode {
+        if (!this.runtimeVariantComponent[id]) {
+            this.runtimeVariantComponent[id] = new ComponentVariantNode(this, id);
+        }
+        return this.runtimeVariantComponent[id];
     }
 
     /**
@@ -319,6 +348,10 @@ export class ParametricComponentSetSession {
             if (titleNode) {
                 titleNode.y = lastY;
             }
+            if (!row.nodesId) {
+                // TEST
+                console.log('Mission nodesId', row);
+            }
             for (let node of row.nodesId.map((id) => figma.getNodeById(id) as SceneNode)) {
                 node.y = lastY;
                 if (node.height > maxHeight) {
@@ -375,11 +408,11 @@ export class ParametricComponentSetSession {
         if (node.type === 'COMPONENT') {
             const myId = node.getPluginData('variantNodeId');
             if (!myId || myId != node.id) {
-                console.log('setChildSelection.ZA', node);
+                console.log('setChildSelection.New', myId, node.id);
                 this.createRow(
                     {
                         type: 'Selection',
-                        name: 'New Variant',
+                        name: 'New Variant ' + this.data.rows.length,
                         defaultValue: 'default',
                     },
                     node
@@ -396,72 +429,71 @@ export class ParametricComponentSetSession {
     createRow(row: VariantRow, bindNode?: ComponentNode) {
         const utilsFrame = this.getUtilsFrame();
         this.data.rows.push(row);
+        if (!row.nodesId) row.nodesId = [];
+
         if (!bindNode) {
             bindNode = this.cloneBaseVariantComponent(); // this.getBaseVariantComponent().clone(); 这边直接clone会导致错误，只能手动clone了
             console.log('this.getBaseVariantComponent().clone()', bindNode);
             this.rootNode.appendChild(bindNode);
         }
-        bindNode.setPluginData('variantNodeId', bindNode.id);
-        bindNode.setPluginData('variantRow', row.name);
-        bindNode.setPluginData('variantDiff', JSON.stringify(diff(this.getBaseVariantComponent(), bindNode)));
+        const nodeInstance = new ComponentVariantNode(this, bindNode.id);
+        nodeInstance.data = {
+            variantNodeId: bindNode.id,
+            variantRow: row.name,
+            variantRowData: row.defaultValue,
+        };
+        if (this.getBaseVariantComponent().id !== bindNode.id) {
+            nodeInstance.updateDiff();
+        }
+        this.runtimeVariantComponent[bindNode.id] = nodeInstance;
+        nodeInstance.save();
 
-        //console.log("variantGroupProperties", this.rootNode.variantGroupProperties);
+        // 刷新所有子组件，将这个新增的row的值设置为defaultValue
+        for (let child of this.rootNode.children) {
+            this.getComponentVariantNode(child.id).updateVariantName();
+        }
+
+        // 如果是通过figma自带的那个新建Variant，就会自动创建一个新的，这时候得要删除掉这个自动新增的variant
         const newProps = Object.keys(this.rootNode.variantGroupProperties as VariantGroupProperties).filter(
             (p) => !this.data.rows.find((r) => r.name === p)
         );
-        /*for (let newProp of newProps) {
-            this.rootNode.variantGroupProperties[row.name] = this.rootNode.variantGroupProperties[newProp];
-            delete this.rootNode.variantGroupProperties[newProp];
-        }*/
         console.log('newProps', newProps);
-        if (row.defaultValue) {
-            // 写入 Property (修改图层名)
-            // 找出新添加的figma的variant
-            const baseRow = this.data.rows.find((r) => r.type === 'Base&Interaction');
-            this.getBaseVariantComponent().variantProperties;
+        if (newProps.length > 0) {
             for (let child of this.rootNode.children) {
                 const props = getVariantPropsFromName(child.name);
                 console.log('props', props);
                 for (let propKey in props) {
                     if (newProps.includes(propKey)) {
                         delete props[propKey];
+                        child.name = genVariantNodeName(props);
                     }
                 }
-                if (baseRow) {
-                    props[baseRow.name] = baseRow.defaultValue;
-                }
-                if (child === bindNode) {
-                    props[row.name] = row.defaultValue;
-                } else {
-                    props[row.name] =
-                        row.type === 'Toggle' ? (row.defaultValue === 'true' ? 'false' : 'true') : 'unset';
-                }
-                child.name = genVariantNodeName(props);
-                console.log(child.name);
             }
-
-            /*const props = getVariantPropsFromName(bindNode.name);
-            console.log("bindNode.props", props);
-            props[row.name] = row.defaultValue;
-            bindNode.name = genVariantNodeName(props);*/
-
-            /*if (bindNode.name === "Property 1=Default") {
-                bindNode.name = `${row.name}=${row.defaultValue}`
-                if (row.defaultValue === "true" || row.defaultValue === "false") {
-                    (bindNode.parent as ComponentSetNode).defaultVariant.name = `${row.name}=${row.defaultValue === "true" ? "false" : "true"}`;
-                } else (bindNode.parent as ComponentSetNode).defaultVariant.name = `${row.name}=unset`;
-            } else {
-                bindNode.name += `, ${row.name}=${row.defaultValue}`
-                if (row.defaultValue === "true" || row.defaultValue === "false") {
-                    (bindNode.parent as ComponentSetNode).children.map((n:ComponentNode) => {
-                        if (n.id !== bindNode.id) n.name += `, ${row.name}=${row.defaultValue === "true" ? "false" : "true"}`
-                    });
-                } else (bindNode.parent as ComponentSetNode).children.map((n:ComponentNode) => {
-                   if (n.id !== bindNode.id) { n.name += `, ${row.name}=unset`}
-                });
-            }*/
         }
-        row.nodesId = [bindNode.id];
+
+        // 写入 Property (修改图层名)
+        /*const props = getVariantPropsFromName(bindNode.name);
+        console.log("bindNode.props", props);
+        props[row.name] = row.defaultValue;
+        bindNode.name = genVariantNodeName(props);*/
+
+        /*if (bindNode.name === "Property 1=Default") {
+            bindNode.name = `${row.name}=${row.defaultValue}`
+            if (row.defaultValue === "true" || row.defaultValue === "false") {
+                (bindNode.parent as ComponentSetNode).defaultVariant.name = `${row.name}=${row.defaultValue === "true" ? "false" : "true"}`;
+            } else (bindNode.parent as ComponentSetNode).defaultVariant.name = `${row.name}=unset`;
+        } else {
+            bindNode.name += `, ${row.name}=${row.defaultValue}`
+            if (row.defaultValue === "true" || row.defaultValue === "false") {
+                (bindNode.parent as ComponentSetNode).children.map((n:ComponentNode) => {
+                    if (n.id !== bindNode.id) n.name += `, ${row.name}=${row.defaultValue === "true" ? "false" : "true"}`
+                });
+            } else (bindNode.parent as ComponentSetNode).children.map((n:ComponentNode) => {
+               if (n.id !== bindNode.id) { n.name += `, ${row.name}=unset`}
+            });
+        }*/
+
+        row.nodesId.push(bindNode.id);
         this.createRowRuntimeButton(this.data.rows.length - 1);
         this.refreshRuntimeColumn();
         this.save();
@@ -481,5 +513,11 @@ export class ParametricComponentSetSession {
             }
             this.render();
         });
+
+        // TODO 生成其他缺失的Component
+        for (let row of this.data.rows) {
+            const find = this.rootNode.findAll((child: ComponentNode) => !child.variantProperties[row.name]);
+            console.log('其他缺失的Component', row.name, find);
+        }
     }
 }

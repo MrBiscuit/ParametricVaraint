@@ -17,7 +17,7 @@ declare type VariantRow = {
     name: string;
     defaultValue: string;
     titleNodeId?: string;
-    nodesId?: string[];
+    nodesId?: string[]; // 只包含显示出来的
 };
 
 declare type ComponentSetPluginData = {
@@ -35,4 +35,11 @@ declare type VariantGroupProperties = {
 
 declare type VariantNodeProperties = {
     [property: string]: string;
+};
+
+declare type VariantNodeData = {
+    variantNodeId?: string;
+    variantRow?: string;
+    variantRowData?: string;
+    variantDiff?: Diff;
 };
