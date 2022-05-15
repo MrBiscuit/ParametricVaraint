@@ -3,7 +3,7 @@ import Homepage from '../../components/Homepage';
 import BaseVariant from '../../components/BaseVariant';
 import '../styles/ui.css';
 import {useEffect} from 'react';
-import {handleEvent} from '../uiMessageHandler';
+import {dispatch, handleEvent} from '../uiMessageHandler';
 import AddOption from '../../components/AddOption';
 import CreateVariant from '../../components/CreateVariant';
 import {TextInputRefValue} from '@plasmicapp/react-web';
@@ -59,6 +59,14 @@ const App = ({}) => {
                         props: {
                             ref: addOptionInput,
                         },
+                    }}
+                    confirm={{
+                        props:{
+                            onClick: () => {
+
+                                dispatch("addOptionConfirm", {value:addOptionInput.current.getInput().value});
+                            }
+                        }
                     }}
                 />
             </div>

@@ -26,6 +26,12 @@ handleEvent('createVariant', (row) => {
     });
 });
 
+handleEvent("addOptionConfirm", (data)=> {
+    const sel = figma.currentPage.selection[0]
+    let row = session?.getComponentVariantNode(sel.id);
+    sel.name += `, ${row.data.variantRow}=${data.value}`;
+})
+
 figma.on('selectionchange', () => {
     const sel = figma.currentPage.selection[0];
 

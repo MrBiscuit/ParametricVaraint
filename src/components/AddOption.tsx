@@ -3,6 +3,7 @@
 import * as React from 'react';
 import {PlasmicAddOption, DefaultAddOptionProps} from './plasmic/parametric_variant/PlasmicAddOption';
 import {HTMLElementRefOf} from '@plasmicapp/react-web';
+import { dispatch } from '../app/uiMessageHandler';
 
 // Your component props start with props for variants and slots you defined
 // in Plasmic, but you can add more here, like event handlers that you can
@@ -35,7 +36,8 @@ function AddOption_(props: AddOptionProps, ref: HTMLElementRefOf<'div'>) {
     // By default, we are just piping all AddOptionProps here, but feel free
     // to do whatever works for you.
 
-    return <PlasmicAddOption root={{ref}} {...props} />;
+    return <PlasmicAddOption
+    root={{ref}} {...props} />;
 }
 
 const AddOption = React.forwardRef(AddOption_);
