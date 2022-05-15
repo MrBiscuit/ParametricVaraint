@@ -117,7 +117,6 @@ export class ParametricComponentSetSession {
                 const row = this.data.rows[rowIndex];
                 console.log('Click button: + Selection ' + row.name);
                 const clone = this.cloneBaseVariantComponent();
-                dispatch('addOption');
                 this.rootNode.appendChild(clone);
                 const variantNode = this.getComponentVariantNode(clone.id);
                 variantNode.data.variantRow = row.name;
@@ -128,6 +127,8 @@ export class ParametricComponentSetSession {
                 this.save();
                 this.refreshRuntimeColumn();
                 this.render();
+                dispatch('addOption');
+                figma.currentPage.selection = [clone];
             });
         }
         if (buttonFrame) {
@@ -403,13 +404,9 @@ export class ParametricComponentSetSession {
         this.childSelection = node;
         // 处理按钮点击
         if (this.runtimeRowButtons.includes(node.id) && node.type === 'FRAME') {
-            if (handleCanvasButtonClick(node)) {
-                figma.currentPage.selection = [this.rootNode];
-            }
+            handleCanvasButtonClick(node);
         } else if (this.runtimeAddVariantButton === node.id && node.type === 'FRAME') {
-            if (handleCanvasButtonClick(node)) {
-                figma.currentPage.selection = [this.rootNode];
-            }
+            handleCanvasButtonClick(node);
         }
 
         // 选中Base
@@ -532,5 +529,7 @@ export class ParametricComponentSetSession {
             const find = this.rootNode.findAll((child: ComponentNode) => !child.variantProperties?.[row.name]);
             console.log('其他缺失的Component', row.name, find);
         }
+
+        figma.currentPage.selection = [bindNode];
     }
 }

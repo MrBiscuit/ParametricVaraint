@@ -1,7 +1,7 @@
 import {dispatch, handleEvent} from './codeMessageHandler';
 import {createParametricComponentSet, getPCSFromComponentSetNode} from './utilComponentSetSession';
 import {ParametricComponentSetSession} from './ComponentSetSession';
-import {getParametricComponentSet} from './helper';
+import {getParametricComponentSet, getParentComponent} from './helper';
 
 figma.showUI(__html__, {width: 240, height: 240});
 
@@ -26,11 +26,12 @@ handleEvent('createVariant', (row) => {
     });
 });
 
-handleEvent("addOptionConfirm", (data)=> {
-    const sel = figma.currentPage.selection[0]
-    let row = session?.getComponentVariantNode(sel.id);
-    row.setVariantProp(row.data.variantRow, data.value)
-})
+handleEvent('addOptionConfirm', (data) => {
+    const sel = figma.currentPage.selection[0];
+    const comp = getParentComponent(sel);
+    let nodeInstance = session?.getComponentVariantNode(comp?.id);
+    nodeInstance.setVariantProp(nodeInstance.data.variantRow, data.value);
+});
 
 figma.on('selectionchange', () => {
     const sel = figma.currentPage.selection[0];
