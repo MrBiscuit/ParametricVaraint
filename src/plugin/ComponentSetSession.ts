@@ -88,99 +88,47 @@ export class ParametricComponentSetSession {
             this.createRowRuntimeButton(i);
         }
         // 生成运行时添加Variant按钮
+        this.createAddVariantRuntimeButton();
+
+        this.refreshRuntimeColumn();
+        this.render();
+    }
+
+    /**
+     * 创建运行时Row右侧按钮
+     * @param rowIndex row的index
+     */
+    createRowRuntimeButton(rowIndex: number) {
+        let buttonFrame = null;
+        if (this.data.rows[rowIndex].type === 'Base&Interaction') {
+            buttonFrame = createCanvasButton('+ Interaction', () =>
+                console.log('Click button: + interaction ' + this.data.rows[rowIndex].name)
+            );
+        } else if (this.data.rows[rowIndex].type === 'Selection') {
+            buttonFrame = createCanvasButton('+ Option', () => {});
+        }
+        if (buttonFrame) {
+            buttonFrame.setPluginData('parametricComponentSetID', this.rootNode.id);
+            this.getUtilsFrame().appendChild(buttonFrame);
+            this.runtimeRowButtons[rowIndex] = buttonFrame.id;
+        }
+    }
+
+    /**
+     * 创建运行时 添加Variant 按钮
+     */
+    createAddVariantRuntimeButton() {
         const addVariantButton = createCanvasButton('+ Variant', () => {
             dispatch('addVariant');
         });
         addVariantButton.setPluginData('parametricComponentSetID', this.rootNode.id);
         this.runtimeAddVariantButton = addVariantButton.id;
         this.getUtilsFrame().appendChild(addVariantButton);
-        this.refreshRuntimeColumn();
-        this.render();
     }
 
-    setChildSelection(node: SceneNode) {
-        console.log('setChildSelection', node);
-        this.childSelection = node;
-        // 处理按钮点击
-        if (this.runtimeRowButtons.includes(node.id) && node.type === 'FRAME') {
-            if (handleCanvasButtonClick(node)) {
-                figma.currentPage.selection = [this.rootNode];
-            }
-        } else if (this.runtimeAddVariantButton === node.id && node.type === 'FRAME') {
-            if (handleCanvasButtonClick(node)) {
-                figma.currentPage.selection = [this.rootNode];
-            }
-        }
-
-        // 选中Base
-        if (node === this.getBaseVariantComponent()) {
-            dispatch('creationComplete');
-        }
-        // 处理新建Component
-        if (node.type === 'COMPONENT') {
-            const myId = node.getPluginData('variantNodeId');
-            if (!myId || myId != node.id) {
-                console.log('setChildSelection.ZA', node);
-                this.createRow(
-                    {
-                        type: 'Selection',
-                        name: 'New Variant',
-                        defaultValue: 'default',
-                    },
-                    node
-                );
-            }
-        }
-    }
-
-    close() {
-        console.log('close');
-        this.save();
-        clearCanvasButtonCallbacks();
-        for (let button of this.runtimeRowButtons) {
-            const node = figma.getNodeById(button);
-            if (node && !node.removed) {
-                node.remove();
-            }
-        }
-        this.runtimeRowButtons = [];
-        figma.getNodeById(this.runtimeAddVariantButton)?.remove();
-        this.runtimeAddVariantButton = undefined;
-        this.refreshRuntimeColumn();
-        this.render();
-    }
-
-    remove() {
-        console.log('delete');
-        if (!this.rootNode.parent) {
-            this.rootNode.remove();
-        }
-        const utilsFrame = this.getUtilsFrame();
-        if (utilsFrame && !utilsFrame.removed) {
-            utilsFrame.remove();
-        }
-    }
-
-    refreshRuntimeColumn() {
-        this.runtimeColumn = [];
-        const maxColumn = Math.max(...this.data.rows.map((row) => row.nodesId.length)) + 1;
-        for (let i = 0; i < maxColumn; i++) {
-            const columnNodesId = this.data.rows
-                .map((row, rowIndex) => (i === row.nodesId.length ? this.runtimeRowButtons[rowIndex] : row.nodesId[i]))
-                .filter((n) => !!n);
-            if (i === 0 && this.runtimeAddVariantButton) {
-                columnNodesId.push(this.runtimeAddVariantButton);
-            }
-            if (columnNodesId.length > 0) {
-                this.runtimeColumn[i] = columnNodesId;
-            }
-        }
-    }
-
-    getBaseVariantComponent(): ComponentNode {
-        return this.rootNode.defaultVariant;
-    }
-
+    /**
+     * 直接用原生clone似乎会出错，只能手动clone了
+     */
     cloneBaseVariantComponent(): ComponentNode {
         const node = figma.createComponent();
         const base = this.getBaseVariantComponent();
@@ -198,6 +146,16 @@ export class ParametricComponentSetSession {
         return node;
     }
 
+    /**
+     * 获取 Base 的那个组件
+     */
+    getBaseVariantComponent(): ComponentNode {
+        return this.rootNode.defaultVariant;
+    }
+
+    /**
+     * 获取 Utils Frame 的Node对象
+     */
     getUtilsFrame(): FrameNode {
         let utilsFrame = <FrameNode>figma.getNodeById(this.data.utilsFrameId);
         if (!this.data.utilsFrameId || !utilsFrame) {
@@ -216,17 +174,77 @@ export class ParametricComponentSetSession {
         return utilsFrame;
     }
 
+    /**
+     * 将整体数据保存到 root node 的 Plugin Data 中
+     */
     save() {
         this.rootNode.setPluginData('data', JSON.stringify(this.data));
     }
 
     /**
-     * 刷新一些Layout的位置
+     * 关闭此会话
+     * - 保存数据
+     * - 清空 runtime 操作按钮
+     * - 重新渲染
+     */
+    close() {
+        console.log('close');
+        this.save();
+        clearCanvasButtonCallbacks();
+        for (let button of this.runtimeRowButtons) {
+            const node = figma.getNodeById(button);
+            if (node && !node.removed) {
+                node.remove();
+            }
+        }
+        this.runtimeRowButtons = [];
+        figma.getNodeById(this.runtimeAddVariantButton)?.remove();
+        this.runtimeAddVariantButton = undefined;
+        this.refreshRuntimeColumn();
+        this.render();
+    }
+
+    /**
+     * 用户主动删除 ComponentSetNode，自动删除 Utils Frame
+     */
+    remove() {
+        console.log('delete');
+        if (!this.rootNode.parent) {
+            this.rootNode.remove();
+        }
+        const utilsFrame = this.getUtilsFrame();
+        if (utilsFrame && !utilsFrame.removed) {
+            utilsFrame.remove();
+        }
+    }
+
+    /**
+     * 刷新运行时的「列」nodeID，用于后续渲染
+     */
+    refreshRuntimeColumn() {
+        this.runtimeColumn = [];
+        const maxColumn = Math.max(...this.data.rows.map((row) => row.nodesId.length)) + 1;
+        for (let i = 0; i < maxColumn; i++) {
+            const columnNodesId = this.data.rows
+                .map((row, rowIndex) => (i === row.nodesId.length ? this.runtimeRowButtons[rowIndex] : row.nodesId[i]))
+                .filter((n) => !!n);
+            if (i === 0 && this.runtimeAddVariantButton) {
+                columnNodesId.push(this.runtimeAddVariantButton);
+            }
+            if (columnNodesId.length > 0) {
+                this.runtimeColumn[i] = columnNodesId;
+            }
+        }
+    }
+
+    /**
+     * 计时器重复触发
+     * - 刷新 Base 及 其他组件 的变更
+     * - 重新渲染
      */
     updateLayout() {
         // 只有在当前已选择内容时，进行重新render
         if (!this.childSelection) return; // 如果当前什么都没选中，那么不进行update
-        this.render();
 
         if (this.childSelection.type === 'COMPONENT') {
             if (this.childSelection.id === this.getBaseVariantComponent().id) {
@@ -236,8 +254,17 @@ export class ParametricComponentSetSession {
                 // const dif = diff(this.childSelection, this.getBaseVariantComponent());
             }
         }
+        this.render();
     }
 
+    /**
+     * 渲染
+     * - 渲染 description
+     * - 将 Component 从左到右逐列设置x
+     * - 将 Component 从上到下逐行设置y
+     * - 渲染底部 Add Variant 按钮
+     * - TODO 渲染 Combinations
+     */
     render() {
         const utilsFrame = this.getUtilsFrame();
         if (!utilsFrame) {
@@ -323,9 +350,48 @@ export class ParametricComponentSetSession {
     }
 
     /**
-     * 新建Varint行
-     * @param row
-     * @param bindNode 绑定某个 ComponentNode，如果为undefined
+     * 由 selectionchange 触发，当选中在此session并选择其中的子Node时，传递进来并进行相应处理
+     * @param node
+     */
+    setChildSelection(node: SceneNode) {
+        console.log('setChildSelection', node);
+        this.childSelection = node;
+        // 处理按钮点击
+        if (this.runtimeRowButtons.includes(node.id) && node.type === 'FRAME') {
+            if (handleCanvasButtonClick(node)) {
+                figma.currentPage.selection = [this.rootNode];
+            }
+        } else if (this.runtimeAddVariantButton === node.id && node.type === 'FRAME') {
+            if (handleCanvasButtonClick(node)) {
+                figma.currentPage.selection = [this.rootNode];
+            }
+        }
+
+        // 选中Base
+        if (node === this.getBaseVariantComponent()) {
+            dispatch('creationComplete');
+        }
+        // 处理新建Component
+        if (node.type === 'COMPONENT') {
+            const myId = node.getPluginData('variantNodeId');
+            if (!myId || myId != node.id) {
+                console.log('setChildSelection.ZA', node);
+                this.createRow(
+                    {
+                        type: 'Selection',
+                        name: 'New Variant',
+                        defaultValue: 'default',
+                    },
+                    node
+                );
+            }
+        }
+    }
+
+    /**
+     * 新建 Variant 行（分类）
+     * @param row 行（分类）的数据
+     * @param bindNode 绑定某个 ComponentNode，如果为undefined，则会自动从Base来clone创建
      */
     createRow(row: VariantRow, bindNode?: ComponentNode) {
         const utilsFrame = this.getUtilsFrame();
@@ -415,21 +481,5 @@ export class ParametricComponentSetSession {
             }
             this.render();
         });
-    }
-
-    createRowRuntimeButton(rowIndex: number) {
-        let buttonFrame = null;
-        if (this.data.rows[rowIndex].type === 'Base&Interaction') {
-            buttonFrame = createCanvasButton('+ Interaction', () =>
-                console.log('Click button: + interaction ' + this.data.rows[rowIndex].name)
-            );
-        } else if (this.data.rows[rowIndex].type === 'Selection') {
-            buttonFrame = createCanvasButton('+ Option', () => {});
-        }
-        if (buttonFrame) {
-            buttonFrame.setPluginData('parametricComponentSetID', this.rootNode.id);
-            this.getUtilsFrame().appendChild(buttonFrame);
-            this.runtimeRowButtons[rowIndex] = buttonFrame.id;
-        }
     }
 }
