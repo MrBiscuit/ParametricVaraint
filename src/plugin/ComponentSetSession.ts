@@ -123,7 +123,7 @@ export class ParametricComponentSetSession {
                 variantNode.data.variantRow = row.name;
                 variantNode.data.variantRowData = 'New Selection';
                 this.data.rows[rowIndex].nodesId.push(clone.id);
-                variantNode.setVariantProp(row.name, 'New Selection');
+                variantNode.setVariantProp(row.name, 'unset');
                 variantNode.updateVariantName();
                 this.save();
                 this.refreshRuntimeColumn();

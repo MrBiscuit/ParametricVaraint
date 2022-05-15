@@ -65,7 +65,9 @@ export class ComponentVariantNode {
 
             applyDiff0(base, node, dif, this.data.variantDiff);
 
-            node.resize(base.width, base.height);
+            if (node.primaryAxisSizingMode === 'FIXED' || node.counterAxisSizingMode === 'FIXED') {
+                node.resize(base.width, base.height);
+            }
             /*for (let difKey in this.data.variantDiff) {
                 if (difKey !== 'children' && this.data.variantDiff[difKey]['@right']) {
                     node[difKey] = this.data.variantDiff[difKey]['@right'];
@@ -172,9 +174,12 @@ function applyDiff0(base: SceneNode, node: SceneNode, dif: Diff, localDif: Diff)
                 (<BaseFrameMixin>node).appendChild(child);
             }
             if (child && childBase) {
-                try {
+                if (
+                    (<BaseFrameMixin>child).primaryAxisSizingMode === 'FIXED' ||
+                    (<BaseFrameMixin>child).counterAxisSizingMode === 'FIXED'
+                ) {
                     (<BaseFrameMixin>child).resize(childBase.width, childBase.height);
-                } catch (ignore) {}
+                }
             }
         }
     }
