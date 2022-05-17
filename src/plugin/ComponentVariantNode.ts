@@ -1,6 +1,7 @@
 import {genVariantNodeName, getVariantNodeData, getVariantPropsFromName, saveVariantNodeData} from './utilVariant';
 import {ParametricComponentSetSession} from './ComponentSetSession';
 import diff, {isObject} from './utilDiff';
+import { dispatch } from './codeMessageHandler';
 
 export class ComponentVariantNode {
     readonly session: ParametricComponentSetSession;
@@ -95,7 +96,8 @@ export class ComponentVariantNode {
         for (let ignore of COMPONENT_DIFF_IGNORE) {
             delete dif[ignore];
         }
-        console.log('updateDiff', dif);
+        // console.log('updateDiff', JSON.stringify(dif));
+        dispatch("updateDiff", dif)
         this.data.variantDiff = dif;
         this.save();
         return dif;
@@ -135,15 +137,15 @@ function applyDiff0(base: SceneNode, node: SceneNode, dif: Diff, localDif: Diff)
     for (let difKey in dif) {
         if (difKey !== 'children') {
             if (node.type === 'COMPONENT' && COMPONENT_DIFF_IGNORE.includes(difKey)) continue;
-            console.log('applyDiff [test]', node.name, difKey, dif[difKey], localDif?.[difKey]);
+            // console.log('applyDiff [test]', node.name, difKey, dif[difKey], localDif?.[difKey]);
             if (difKey === '@right') {
                 // 在Base中已经不存在，应该删除
                 // TODO 但是这样就导致其他组件没法单独存在子元素
-                console.log('applyDiff [deleted]', difKey);
+                // console.log('applyDiff [deleted]', difKey);
                 node.remove();
             } else if (!localDif?.[difKey]) {
                 // 这个属性不在diff中
-                console.log('applyDiff [missing]', difKey, dif[difKey]);
+                // console.log('applyDiff [missing]', difKey, dif[difKey]);
                 node[difKey] = dif[difKey]['@left'];
             } else if (
                 !localDif?.[difKey]?.['@right'] ||
@@ -154,7 +156,7 @@ function applyDiff0(base: SceneNode, node: SceneNode, dif: Diff, localDif: Diff)
                     !isObject(localDif?.[difKey]?.['@right']) &&
                     dif[difKey]?.['@right'] === localDif?.[difKey]?.['@right'])
             ) {
-                console.log('applyDiff [diff]', difKey, dif[difKey]);
+                // console.log('applyDiff [diff]', difKey, dif[difKey]);
                 node[difKey] = dif[difKey]['@right'];
             }
         }
@@ -164,12 +166,12 @@ function applyDiff0(base: SceneNode, node: SceneNode, dif: Diff, localDif: Diff)
         for (let childKey in dif.children) {
             const childBase = (<BaseFrameMixin>base).findOne((n) => n.name === childKey);
             let child = (<BaseFrameMixin>node).findOne((n) => n.name === childKey);
-            console.log('applyDiff0.test', childBase, child);
+            // console.log('applyDiff0.test', childBase, child);
             if (child) {
-                console.log('applyDiff0.child', dif.children[childKey], localDif.children?.[childKey]);
+                // console.log('applyDiff0.child', dif.children[childKey], localDif.children?.[childKey]);
                 applyDiff0(childBase, child, dif.children[childKey], localDif?.children?.[childKey]);
             } else if (childBase) {
-                console.log('applyDiff0.clone', childBase);
+                // console.log('applyDiff0.clone', childBase);
                 child = childBase.clone();
                 (<BaseFrameMixin>node).appendChild(child);
             }

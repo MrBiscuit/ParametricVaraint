@@ -412,6 +412,8 @@ export class ParametricComponentSetSession {
         // 选中Base
         if (node === this.getBaseVariantComponent()) {
             dispatch('creationComplete');
+        } else {
+            dispatch('updateDiff',this.getComponentVariantNode(getParentComponent(node).id).data.variantDiff);
         }
         // 处理新建Component
         if (node.type === 'COMPONENT') {

@@ -33,6 +33,9 @@
     background: #0000004d;
     border-style: solid;
 }
+.roothidden {
+    display: none;
+}
 .rootdisabled_type_secondary {
     background: none;
     box-shadow: inset 0px 0px 0px 1px #0000004d;

@@ -1,0 +1,92 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    position: relative;
+    min-width: 0;
+    padding: 0px 8px;
+}
+.roothidden {
+    display: none;
+}
+.frame27 {
+    flex-direction: row;
+    height: 32px;
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    flex-shrink: 0;
+}
+.frame27 > :global(.__wab_flex-container) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 0;
+    margin-left: calc(0px - 40px);
+    width: calc(100% + 40px);
+}
+.frame27 > :global(.__wab_flex-container) > *,
+.frame27 > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.frame27 > :global(.__wab_flex-container) > picture > img,
+.frame27 > :global(.__wab_flex-container) > :global(.__wab_slot) > picture > img {
+    margin-left: 40px;
+}
+.title3 {
+    position: relative;
+    width: 144px;
+    height: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.title4 {
+    display: block;
+    font-size: 11px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.005em;
+    line-height: 16px;
+    color: rgba(0, 0, 0, 0.8);
+}
+.freeBox {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-self: stretch;
+}
+.freeBoxempty {
+    display: none;
+}
+.diff__dOkeC:global(.__wab_instance) {
+    position: relative;
+    align-self: auto;
+}
+.svg {
+    position: relative;
+    object-fit: cover;
+    color: #000;
+    width: 240px;
+    height: 1px;
+    display: block;
+    flex-shrink: 0;
+}
+.text {
+    opacity: 0.4;
+    display: block;
+    font-size: 11px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.005em;
+    line-height: 16px;
+    color: rgba(0, 0, 0, 1);
+    align-self: stretch;
+    position: relative;
+    width: 100%;
+    margin-top: 8px;
+    min-width: 0;
+}

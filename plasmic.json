@@ -55,19 +55,6 @@
                     "componentType": "component"
                 },
                 {
-                    "id": "RTxR7eGbCO",
-                    "name": "InspectDiff",
-                    "type": "managed",
-                    "projectId": "quwQo95zDfdBFMtbz7jPTa",
-                    "renderModuleFilePath": "plasmic/parametric_variant/PlasmicInspectDiff.tsx",
-                    "importSpec": {
-                        "modulePath": "InspectDiff.tsx"
-                    },
-                    "cssFilePath": "plasmic/parametric_variant/PlasmicInspectDiff.module.css",
-                    "scheme": "blackbox",
-                    "componentType": "page"
-                },
-                {
                     "id": "p_FCLC3X1L",
                     "name": "Arrow",
                     "type": "managed",
@@ -173,17 +160,56 @@
                     "componentType": "component"
                 },
                 {
-                    "id": "dVuFcSs25QK",
-                    "name": "AddOption",
+                    "id": "EdYLllBgHm",
+                    "name": "Diff",
                     "type": "managed",
                     "projectId": "quwQo95zDfdBFMtbz7jPTa",
-                    "renderModuleFilePath": "plasmic/parametric_variant/PlasmicAddOption.tsx",
+                    "renderModuleFilePath": "plasmic/parametric_variant/PlasmicDiff.tsx",
                     "importSpec": {
-                        "modulePath": "AddOption.tsx"
+                        "modulePath": "Diff.tsx"
                     },
-                    "cssFilePath": "plasmic/parametric_variant/PlasmicAddOption.module.css",
+                    "cssFilePath": "plasmic/parametric_variant/PlasmicDiff.module.css",
+                    "scheme": "blackbox",
+                    "componentType": "component"
+                },
+                {
+                    "id": "dVuFcSs25QK",
+                    "name": "InspectDiff",
+                    "type": "managed",
+                    "projectId": "quwQo95zDfdBFMtbz7jPTa",
+                    "renderModuleFilePath": "plasmic/parametric_variant/PlasmicInspectDiff.tsx",
+                    "importSpec": {
+                        "modulePath": "InspectDiff.tsx"
+                    },
+                    "cssFilePath": "plasmic/parametric_variant/PlasmicInspectDiff.module.css",
                     "scheme": "blackbox",
                     "componentType": "page"
+                },
+                {
+                    "id": "SG8mWtC3wc",
+                    "name": "DiffContent",
+                    "type": "managed",
+                    "projectId": "quwQo95zDfdBFMtbz7jPTa",
+                    "renderModuleFilePath": "plasmic/parametric_variant/PlasmicDiffContent.tsx",
+                    "importSpec": {
+                        "modulePath": "DiffContent.tsx"
+                    },
+                    "cssFilePath": "plasmic/parametric_variant/PlasmicDiffContent.module.css",
+                    "scheme": "blackbox",
+                    "componentType": "component"
+                },
+                {
+                    "id": "ifDU5luwa2",
+                    "name": "Layer",
+                    "type": "managed",
+                    "projectId": "quwQo95zDfdBFMtbz7jPTa",
+                    "renderModuleFilePath": "plasmic/parametric_variant/PlasmicLayer.tsx",
+                    "importSpec": {
+                        "modulePath": "Layer.tsx"
+                    },
+                    "cssFilePath": "plasmic/parametric_variant/PlasmicLayer.module.css",
+                    "scheme": "blackbox",
+                    "componentType": "component"
                 }
             ],
             "icons": [

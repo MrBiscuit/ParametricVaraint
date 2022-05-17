@@ -33,6 +33,7 @@ import {
 } from '@plasmicapp/react-web';
 import TextInput from '../../TextInput'; // plasmic-import: y7q_0ypjEAV/component
 import Button from '../../Button'; // plasmic-import: cSQMAe0reF/component
+import Diff from '../../Diff'; // plasmic-import: EdYLllBgHm/component
 
 import '@plasmicapp/react-web/lib/plasmic.css';
 
@@ -49,9 +50,12 @@ export type PlasmicAddOption__VariantsArgs = {};
 type VariantPropType = keyof PlasmicAddOption__VariantsArgs;
 export const PlasmicAddOption__VariantProps = new Array<VariantPropType>();
 
-export type PlasmicAddOption__ArgsType = {};
+export type PlasmicAddOption__ArgsType = {
+    allDiffs?: React.ReactNode;
+};
+
 type ArgPropType = keyof PlasmicAddOption__ArgsType;
-export const PlasmicAddOption__ArgProps = new Array<ArgPropType>();
+export const PlasmicAddOption__ArgProps = new Array<ArgPropType>('allDiffs');
 
 export type PlasmicAddOption__OverridesType = {
     root?: p.Flex<'div'>;
@@ -60,15 +64,19 @@ export type PlasmicAddOption__OverridesType = {
     frame50?: p.Flex<'div'>;
     frame19?: p.Flex<'div'>;
     name?: p.Flex<'div'>;
-    text?: p.Flex<'div'>;
     valueInput?: p.Flex<typeof TextInput>;
-    svg?: p.Flex<'svg'>;
-    freeBox?: p.Flex<'div'>;
     button?: p.Flex<'div'>;
     confirm?: p.Flex<typeof Button>;
+    showDiffs?: p.Flex<'div'>;
+    frame27?: p.Flex<'div'>;
+    title3?: p.Flex<'div'>;
+    title4?: p.Flex<'div'>;
+    _32Minus?: p.Flex<'div'>;
+    img?: p.Flex<typeof p.PlasmicImg>;
 };
 
 export interface DefaultAddOptionProps {
+    allDiffs?: React.ReactNode;
     className?: string;
 }
 
@@ -134,9 +142,11 @@ function PlasmicAddOption__RenderFunc(props: {
                                         className={classNames(projectcss.all, sty.name)}
                                     >
                                         <div
-                                            data-plasmic-name={'text'}
-                                            data-plasmic-override={overrides.text}
-                                            className={classNames(projectcss.all, projectcss.__wab_text, sty.text)}
+                                            className={classNames(
+                                                projectcss.all,
+                                                projectcss.__wab_text,
+                                                sty.text__ioquD
+                                            )}
                                         >
                                             {'Value'}
                                         </div>
@@ -152,19 +162,10 @@ function PlasmicAddOption__RenderFunc(props: {
                                 </p.Stack>
                             </p.Stack>
 
-                            <SeparatorIcon
-                                data-plasmic-name={'svg'}
-                                data-plasmic-override={overrides.svg}
-                                className={classNames(projectcss.all, sty.svg)}
-                                role={'img'}
-                            />
+                            <SeparatorIcon className={classNames(projectcss.all, sty.svg__za67E)} role={'img'} />
                         </p.Stack>
 
-                        <div
-                            data-plasmic-name={'freeBox'}
-                            data-plasmic-override={overrides.freeBox}
-                            className={classNames(projectcss.all, sty.freeBox)}
-                        >
+                        <div className={classNames(projectcss.all, sty.freeBox__teFv)}>
                             <p.Stack
                                 as={'div'}
                                 data-plasmic-name={'button'}
@@ -180,6 +181,78 @@ function PlasmicAddOption__RenderFunc(props: {
                                 />
                             </p.Stack>
                         </div>
+
+                        {true ? (
+                            <div
+                                data-plasmic-name={'showDiffs'}
+                                data-plasmic-override={overrides.showDiffs}
+                                className={classNames(projectcss.all, sty.showDiffs)}
+                            >
+                                <p.Stack
+                                    as={'div'}
+                                    data-plasmic-name={'frame27'}
+                                    data-plasmic-override={overrides.frame27}
+                                    hasGap={true}
+                                    className={classNames(projectcss.all, sty.frame27)}
+                                >
+                                    <div
+                                        data-plasmic-name={'title3'}
+                                        data-plasmic-override={overrides.title3}
+                                        className={classNames(projectcss.all, sty.title3)}
+                                    >
+                                        <div
+                                            data-plasmic-name={'title4'}
+                                            data-plasmic-override={overrides.title4}
+                                            className={classNames(projectcss.all, projectcss.__wab_text, sty.title4)}
+                                        >
+                                            {'Overrides:'}
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        data-plasmic-name={'_32Minus'}
+                                        data-plasmic-override={overrides._32Minus}
+                                        className={classNames(projectcss.all, sty._32Minus)}
+                                    >
+                                        <p.PlasmicImg
+                                            data-plasmic-name={'img'}
+                                            data-plasmic-override={overrides.img}
+                                            alt={''}
+                                            className={classNames(sty.img)}
+                                            displayHeight={'14.736px' as const}
+                                            displayMaxHeight={'none' as const}
+                                            displayMaxWidth={'100%' as const}
+                                            displayMinHeight={'0' as const}
+                                            displayMinWidth={'0' as const}
+                                            displayWidth={'14px' as const}
+                                            loading={'lazy' as const}
+                                            src={{
+                                                src: 'https://site-assets.plasmic.app/0775fb4377c0de62caf987a71f94b0ea.svg',
+                                                fullWidth: 14,
+                                                fullHeight: 14.736,
+                                                aspectRatio: 0.933333,
+                                            }}
+                                        />
+                                    </div>
+                                </p.Stack>
+
+                                <div className={classNames(projectcss.all, sty.freeBox__qWorA)}>
+                                    {p.renderPlasmicSlot({
+                                        defaultContents: (
+                                            <Diff className={classNames('__wab_instance', sty.diff__yvKti)} />
+                                        ),
+
+                                        value: args.allDiffs,
+                                    })}
+                                </div>
+
+                                <SeparatorIcon className={classNames(projectcss.all, sty.svg__lMPsH)} role={'img'} />
+
+                                <div className={classNames(projectcss.all, projectcss.__wab_text, sty.text__qBnf)}>
+                                    {'You can copy(⌘C), paste, or delete these overrides'}
+                                </div>
+                            </div>
+                        ) : null}
                     </div>
                 </div>
             </div>
@@ -195,12 +268,15 @@ const PlasmicDescendants = {
         'frame50',
         'frame19',
         'name',
-        'text',
         'valueInput',
-        'svg',
-        'freeBox',
         'button',
         'confirm',
+        'showDiffs',
+        'frame27',
+        'title3',
+        'title4',
+        '_32Minus',
+        'img',
     ],
     content: [
         'content',
@@ -208,23 +284,29 @@ const PlasmicDescendants = {
         'frame50',
         'frame19',
         'name',
-        'text',
         'valueInput',
-        'svg',
-        'freeBox',
         'button',
         'confirm',
+        'showDiffs',
+        'frame27',
+        'title3',
+        'title4',
+        '_32Minus',
+        'img',
     ],
-    frame53: ['frame53', 'frame50', 'frame19', 'name', 'text', 'valueInput', 'svg'],
-    frame50: ['frame50', 'frame19', 'name', 'text', 'valueInput'],
-    frame19: ['frame19', 'name', 'text', 'valueInput'],
-    name: ['name', 'text'],
-    text: ['text'],
+    frame53: ['frame53', 'frame50', 'frame19', 'name', 'valueInput'],
+    frame50: ['frame50', 'frame19', 'name', 'valueInput'],
+    frame19: ['frame19', 'name', 'valueInput'],
+    name: ['name'],
     valueInput: ['valueInput'],
-    svg: ['svg'],
-    freeBox: ['freeBox', 'button', 'confirm'],
     button: ['button', 'confirm'],
     confirm: ['confirm'],
+    showDiffs: ['showDiffs', 'frame27', 'title3', 'title4', '_32Minus', 'img'],
+    frame27: ['frame27', 'title3', 'title4', '_32Minus', 'img'],
+    title3: ['title3', 'title4'],
+    title4: ['title4'],
+    _32Minus: ['_32Minus', 'img'],
+    img: ['img'],
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
 type DescendantsType<T extends NodeNameType> = typeof PlasmicDescendants[T][number];
@@ -235,12 +317,15 @@ type NodeDefaultElementType = {
     frame50: 'div';
     frame19: 'div';
     name: 'div';
-    text: 'div';
     valueInput: typeof TextInput;
-    svg: 'svg';
-    freeBox: 'div';
     button: 'div';
     confirm: typeof Button;
+    showDiffs: 'div';
+    frame27: 'div';
+    title3: 'div';
+    title4: 'div';
+    _32Minus: 'div';
+    img: typeof p.PlasmicImg;
 };
 
 type ReservedPropsType = 'variants' | 'args' | 'overrides';
@@ -297,12 +382,15 @@ export const PlasmicAddOption = Object.assign(
         frame50: makeNodeComponent('frame50'),
         frame19: makeNodeComponent('frame19'),
         _name: makeNodeComponent('name'),
-        text: makeNodeComponent('text'),
         valueInput: makeNodeComponent('valueInput'),
-        svg: makeNodeComponent('svg'),
-        freeBox: makeNodeComponent('freeBox'),
         button: makeNodeComponent('button'),
         confirm: makeNodeComponent('confirm'),
+        showDiffs: makeNodeComponent('showDiffs'),
+        frame27: makeNodeComponent('frame27'),
+        title3: makeNodeComponent('title3'),
+        title4: makeNodeComponent('title4'),
+        _32Minus: makeNodeComponent('_32Minus'),
+        img: makeNodeComponent('img'),
 
         // Metadata about props expected for PlasmicAddOption
         internalVariantProps: PlasmicAddOption__VariantProps,

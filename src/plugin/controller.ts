@@ -26,20 +26,15 @@ handleEvent('createVariant', (row) => {
     });
 });
 
-<<<<<<< Updated upstream
-handleEvent('addOptionConfirm', (data) => {
-    const sel = figma.currentPage.selection[0];
-    const comp = getParentComponent(sel);
-    let nodeInstance = session?.getComponentVariantNode(comp?.id);
-    nodeInstance.setVariantProp(nodeInstance.data.variantRow, data.value);
+handleEvent("updateHeight",(height)=>{
+    figma.ui.resize(240, height);
 });
-=======
+
 handleEvent("addOptionConfirm", (data)=> {
     const sel = figma.currentPage.selection[0]
     let node = session?.getComponentVariantNode(sel.id);
     node.setVariantProp(node.data.variantRow, data.value)
 })
->>>>>>> Stashed changes
 
 figma.on('selectionchange', () => {
     const sel = figma.currentPage.selection[0];

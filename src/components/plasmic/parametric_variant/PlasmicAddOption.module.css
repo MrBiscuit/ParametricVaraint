@@ -96,7 +96,7 @@
     justify-content: center;
     flex-shrink: 0;
 }
-.text {
+.text__ioquD {
     display: block;
     font-size: 11px;
     font-family: 'Inter', sans-serif;
@@ -121,7 +121,7 @@
     width: 1em;
     height: 1em;
 }
-.svg {
+.svg__za67E {
     position: relative;
     object-fit: cover;
     max-width: 100%;
@@ -131,7 +131,7 @@
     display: block;
     flex-shrink: 0;
 }
-.freeBox {
+.freeBox__teFv {
     display: block;
     position: relative;
     width: 240px;
@@ -174,4 +174,116 @@
     top: auto;
     width: 144px;
     flex-shrink: 0;
+}
+.showDiffs {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    align-self: stretch;
+    min-width: 0;
+    padding: 0px 8px;
+}
+.frame27 {
+    flex-direction: row;
+    height: 32px;
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    flex-shrink: 0;
+}
+.frame27 > :global(.__wab_flex-container) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 0;
+    margin-left: calc(0px - 40px);
+    width: calc(100% + 40px);
+}
+.frame27 > :global(.__wab_flex-container) > *,
+.frame27 > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.frame27 > :global(.__wab_flex-container) > picture > img,
+.frame27 > :global(.__wab_flex-container) > :global(.__wab_slot) > picture > img {
+    margin-left: 40px;
+}
+.title3 {
+    position: relative;
+    width: 144px;
+    height: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.title4 {
+    display: block;
+    font-size: 11px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.005em;
+    line-height: 16px;
+    color: rgba(0, 0, 0, 0.8);
+}
+._32Minus {
+    opacity: 0.8;
+    width: 24px;
+    height: 24px;
+    display: block;
+    position: relative;
+    flex-shrink: 0;
+}
+.img {
+    position: absolute;
+    object-fit: cover;
+    max-width: 100%;
+    width: 14px;
+    height: 14.736px;
+    display: block !important;
+    top: 5px;
+    left: 5px;
+    overflow: hidden;
+}
+.img > picture > img {
+    object-fit: cover;
+}
+.img > .__wab_img-spacer > img {
+    object-fit: cover;
+}
+.freeBox__qWorA {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-self: stretch;
+}
+.diff__yvKti:global(.__wab_instance) {
+    position: relative;
+    align-self: auto;
+}
+.svg__lMPsH {
+    position: relative;
+    object-fit: cover;
+    color: #000;
+    width: 240px;
+    height: 1px;
+    display: block;
+    flex-shrink: 0;
+}
+.text__qBnf {
+    opacity: 0.4;
+    display: block;
+    font-size: 11px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.005em;
+    line-height: 16px;
+    color: rgba(0, 0, 0, 1);
+    align-self: stretch;
+    position: relative;
+    width: 100%;
+    margin-top: 8px;
+    min-width: 0;
 }

@@ -4,7 +4,7 @@ import BaseVariant from '../../components/BaseVariant';
 import '../styles/ui.css';
 import {useEffect} from 'react';
 import {dispatch, handleEvent} from '../uiMessageHandler';
-import AddOption from '../../components/AddOption';
+import InspectDiff from '../../components/InspectDiff';
 import CreateVariant from '../../components/CreateVariant';
 import {TextInputRefValue} from '@plasmicapp/react-web';
 
@@ -25,11 +25,13 @@ const App = ({}) => {
             setPage('CreateVariant');
         });
         handleEvent('addOption', (_) => {
-            setPage('AddOption');
-            {
-                addOptionInput.current.focus();
-            }
+            setPage('InspectDiff');
+            addOptionInput.current.focus();
         });
+        handleEvent('updateDiff', (_) => {
+            setPage('InspectDiff');
+            dispatch("updateHeight",document.body.scrollHeight) 
+        })
     }, []);
 
     if (page === 'HomePage') {
@@ -50,22 +52,29 @@ const App = ({}) => {
                 <CreateVariant />
             </div>
         );
-    } else if (page === 'AddOption') {
+    } else if (page === 'InspectDiff') {
         return (
             <div>
-                <AddOption
+                <InspectDiff
                     //@ts-ignore
                     valueInput={{
                         props: {
                             ref: addOptionInput,
+                            onKeyPress: (e) => {
+                                if (e.key == "Enter") {
+                                    addOptionInput.current.getInput().blur()
+                                    dispatch("addOptionConfirm", {value:addOptionInput.current.getInput().value});
+                                  }
+                            }
                         },
+                       
                     }}
                     confirm={{
                         props:{
                             onClick: () => {
-
                                 dispatch("addOptionConfirm", {value:addOptionInput.current.getInput().value});
-                            }
+                            },
+                            
                         }
                     }}
                 />
