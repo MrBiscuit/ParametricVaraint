@@ -10,17 +10,28 @@
     min-height: 0;
 }
 .content {
+    flex-direction: column;
     background: rgba(255, 255, 255, 1);
     width: 240px;
     height: auto;
     display: flex;
     overflow: hidden;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
     position: relative;
     left: auto;
     top: auto;
+}
+.content > :global(.__wab_flex-container) {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    margin-top: calc(0px - 8px);
+    height: calc(100% + 8px);
+}
+.content > :global(.__wab_flex-container) > *,
+.content > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.content > :global(.__wab_flex-container) > picture > img,
+.content > :global(.__wab_flex-container) > :global(.__wab_slot) > picture > img {
+    margin-top: 8px;
 }
 .frame53 {
     flex-direction: column;
@@ -130,49 +141,13 @@
     display: block;
     flex-shrink: 0;
 }
-.freeBox {
-    display: block;
-    position: relative;
-    width: 240px;
-    height: 46px;
-    flex-shrink: 0;
-}
-.button {
-    flex-direction: row;
-    transform: scale(1.000000499999875, 0.999999500000375) rotate(-0.057295760416576934deg)
-        skew(-0.05729570311883569deg, 0deg);
-    height: auto;
-    display: flex;
-    transform-origin: top left;
-    position: absolute;
-    align-self: stretch;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-    min-width: 0;
-    padding: 8px;
-}
-.button > :global(.__wab_flex-container) {
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
-    min-width: 0;
-    margin-left: calc(0px - 4px);
-    width: calc(100% + 4px);
-}
-.button > :global(.__wab_flex-container) > *,
-.button > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
-.button > :global(.__wab_flex-container) > picture > img,
-.button > :global(.__wab_flex-container) > :global(.__wab_slot) > picture > img {
-    margin-left: 4px;
-}
 .confirm:global(.__wab_instance) {
     max-width: 100%;
     position: relative;
     left: auto;
     top: auto;
     width: 144px;
-    flex-shrink: 0;
+    margin-right: 8px;
 }
 .diffContent:global(.__wab_instance) {
     position: relative;

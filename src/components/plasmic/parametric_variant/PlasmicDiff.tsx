@@ -147,7 +147,9 @@ function PlasmicDiff__RenderFunc(props: {
                 {p.renderPlasmicSlot({
                     defaultContents: 'top and bottom',
                     value: args.value,
-                    className: classNames(sty.slotTargetValue),
+                    className: classNames(sty.slotTargetValue, {
+                        [sty.slotTargetValuehasIcon]: hasVariant(variants, 'hasIcon', 'hasIcon'),
+                    }),
                 })}
 
                 <Remove
