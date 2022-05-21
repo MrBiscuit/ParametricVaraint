@@ -226,6 +226,14 @@ export class ParametricComponentSetSession {
      */
     close() {
         console.log('close');
+        // 处理删除元素， close时，如果之前是选中在了
+        //if (getParentComponent(this.childSelection) === this.getBaseVariantComponent()) {
+        for (let child of this.rootNode.children) {
+            if (child.id !== this.getBaseVariantComponent().id) {
+                this.getComponentVariantNode(child.id).applyDiff();
+            }
+        }
+        //}
         this.save();
         clearCanvasButtonCallbacks();
         for (let button of this.runtimeRowButtons) {
@@ -287,7 +295,9 @@ export class ParametricComponentSetSession {
         if (component?.type === 'COMPONENT') {
             if (component.id !== this.getBaseVariantComponent().id) {
                 // 在选中 非Base 时，计算并储存与Base的差异
-                this.getComponentVariantNode(component.id).updateDiff();
+                const variantNode = this.getComponentVariantNode(component.id);
+                variantNode.syncChildrenFromElseToBase();
+                variantNode.updateDiff();
                 // const dif = diff(this.childSelection, this.getBaseVariantComponent());
             }
             for (let child of this.rootNode.children) {
@@ -417,6 +427,7 @@ export class ParametricComponentSetSession {
         if (node === this.getBaseVariantComponent()) {
             dispatch('creationComplete');
         } else {
+            // 选中其他非Base
             dispatch('updateDiff', this.getComponentVariantNode(nodeComponent.id).data.variantDiff);
         }
         // 处理新建Component

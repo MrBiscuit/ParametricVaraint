@@ -51,39 +51,20 @@ export class ComponentVariantNode {
         const node = this.getNode();
         const base = this.session.getBaseVariantComponent();
         if (base && node) {
+            // console.log("applyDiff", node.id, base.id);
             // 从node将样式clone下来
             const dif = diff(base, node);
-            /*for (let difKey in dif) {
-                if (difKey !== 'children' && dif[difKey]['@left']) {
-                    node[difKey] = dif[difKey]['@left'];
-                }
-            }
-            node.resize(base.width, base.height);*/
+            // node.resize(base.width, base.height);
 
             if (!this.data.variantDiff) {
                 this.data.variantDiff = {};
             }
 
-            applyDiff0(null, base, node, dif, this.data.variantDiff);
+            applyDiff0(base, node, dif, this.data.variantDiff);
 
             if (node.primaryAxisSizingMode === 'FIXED' || node.counterAxisSizingMode === 'FIXED') {
                 node.resize(base.width, base.height);
             }
-            /*for (let difKey in this.data.variantDiff) {
-                if (difKey !== 'children' && this.data.variantDiff[difKey]['@right']) {
-                    node[difKey] = this.data.variantDiff[difKey]['@right'];
-                    console.log("applyDiff", this.nodeId, difKey, this.data.variantDiff[difKey]['@right']);
-                }
-            }
-            if (this.data.variantDiff.children) {
-                for (let childKey in this.data.variantDiff.children) {
-                    // TODO
-                    const child = node.findOne(n => n.name == childKey);
-                    if (child) {
-
-                    }
-                }
-            }*/
         } else {
             console.error('applyDiff 时，无法遭到 base & node');
         }
@@ -96,11 +77,18 @@ export class ComponentVariantNode {
         for (let ignore of COMPONENT_DIFF_IGNORE) {
             delete dif[ignore];
         }
-        // console.log('updateDiff', JSON.stringify(dif));
+        console.log('updateDiff', JSON.stringify(dif));
         dispatch('updateDiff', dif);
         this.data.variantDiff = dif;
         this.save();
         return dif;
+    }
+
+    syncChildrenFromElseToBase() {
+        const node = this.getNode();
+        const base = this.session.getBaseVariantComponent();
+        if (node === base) return;
+        syncChildrenFromElseToBase0(base, node);
     }
 
     setVariantProp(prop: string, value: string) {
@@ -132,7 +120,7 @@ export class ComponentVariantNode {
 
 const COMPONENT_DIFF_IGNORE = ['x', 'y'];
 
-function applyDiff0(parentBase: ChildrenMixin, base: SceneNode, node: SceneNode, dif: Diff, localDif: Diff) {
+function applyDiff0(base: SceneNode, node: SceneNode, dif: Diff, localDif: Diff) {
     if (!dif) return;
     // console.log("applyDiff0", base, node, dif, localDif);
     for (let difKey in dif) {
@@ -141,9 +129,11 @@ function applyDiff0(parentBase: ChildrenMixin, base: SceneNode, node: SceneNode,
             // console.log('applyDiff [test]', node.name, difKey, dif[difKey], localDif?.[difKey]);
             if (difKey === '@right') {
                 // 在Base中不存在，应该clone一份到Base中，然后隐藏
-                const clone = node.clone();
-                clone.visible = false;
-                parentBase?.appendChild(clone);
+                // const clone = node.clone();
+                // clone.visible = false;
+                // parentBase?.appendChild(clone);
+                node.remove();
+                console.log('applyDiff [MissingInBase]', difKey, dif[difKey]);
             } else if (!localDif?.[difKey]) {
                 // 这个属性不在diff中
                 // console.log('applyDiff [missing]', difKey, dif[difKey]);
@@ -170,15 +160,9 @@ function applyDiff0(parentBase: ChildrenMixin, base: SceneNode, node: SceneNode,
             // console.log('applyDiff0.test', childBase, child);
             if (child) {
                 // console.log('applyDiff0.child', dif.children[childKey], localDif.children?.[childKey]);
-                applyDiff0(
-                    <BaseFrameMixin>base,
-                    childBase,
-                    child,
-                    dif.children[childKey],
-                    localDif?.children?.[childKey]
-                );
+                applyDiff0(childBase, child, dif.children[childKey], localDif?.children?.[childKey]);
             } else if (childBase) {
-                // console.log('applyDiff0.clone', childBase);
+                console.log('applyDiff0.clone', childBase);
                 child = childBase.clone();
                 (<BaseFrameMixin>node).appendChild(child);
             }
@@ -189,6 +173,25 @@ function applyDiff0(parentBase: ChildrenMixin, base: SceneNode, node: SceneNode,
                 ) {
                     (<BaseFrameMixin>child).resize(childBase.width, childBase.height);
                 }
+            }
+        }
+    }
+}
+
+function syncChildrenFromElseToBase0(base0: SceneNode, node0: SceneNode) {
+    if (base0['children'] && node0['children']) {
+        const base = base0 as BaseFrameMixin;
+        const node = node0 as BaseFrameMixin;
+        for (let child of node.children) {
+            const find = base.findOne((n) => n.name === child.name);
+            if (!find) {
+                // 在Base中未找到
+                const clone = child.clone();
+                clone.visible = false;
+                base.appendChild(clone);
+            } else {
+                // 在Base中找到，则调查更深的children
+                syncChildrenFromElseToBase0(find, child);
             }
         }
     }
