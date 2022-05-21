@@ -64,8 +64,6 @@ export type PlasmicInspectDiff__OverridesType = {
     text?: p.Flex<'div'>;
     valueInput?: p.Flex<typeof TextInput>;
     svg?: p.Flex<'svg'>;
-    freeBox?: p.Flex<'div'>;
-    button?: p.Flex<'div'>;
     confirm?: p.Flex<typeof Button>;
     diffContent?: p.Flex<typeof DiffContent>;
 };
@@ -104,9 +102,11 @@ function PlasmicInspectDiff__RenderFunc(props: {
                         sty.root
                     )}
                 >
-                    <div
+                    <p.Stack
+                        as={'div'}
                         data-plasmic-name={'content'}
                         data-plasmic-override={overrides.content}
+                        hasGap={true}
                         className={classNames(projectcss.all, sty.content)}
                     >
                         <p.Stack
@@ -162,26 +162,12 @@ function PlasmicInspectDiff__RenderFunc(props: {
                             />
                         </p.Stack>
 
-                        <div
-                            data-plasmic-name={'freeBox'}
-                            data-plasmic-override={overrides.freeBox}
-                            className={classNames(projectcss.all, sty.freeBox)}
-                        >
-                            <p.Stack
-                                as={'div'}
-                                data-plasmic-name={'button'}
-                                data-plasmic-override={overrides.button}
-                                hasGap={true}
-                                className={classNames(projectcss.all, sty.button)}
-                            >
-                                <Button
-                                    data-plasmic-name={'confirm'}
-                                    data-plasmic-override={overrides.confirm}
-                                    className={classNames('__wab_instance', sty.confirm)}
-                                    text={'Confirm'}
-                                />
-                            </p.Stack>
-                        </div>
+                        <Button
+                            data-plasmic-name={'confirm'}
+                            data-plasmic-override={overrides.confirm}
+                            className={classNames('__wab_instance', sty.confirm)}
+                            text={'Confirm'}
+                        />
 
                         {true ? (
                             <DiffContent
@@ -191,7 +177,7 @@ function PlasmicInspectDiff__RenderFunc(props: {
                                 className={classNames('__wab_instance', sty.diffContent)}
                             />
                         ) : null}
-                    </div>
+                    </p.Stack>
                 </div>
             </div>
         </React.Fragment>
@@ -209,8 +195,6 @@ const PlasmicDescendants = {
         'text',
         'valueInput',
         'svg',
-        'freeBox',
-        'button',
         'confirm',
         'diffContent',
     ],
@@ -223,8 +207,6 @@ const PlasmicDescendants = {
         'text',
         'valueInput',
         'svg',
-        'freeBox',
-        'button',
         'confirm',
         'diffContent',
     ],
@@ -235,8 +217,6 @@ const PlasmicDescendants = {
     text: ['text'],
     valueInput: ['valueInput'],
     svg: ['svg'],
-    freeBox: ['freeBox', 'button', 'confirm'],
-    button: ['button', 'confirm'],
     confirm: ['confirm'],
     diffContent: ['diffContent'],
 } as const;
@@ -252,8 +232,6 @@ type NodeDefaultElementType = {
     text: 'div';
     valueInput: typeof TextInput;
     svg: 'svg';
-    freeBox: 'div';
-    button: 'div';
     confirm: typeof Button;
     diffContent: typeof DiffContent;
 };
@@ -315,8 +293,6 @@ export const PlasmicInspectDiff = Object.assign(
         text: makeNodeComponent('text'),
         valueInput: makeNodeComponent('valueInput'),
         svg: makeNodeComponent('svg'),
-        freeBox: makeNodeComponent('freeBox'),
-        button: makeNodeComponent('button'),
         confirm: makeNodeComponent('confirm'),
         diffContent: makeNodeComponent('diffContent'),
 

@@ -8,7 +8,7 @@ import {handleEvent} from '../app/uiMessageHandler';
 import Layer from './Layer';
 import Diff from './Diff';
 
-export interface InspectDiffProps extends DefaultInspectDiffProps {}
+export interface InspectDiffProps extends DefaultInspectDiffProps { }
 
 function InspectDiff_(props: InspectDiffProps, ref: HTMLElementRefOf<'div'>) {
     let [diffs, setDiffs] = React.useState({});

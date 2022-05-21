@@ -40,17 +40,17 @@ import sty from './PlasmicButton.module.css'; // plasmic-import: cSQMAe0reF/css
 export type PlasmicButton__VariantMembers = {
     type: 'primary' | 'secondary';
     disabled: 'disabled';
-    hidden: 'hidden';
+    isHidden: 'isHidden';
 };
 
 export type PlasmicButton__VariantsArgs = {
     type?: SingleChoiceArg<'primary' | 'secondary'>;
     disabled?: SingleBooleanChoiceArg<'disabled'>;
-    hidden?: SingleBooleanChoiceArg<'hidden'>;
+    isHidden?: SingleBooleanChoiceArg<'isHidden'>;
 };
 
 type VariantPropType = keyof PlasmicButton__VariantsArgs;
-export const PlasmicButton__VariantProps = new Array<VariantPropType>('type', 'disabled', 'hidden');
+export const PlasmicButton__VariantProps = new Array<VariantPropType>('type', 'disabled', 'isHidden');
 
 export type PlasmicButton__ArgsType = {
     text?: React.ReactNode;
@@ -68,7 +68,7 @@ export interface DefaultButtonProps {
     text?: React.ReactNode;
     type?: SingleChoiceArg<'primary' | 'secondary'>;
     disabled?: SingleBooleanChoiceArg<'disabled'>;
-    hidden?: SingleBooleanChoiceArg<'hidden'>;
+    isHidden?: SingleBooleanChoiceArg<'isHidden'>;
     className?: string;
 }
 
@@ -83,7 +83,7 @@ function PlasmicButton__RenderFunc(props: {
     const $props = props.args;
 
     return (
-        (hasVariant(variants, 'hidden', 'hidden') ? true : true) ? (
+        (hasVariant(variants, 'isHidden', 'isHidden') ? true : true) ? (
             <p.Stack
                 as={'div'}
                 data-plasmic-name={'root'}
@@ -102,7 +102,7 @@ function PlasmicButton__RenderFunc(props: {
                         [sty.rootdisabled]: hasVariant(variants, 'disabled', 'disabled'),
                         [sty.rootdisabled_type_secondary]:
                             hasVariant(variants, 'disabled', 'disabled') && hasVariant(variants, 'type', 'secondary'),
-                        [sty.roothidden]: hasVariant(variants, 'hidden', 'hidden'),
+                        [sty.rootisHidden]: hasVariant(variants, 'isHidden', 'isHidden'),
                         [sty.roottype_primary]: hasVariant(variants, 'type', 'primary'),
                         [sty.roottype_secondary]: hasVariant(variants, 'type', 'secondary'),
                     }
