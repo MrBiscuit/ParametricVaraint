@@ -111,7 +111,17 @@ export class ComponentVariantNode {
         const props = getVariantPropsFromName(node.name);
         for (let row of this.session.data.rows) {
             if (!props[row.name]) {
-                props[row.name] = row.type === 'Toggle' ? (row.defaultValue === 'true' ? 'false' : 'true') : 'unset';
+                switch (row.type) {
+                    case 'Base&Interaction':
+                        props[row.name] = 'base';
+                        break;
+                    case 'Toggle':
+                        props[row.name] = row.defaultValue === 'true' ? 'false' : 'true';
+                        break;
+                    case 'Selection':
+                        props[row.name] = 'unset';
+                        break;
+                }
             }
         }
         node.name = genVariantNodeName(props);
@@ -122,34 +132,39 @@ const COMPONENT_DIFF_IGNORE = ['x', 'y'];
 
 function applyDiff0(base: SceneNode, node: SceneNode, dif: Diff, localDif: Diff) {
     if (!dif) return;
-    // console.log("applyDiff0", base, node, dif, localDif);
+    console.log('applyDiff0', base, node, dif, localDif);
     for (let difKey in dif) {
-        if (difKey !== 'children') {
-            if (node.type === 'COMPONENT' && COMPONENT_DIFF_IGNORE.includes(difKey)) continue;
-            // console.log('applyDiff [test]', node.name, difKey, dif[difKey], localDif?.[difKey]);
-            if (difKey === '@right') {
-                // 在Base中不存在，应该clone一份到Base中，然后隐藏
-                // const clone = node.clone();
-                // clone.visible = false;
-                // parentBase?.appendChild(clone);
-                node.remove();
-                console.log('applyDiff [MissingInBase]', difKey, dif[difKey]);
-            } else if (!localDif?.[difKey]) {
-                // 这个属性不在diff中
-                // console.log('applyDiff [missing]', difKey, dif[difKey]);
-                node[difKey] = dif[difKey]['@left'];
-            } else if (
-                !localDif?.[difKey]?.['@right'] ||
-                (isObject(dif[difKey]?.['@right']) &&
-                    isObject(localDif?.[difKey]?.['@right']) &&
-                    JSON.stringify(dif[difKey]?.['@right']) !== JSON.stringify(localDif?.[difKey]?.['@right'])) ||
-                (!isObject(dif[difKey]?.['@right']) &&
-                    !isObject(localDif?.[difKey]?.['@right']) &&
-                    dif[difKey]?.['@right'] === localDif?.[difKey]?.['@right'])
-            ) {
-                // console.log('applyDiff [diff]', difKey, dif[difKey]);
-                node[difKey] = dif[difKey]['@right'];
-            }
+        if (difKey === 'children') continue;
+        if (node.type === 'COMPONENT' && COMPONENT_DIFF_IGNORE.includes(difKey)) continue;
+        // console.log('applyDiff [test]', node.name, difKey, dif[difKey], localDif?.[difKey]);
+        if (difKey === '@right') {
+            // 在Base中不存在，应该clone一份到Base中，然后隐藏
+            // const clone = node.clone();
+            // clone.visible = false;
+            // parentBase?.appendChild(clone);
+            node.remove();
+            console.log('applyDiff [MissingInBase]', difKey, dif[difKey]);
+        } else if (!localDif?.[difKey]) {
+            // 这个属性不在diff中
+            console.log('applyDiff [missing]', difKey, dif[difKey]);
+            node[difKey] = dif[difKey]['@left'];
+        } else if (
+            !localDif?.[difKey]?.['@right'] ||
+            (isObject(dif[difKey]?.['@right']) &&
+                isObject(localDif?.[difKey]?.['@right']) &&
+                JSON.stringify(dif[difKey]?.['@right']) !== JSON.stringify(localDif?.[difKey]?.['@right'])) ||
+            (!isObject(dif[difKey]?.['@right']) &&
+                !isObject(localDif?.[difKey]?.['@right']) &&
+                dif[difKey]?.['@right'] === localDif?.[difKey]?.['@right'])
+        ) {
+            console.log('applyDiff [diff]', difKey, dif[difKey]);
+            node[difKey] = dif[difKey]['@right'];
+        }
+    }
+    for (let localDifKey in localDif) {
+        if (localDifKey === 'children') continue;
+        if (!dif[localDifKey]) {
+            node[localDifKey] = localDif[localDifKey]['@right'];
         }
     }
     if (node.removed) return;

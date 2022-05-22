@@ -50,9 +50,6 @@ figma.on('selectionchange', () => {
     const pcs = getParametricComponentSet(sel);
     if (!session || session.rootNode.id !== pcs?.id) {
         const sess = getPCSFromComponentSetNode(pcs);
-        if (sess) {
-            figma.currentPage.selection = [sess.getBaseVariantComponent()];
-        }
 
         // 如果选中的是一个ParametricComponentSet
         if (sess) {

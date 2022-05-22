@@ -74,7 +74,7 @@ const diff1 = (left: object, right: object, rel: string) =>
         .filter(([_, v]) => Object.keys(v).length !== 0)
         .reduce(mut, isArray(left) && isArray(right) ? [] : {});
 
-const merge = (left: object, right: object) =>
+export const merge = (left: object, right: object) =>
     Object.entries(right)
         .map(([k, v]) => (isObject(v) && isObject(left[k]) ? [k, merge(left[k], v)] : [k, v]))
         .reduce(mut, left);

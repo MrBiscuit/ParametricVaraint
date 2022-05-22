@@ -1,6 +1,7 @@
 import {clearCanvasButtonCallbacks, createCanvasButton, handleCanvasButtonClick} from './CanvasButton';
 import {dispatch} from './codeMessageHandler';
 import diff from './utilDiff';
+import {merge} from './utilDiff';
 import {genVariantNodeName, getVariantPropsFromName} from './utilVariant';
 import {ComponentVariantNode} from './ComponentVariantNode';
 import {getParentComponent} from './helper';
@@ -122,6 +123,10 @@ export class ParametricComponentSetSession {
                 variantNode.data.variantRow = row.name;
                 variantNode.data.variantRowData = 'New Selection';
                 this.data.rows[rowIndex].nodesId.push(clone.id);
+                const baseRow = this.data.rows.find((row) => row.type === 'Base&Interaction');
+                if (baseRow) {
+                    variantNode.setVariantProp(baseRow.name, 'base');
+                }
                 variantNode.setVariantProp(row.name, 'unset');
                 variantNode.updateVariantName();
                 this.save();
@@ -423,6 +428,8 @@ export class ParametricComponentSetSession {
 
         if (!nodeComponent) return;
 
+        this.checkComplementComponents();
+
         // 选中Base
         if (node === this.getBaseVariantComponent()) {
             dispatch('creationComplete');
@@ -471,6 +478,12 @@ export class ParametricComponentSetSession {
         if (this.getBaseVariantComponent().id !== bindNode.id) {
             nodeInstance.updateDiff();
         }
+
+        nodeInstance.setVariantProp(row.name, row.defaultValue);
+        const baseRow = this.data.rows.find((row) => row.type === 'Base&Interaction');
+        if (baseRow) {
+            nodeInstance.setVariantProp(baseRow.name, 'base');
+        }
         nodeInstance.setVariantProp(row.name, row.defaultValue);
         this.runtimeVariantComponent[bindNode.id] = nodeInstance;
         nodeInstance.save();
@@ -498,28 +511,6 @@ export class ParametricComponentSetSession {
             }
         }
 
-        // 写入 Property (修改图层名)
-        /*const props = getVariantPropsFromName(bindNode.name);
-        console.log("bindNode.props", props);
-        props[row.name] = row.defaultValue;
-        bindNode.name = genVariantNodeName(props);*/
-
-        /*if (bindNode.name === "Property 1=Default") {
-            bindNode.name = `${row.name}=${row.defaultValue}`
-            if (row.defaultValue === "true" || row.defaultValue === "false") {
-                (bindNode.parent as ComponentSetNode).defaultVariant.name = `${row.name}=${row.defaultValue === "true" ? "false" : "true"}`;
-            } else (bindNode.parent as ComponentSetNode).defaultVariant.name = `${row.name}=unset`;
-        } else {
-            bindNode.name += `, ${row.name}=${row.defaultValue}`
-            if (row.defaultValue === "true" || row.defaultValue === "false") {
-                (bindNode.parent as ComponentSetNode).children.map((n:ComponentNode) => {
-                    if (n.id !== bindNode.id) n.name += `, ${row.name}=${row.defaultValue === "true" ? "false" : "true"}`
-                });
-            } else (bindNode.parent as ComponentSetNode).children.map((n:ComponentNode) => {
-               if (n.id !== bindNode.id) { n.name += `, ${row.name}=unset`}
-            });
-        }*/
-
         row.nodesId.push(bindNode.id);
         this.createRowRuntimeButton(this.data.rows.length - 1);
         this.refreshRuntimeColumn();
@@ -541,14 +532,62 @@ export class ParametricComponentSetSession {
             this.render();
         });
 
-        // TODO 生成其他缺失的Component
-        for (let row of this.data.rows) {
-            const find = this.rootNode.findAll(
-                (child: ComponentNode) => this.getComponentVariantNode(child.id).data.variantNodeId !== row.name
-            );
-            console.log('其他缺失的Component', row.name, find);
-        }
-
         figma.currentPage.selection = [bindNode];
     }
+
+    checkComplementComponents() {
+        // 生成其他缺失的Component
+        const props = this.rootNode.variantGroupProperties;
+        const data = combinations(Object.values(props).map((p) => p.values));
+        const result: VariantNodeProperties[] = [];
+        for (let datum of data) {
+            const entry: VariantNodeProperties = {};
+            for (let i in datum) {
+                entry[Object.keys(props)[i]] = datum[i];
+            }
+            result.push(entry);
+        }
+        console.log('checkComplementComponents', result);
+        for (let prop of result) {
+            const name = genVariantNodeName(prop);
+            let find = this.rootNode.findOne((n) => n.name === name);
+            if (!find) {
+                console.log('checkComplementComponents.notFound', prop);
+                find = this.getBaseVariantComponent().clone();
+                find.name = name;
+                this.rootNode.appendChild(find);
+                find.x = -find.width;
+                find.y = this.rootNode.height;
+            }
+            if (find !== this.getBaseVariantComponent()) {
+                const variantNode = this.getComponentVariantNode(find.id);
+                if (variantNode.needShow()) continue; // 只处理隐藏的VariantNode
+                let mergeDiff = {};
+                for (let key in prop) {
+                    const row = this.data.rows.find((r) => r.name === key);
+                    const diff = row.nodesId
+                        .map((id) => this.getComponentVariantNode(id))
+                        ?.find((vn) => vn.data.variantRowData === prop[key])?.data.variantDiff;
+                    if (diff) mergeDiff = merge(mergeDiff, diff);
+                }
+                console.log('checkComplementComponents.mergeDiff', mergeDiff);
+                variantNode.data.variantDiff = mergeDiff;
+                variantNode.applyDiff();
+                variantNode.save();
+            }
+        }
+    }
+}
+
+function combinations(arr) {
+    if (arr.length === 0) return [[]];
+    let res = [],
+        [first, ...rest] = arr;
+    let remaining = combinations(rest);
+    first.forEach((e) => {
+        remaining.forEach((smaller) => {
+            res.push([e].concat(smaller));
+        });
+    });
+    return res;
 }
